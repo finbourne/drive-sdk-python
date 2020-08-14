@@ -1,3 +1,3 @@
 # drive-sdk-python
 
-Python SDK for FINBOURNE Drive
+Python SDK for LUSID Drive
