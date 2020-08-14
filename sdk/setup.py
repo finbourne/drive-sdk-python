@@ -47,12 +47,12 @@ setup(
 
     name='lusid-drive-sdk',
     version=version['__version__'],
-    description='Python SDK for FINBOURNE Drive API',
+    description='Python SDK for LUSID Drive API',
     url='https://github.com/finbourne/drive-sdk-python',
     author='FINBOURNE Technology',
     author_email='engineering@finbourne.com',
     license='MIT',
-    keywords=["OpenAPI", "FINBOURNE", "LUSID", "FINBOURNE Drive API"],
+    keywords=["OpenAPI", "FINBOURNE", "LUSID", "LUSID Drive API"],
     install_requires=REQUIRES,
     packages=find_packages(exclude=['tests*']),
     include_package_data=True
