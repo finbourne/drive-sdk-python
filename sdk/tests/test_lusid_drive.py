@@ -4,7 +4,7 @@ import logging
 import os
 
 import lusid_drive
-import tests.utility_functions as utilities
+import lusid_drive.utilities.utility_functions as utilities
 from lusid_drive import models as models
 from lusid_drive.utilities import ApiClientFactory
 
