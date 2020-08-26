@@ -1,11 +1,12 @@
 import unittest
 import json
-import lusid_drive
 import logging
-from lusid_drive import api as ld
+import os
+
+import lusid_drive
+import tests.utility_functions as utilities
 from lusid_drive import models as models
-from lusid_drive import ApiClientBuilder
-from tests.test_functions import LusidDriveTestFunctions
+from lusid_drive.utilities import ApiClientFactory
 
 
 class LusidDriveTests(unittest.TestCase):
@@ -16,22 +17,92 @@ class LusidDriveTests(unittest.TestCase):
         cls.logger = logging.getLogger()
         cls.logger.setLevel(logging.INFO)
 
-        cls.api_client = ApiClientBuilder().build("secrets.json")
-        cls.folder_api = ld.FoldersApi(cls.api_client)
-        cls.files_api = ld.FilesApi(cls.api_client)
+        cls.api_factory = ApiClientFactory(api_secrets_filename="secrets.json")
+        cls.folder_api = cls.api_factory.build(lusid_drive.api.FoldersApi)
+        cls.files_api = cls.api_factory.build(lusid_drive.api.FilesApi)
 
-        cls.folder_name = "sdk-test-folder2"
-        cls.file_name = "test_file.txt"
+        cls.test_folder_name = "sdk-test-folder"
+        cls.create_test_file_name = "create_test_file.txt"
+        cls.download_test_file_name = "download_test_file.txt"
+        cls.delete_test_file_name = "delete_test_file.txt"
         cls.local_file_path = "data/test_file.txt"
 
-        cls.test_functions = LusidDriveTestFunctions()
-
+        # create the test folder
         try:
-            cls.folder_api.create_folder(models.CreateFolder(path="/", name=cls.folder_name))
+            cls.folder_api.create_folder(models.CreateFolder(path="/", name=cls.test_folder_name))
 
         except lusid_drive.exceptions.ApiException as e:
             if json.loads(e.body)["code"] == 664:
-                cls.logger.info(json.loads(e.body)["title"] + ":" + f"{cls.folder_name}")
+                # a folder with this name already exists in the path
+                cls.logger.info(json.loads(e.body)["detail"])
+
+        # define function for creating required testing files
+        def create_file(file_name, folder_name, local_path):
+            try:
+                cls.files_api.create_file(
+                    x_lusid_drive_filename=file_name,
+                    x_lusid_drive_path=f"/{folder_name}",
+                    content_length=os.stat(local_path).st_size,
+                    body=local_path
+                )
+
+            except lusid_drive.exceptions.ApiException as e:
+                if json.loads(e.body)["code"] == 671:
+                    # a file with this name already exists in the path
+                    cls.logger.info(json.loads(e.body)["detail"])
+
+        # create the test files for the download test
+        create_file(cls.download_test_file_name, cls.test_folder_name, cls.local_file_path)
+
+        # create the test files for the delete test
+        create_file(cls.delete_test_file_name, cls.test_folder_name, cls.local_file_path)
+
+        # make sure the file to be created in the create test does not already exist
+        try:
+            folder_id = utilities.get_folder_id(cls.api_factory, cls.test_folder_name)
+            file_id = utilities.get_file_id(cls.api_factory, cls.create_test_file_name, folder_id)
+            if file_id is not None:
+                cls.files_api.delete_file(file_id)
+            else:
+                cls.logger.info("File does not exist")
+
+        except lusid_drive.exceptions.ApiException as e:
+            # either the folder or the file does not exist
+            cls.logger.info("File or directory does not exist" + ":" + json.loads(e.body)["detail"])
+
+    @classmethod
+    def tearDownClass(cls) -> None:
+
+        cls.logger = logging.getLogger()
+        cls.logger.setLevel(logging.INFO)
+
+        cls.api_factory = ApiClientFactory(api_secrets_filename="secrets.json")
+        cls.folder_api = cls.api_factory.build(lusid_drive.api.FoldersApi)
+        cls.files_api = cls.api_factory.build(lusid_drive.api.FilesApi)
+
+        cls.test_folder_name = "sdk-test-folder"
+        cls.create_test_file_name = "create_test_file.txt"
+        cls.download_test_file_name = "download_test_file.txt"
+        cls.delete_test_file_name = "delete_test_file.txt"
+
+        def delete_file(file_name, folder_name):
+            _folder_id = utilities.get_folder_id(cls.api_factory, folder_name)
+            _file_id = utilities.get_file_id(cls.api_factory, file_name, _folder_id)
+            if _file_id is not None:
+                cls.files_api.delete_file(_file_id)
+
+        # delete create test file
+        delete_file(cls.create_test_file_name, cls.test_folder_name)
+
+        # delete download test file
+        delete_file(cls.download_test_file_name, cls.test_folder_name)
+
+        # delete delete test file if exists
+        delete_file(cls.delete_test_file_name, cls.test_folder_name)
+
+        # delete test folder
+        folder_id = utilities.get_folder_id(cls.api_factory, cls.test_folder_name)
+        cls.folder_api.delete_folder(folder_id)
 
     def test_get_folder(self):
 
@@ -39,40 +110,31 @@ class LusidDriveTests(unittest.TestCase):
 
         list_root_contents = ([folder.name for folder in get_folder.values])
 
-        self.assertIn(self.folder_name, list_root_contents)
+        self.assertIn(self.test_folder_name, list_root_contents)
 
     def test_create_file(self):
 
-        try:
-            response = self.test_functions.create_file(self.local_file_path, self.folder_name)
-            self.assertEqual(self.file_name, response.name)
-
-        except:  # if file already exists
-            self.test_functions.delete_file(self.file_name, self.folder_name)
-            response = self.test_functions.create_file(self.local_file_path, self.folder_name)
-            self.assertEqual(self.file_name, response.name)
+        response = self.files_api.create_file(
+            x_lusid_drive_filename=self.create_test_file_name,
+            x_lusid_drive_path=f"/{self.test_folder_name}",
+            content_length=os.stat(self.local_file_path).st_size,
+            body=self.local_file_path
+        )
+        self.assertEqual(self.create_test_file_name, response.name)
 
     def test_download_file(self):
 
-        try:
-            response = self.test_functions.download_file(self.file_name, self.folder_name)
-            self.assertIn(self.file_name, response)
-
-        except:  # if 400 exception for file not existing
-            temp_response = self.test_functions.create_file(self.local_file_path, self.folder_name)
-            response = self.files_api.download_file(temp_response.id)
-            self.assertIn(self.file_name, response)
+        folder_id = utilities.get_folder_id(self.api_factory, self.test_folder_name)
+        file_id = utilities.get_file_id(self.api_factory, self.download_test_file_name, folder_id)
+        response = self.files_api.download_file(file_id)
+        self.assertIn(self.download_test_file_name, response)
 
     def test_delete_file(self):
 
-        try:
-            response = self.test_functions.delete_file(self.file_name, self.folder_name)
-            self.assertEqual(None, response)
-
-        except:  # if 400 exception for file not existing
-            temp_response = self.test_functions.create_file(self.local_file_path, self.folder_name)
-            response = self.files_api.delete_file(temp_response.id)
-            self.assertEqual(None, response)
+        folder_id = utilities.get_folder_id(self.api_factory, self.test_folder_name)
+        file_id = utilities.get_file_id(self.api_factory, self.delete_test_file_name, folder_id)
+        response = self.files_api.delete_file(file_id)
+        self.assertEqual(None, response)
 
 
 if __name__ == '__main__':
