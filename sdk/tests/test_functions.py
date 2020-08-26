@@ -4,11 +4,7 @@ from lusid_drive import ApiClientBuilder
 
 
 def name_to_id(item_list, target_item):
-    item_id = []
-
-    for obj in item_list.values:
-        if obj.name == target_item:
-            item_id.append(obj.id)
+    item_id = [obj.id for obj in item_list.values if obj.name == target_item]
 
     if len(item_id) != 1:
         # TODO: raise an exception due to no matching item name, or multiple matches
