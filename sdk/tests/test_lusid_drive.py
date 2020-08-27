@@ -73,18 +73,6 @@ class LusidDriveTests(unittest.TestCase):
     @classmethod
     def tearDownClass(cls) -> None:
 
-        cls.logger = logging.getLogger()
-        cls.logger.setLevel(logging.INFO)
-
-        cls.api_factory = ApiClientFactory(api_secrets_filename="secrets.json")
-        cls.folder_api = cls.api_factory.build(lusid_drive.api.FoldersApi)
-        cls.files_api = cls.api_factory.build(lusid_drive.api.FilesApi)
-
-        cls.test_folder_name = "sdk-test-folder"
-        cls.create_test_file_name = "create_test_file.txt"
-        cls.download_test_file_name = "download_test_file.txt"
-        cls.delete_test_file_name = "delete_test_file.txt"
-
         def delete_file(file_name, folder_name):
             _folder_id = utilities.get_folder_id(cls.api_factory, folder_name)
             _file_id = utilities.get_file_id(cls.api_factory, file_name, _folder_id)
