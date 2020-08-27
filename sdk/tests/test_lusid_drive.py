@@ -39,12 +39,17 @@ class LusidDriveTests(unittest.TestCase):
         # define function for creating required testing files
         def create_file(file_name, folder_name, local_path):
             try:
-                cls.files_api.create_file(
+                response = cls.files_api.create_file(
                     x_lusid_drive_filename=file_name,
                     x_lusid_drive_path=f"/{folder_name}",
                     content_length=os.stat(local_path).st_size,
                     body=local_path
                 )
+
+                if file_name not in response.name:
+                    reason = f"{file_name} not successfully created"
+                    cls.logger.info(reason)
+                    raise lusid_drive.exceptions.ApiException(reason=reason)
 
             except lusid_drive.exceptions.ApiException as e:
                 if json.loads(e.body)["code"] == 671:
