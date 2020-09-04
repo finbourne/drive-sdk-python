@@ -1,14 +1,17 @@
 import unittest
-from lusid_drive import api as sa
 
-from lusid_drive import ApiClientBuilder
+import lusid_drive
+from lusid_drive.utilities import ApiConfigurationLoader
+from lusid_drive.utilities import ApiClientFactory
 
 
 class FinbourneAccessTests(unittest.TestCase):
 
     def test_roles(self):
-        api_client = ApiClientBuilder().build("secrets.json")
-        policies_api = sa.PoliciesApi(api_client)
+
+        config = ApiConfigurationLoader.load("secrets.json")
+        api_factory = ApiClientFactory(token=config.api_token, api_url=config.api_url)
+        policies_api = api_factory.build(lusid_drive.api.PoliciesApi)
 
         policies = policies_api.get_own_policies()
 
