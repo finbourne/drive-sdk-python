@@ -7,6 +7,7 @@ import lusid_drive
 import lusid_drive.utilities.utility_functions as utilities
 from lusid_drive import models as models
 from lusid_drive.utilities import ApiClientFactory
+from lusid_drive.utilities import ApiConfigurationLoader
 
 
 class LusidDriveTests(unittest.TestCase):
@@ -17,7 +18,9 @@ class LusidDriveTests(unittest.TestCase):
         cls.logger = logging.getLogger()
         cls.logger.setLevel(logging.INFO)
 
-        cls.api_factory = ApiClientFactory(api_secrets_filename="secrets.json")
+        config = ApiConfigurationLoader.load("secrets.json")
+
+        cls.api_factory = ApiClientFactory(token=config.api_token, api_url=config.api_url)
         cls.folder_api = cls.api_factory.build(lusid_drive.api.FoldersApi)
         cls.files_api = cls.api_factory.build(lusid_drive.api.FilesApi)
 

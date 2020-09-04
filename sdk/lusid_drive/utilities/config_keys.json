@@ -4,7 +4,7 @@
       "config": "tokenUrl"
   },
   "api_url": {
-      "env": "FBN_LUSID_API_URL",
+      "env": "FBN_DRIVE_API_URL",
       "config": "apiUrl"
   },
   "username": {
@@ -42,5 +42,9 @@
   "proxy_password": {
       "env": "FBN_PROXY_PASSWORD",
       "config": "password"
+  },
+  "api_token": {
+    "env": "FBN_API_TOKEN",
+    "config": "apiToken"
   }
 }
