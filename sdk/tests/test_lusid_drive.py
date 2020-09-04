@@ -2,6 +2,7 @@ import unittest
 import json
 import logging
 import os
+from pathlib import Path
 
 import lusid_drive
 import lusid_drive.utilities.utility_functions as utilities
@@ -28,7 +29,7 @@ class LusidDriveTests(unittest.TestCase):
         cls.create_test_file_name = "create_test_file.txt"
         cls.download_test_file_name = "download_test_file.txt"
         cls.delete_test_file_name = "delete_test_file.txt"
-        cls.local_file_path = "data/test_file.txt"
+        cls.local_file_path = os.path.join(os.path.dirname(__file__), "data", "test_file.txt")
 
         # create the test folder
         try:
