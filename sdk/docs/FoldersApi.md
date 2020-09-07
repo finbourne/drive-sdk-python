@@ -1,6 +1,6 @@
 # lusid_drive.FoldersApi
 
-All URIs are relative to *https://www.lusid.com/drive*
+All URIs are relative to *https://fbn-ci.lusid.com/drive*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
@@ -31,8 +31,8 @@ configuration = lusid_drive.Configuration()
 # Configure OAuth2 access token for authorization: oauth2
 configuration.access_token = 'YOUR_ACCESS_TOKEN'
 
-# Defining host is optional and default to https://www.lusid.com/drive
-configuration.host = "https://www.lusid.com/drive"
+# Defining host is optional and default to https://fbn-ci.lusid.com/drive
+configuration.host = "https://fbn-ci.lusid.com/drive"
 # Create an instance of the API class
 api_instance = lusid_drive.FoldersApi(lusid_drive.ApiClient(configuration))
 create_folder = {"path":"/path/to/saveTo/","name":"folderName"} # CreateFolder | A CreateFolder object that defines the name and path of the new folder
@@ -91,8 +91,8 @@ configuration = lusid_drive.Configuration()
 # Configure OAuth2 access token for authorization: oauth2
 configuration.access_token = 'YOUR_ACCESS_TOKEN'
 
-# Defining host is optional and default to https://www.lusid.com/drive
-configuration.host = "https://www.lusid.com/drive"
+# Defining host is optional and default to https://fbn-ci.lusid.com/drive
+configuration.host = "https://fbn-ci.lusid.com/drive"
 # Create an instance of the API class
 api_instance = lusid_drive.FoldersApi(lusid_drive.ApiClient(configuration))
 id = 'id_example' # str | Unique ID of the folder
@@ -151,8 +151,8 @@ configuration = lusid_drive.Configuration()
 # Configure OAuth2 access token for authorization: oauth2
 configuration.access_token = 'YOUR_ACCESS_TOKEN'
 
-# Defining host is optional and default to https://www.lusid.com/drive
-configuration.host = "https://www.lusid.com/drive"
+# Defining host is optional and default to https://fbn-ci.lusid.com/drive
+configuration.host = "https://fbn-ci.lusid.com/drive"
 # Create an instance of the API class
 api_instance = lusid_drive.FoldersApi(lusid_drive.ApiClient(configuration))
 id = 'id_example' # str | Unique ID of the folder
@@ -212,8 +212,8 @@ configuration = lusid_drive.Configuration()
 # Configure OAuth2 access token for authorization: oauth2
 configuration.access_token = 'YOUR_ACCESS_TOKEN'
 
-# Defining host is optional and default to https://www.lusid.com/drive
-configuration.host = "https://www.lusid.com/drive"
+# Defining host is optional and default to https://fbn-ci.lusid.com/drive
+configuration.host = "https://fbn-ci.lusid.com/drive"
 # Create an instance of the API class
 api_instance = lusid_drive.FoldersApi(lusid_drive.ApiClient(configuration))
 id = 'id_example' # str | Unique ID of the folder
@@ -283,8 +283,8 @@ configuration = lusid_drive.Configuration()
 # Configure OAuth2 access token for authorization: oauth2
 configuration.access_token = 'YOUR_ACCESS_TOKEN'
 
-# Defining host is optional and default to https://www.lusid.com/drive
-configuration.host = "https://www.lusid.com/drive"
+# Defining host is optional and default to https://fbn-ci.lusid.com/drive
+configuration.host = "https://fbn-ci.lusid.com/drive"
 # Create an instance of the API class
 api_instance = lusid_drive.FoldersApi(lusid_drive.ApiClient(configuration))
 page = 'page_example' # str | The pagination token to use to continue listing contents from a previous call to list contents.              This value is returned from the previous call. If a pagination token is provided the sortBy and filter fields              must not have changed since the original request. Also, if set, a start value cannot be provided. (optional)
@@ -351,8 +351,8 @@ configuration = lusid_drive.Configuration()
 # Configure OAuth2 access token for authorization: oauth2
 configuration.access_token = 'YOUR_ACCESS_TOKEN'
 
-# Defining host is optional and default to https://www.lusid.com/drive
-configuration.host = "https://www.lusid.com/drive"
+# Defining host is optional and default to https://fbn-ci.lusid.com/drive
+configuration.host = "https://fbn-ci.lusid.com/drive"
 # Create an instance of the API class
 api_instance = lusid_drive.FoldersApi(lusid_drive.ApiClient(configuration))
 id = 'id_example' # str | Unique ID of the folder where the files should be moved
@@ -419,8 +419,8 @@ configuration = lusid_drive.Configuration()
 # Configure OAuth2 access token for authorization: oauth2
 configuration.access_token = 'YOUR_ACCESS_TOKEN'
 
-# Defining host is optional and default to https://www.lusid.com/drive
-configuration.host = "https://www.lusid.com/drive"
+# Defining host is optional and default to https://fbn-ci.lusid.com/drive
+configuration.host = "https://fbn-ci.lusid.com/drive"
 # Create an instance of the API class
 api_instance = lusid_drive.FoldersApi(lusid_drive.ApiClient(configuration))
 id = 'id_example' # str | Unique ID of the folder
