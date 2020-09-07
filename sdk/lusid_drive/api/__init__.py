@@ -4,5 +4,3 @@ from __future__ import absolute_import
 
 # import apis into api package
 from lusid_drive.api.application_metadata_api import ApplicationMetadataApi
-from lusid_drive.api.files_api import FilesApi
-from lusid_drive.api.folders_api import FoldersApi
