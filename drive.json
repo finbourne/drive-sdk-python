@@ -8,7 +8,7 @@
             "url": "https://www.finbourne.com",
             "email": "info@finbourne.com"
         },
-        "version": "0.1.93",
+        "version": "0.1.95",
         "x-logo": {
             "url": "https://content.finbourne.com/LUSID-header.png",
             "backgroundColor": "#415464"
@@ -378,6 +378,10 @@
         {
             "name": "Folders",
             "description": "Methods for interacting with the folders endpoints in Lusid drive"
+        },
+        {
+            "name": "Search",
+            "description": "Method to search files and folders"
         }
     ],
     "x-tagGroups": {
@@ -385,7 +389,8 @@
         "tags": [
             "Application Metadata",
             "Files",
-            "Folders"
+            "Folders",
+            "Search"
         ]
     }
 }
