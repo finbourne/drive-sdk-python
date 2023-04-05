@@ -30,7 +30,6 @@ class FileStreaming(unittest.TestCase):
         cls.download_test_file_name = "download_test_stream_file.txt"
         cls.local_file_path = os.path.join(os.path.dirname(__file__), "data", "test_stream_file.txt")
         # create the test folder
-        pprint(os.environ + cls.api_factory.api_client.configuration.access_token)
         try:
             
             cls.folder_api.create_folder(models.CreateFolder(path="/", name=cls.test_folder_name))
