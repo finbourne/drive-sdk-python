@@ -25,7 +25,7 @@ class FileStreaming(unittest.TestCase):
         cls.folder_api = cls.api_factory.build(FoldersApi)
         cls.files_api = cls.api_factory.build(FilesApi)
 
-        cls.test_folder_name = "daniel-sdk-test-folder"
+        cls.test_folder_name = "sdk-test-folder"
         cls.create_test_file_name = "create_test_stream_file.txt"
         cls.download_test_file_name = "download_test_stream_file.txt"
         cls.local_file_path = os.path.join(os.path.dirname(__file__), "data", "test_stream_file.txt")
