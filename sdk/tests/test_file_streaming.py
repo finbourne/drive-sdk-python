@@ -15,6 +15,7 @@ from lusid_drive import (
 )
 from lusid_drive.utilities import ApiClientFactory, get_file_id, get_folder_id
 from lusid_drive.utilities.file_streaming import stream_file_upload
+import lusid_drive
 
 
 class FileStreaming(unittest.TestCase):
