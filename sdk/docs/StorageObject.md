@@ -16,8 +16,25 @@ Name | Type | Description | Notes
 **size** | **int** | Size of the file in bytes | [optional] 
 **status** | **str** | File status corresponding to virus scan status.  (Active, Available, Checking, MalwareDetected, Failed) | [optional] 
 **status_detail** | **str** | Detailed description describing any negative terminal state of file | [optional] 
-**links** | [**list[Link]**](Link.md) |  | [optional] 
+**links** | [**List[Link]**](Link.md) |  | [optional] 
 
+## Example
+
+```python
+from lusid_drive.models.storage_object import StorageObject
+
+# TODO update the JSON string below
+json = "{}"
+# create an instance of StorageObject from a JSON string
+storage_object_instance = StorageObject.from_json(json)
+# print the JSON string representation of the object
+print StorageObject.to_json()
+
+# convert the object into a dict
+storage_object_dict = storage_object_instance.to_dict()
+# create an instance of StorageObject from a dict
+storage_object_form_dict = storage_object.from_dict(storage_object_dict)
+```
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 
 

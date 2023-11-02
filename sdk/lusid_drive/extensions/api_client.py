@@ -27,12 +27,12 @@ from urllib.parse import quote
 from lusid_drive.configuration import Configuration
 from lusid_drive.api_response import ApiResponse
 import lusid_drive.models
-from lusid_drive import rest
+from lusid_drive.extensions import rest
 from lusid_drive.exceptions import ApiValueError, ApiException
 from importlib.metadata import version
 
 
-class ApiClient:
+class SyncApiClient:
     """Generic API client for OpenAPI client library builds.
 
     OpenAPI generic API client. This client handles the client-
@@ -75,8 +75,7 @@ class ApiClient:
         package_version = version("lusid_drive-sdk")
         self.default_headers = {
             "X-LUSID-SDK-Language": "Python",
-            "X-LUSID-SDK-Version": package_version
-
+            "X-LUSID-SDK-Version":  version("lusid_drive-sdk")
         }
         if header_name is not None:
             self.default_headers[header_name] = header_value
@@ -85,14 +84,14 @@ class ApiClient:
         self.user_agent = f'OpenAPI-Generator/{package_version}/python'
         self.client_side_validation = configuration.client_side_validation
 
-    async def __aenter__(self):
+
+    def __enter__(self):
         return self
 
-    async def __aexit__(self, exc_type, exc_value, traceback):
-        await self.close()
+    def __exit__(self, exc_type, exc_value, traceback):
+        self.close()
 
-    async def close(self):
-        await self.rest_client.close()
+    def close(self):
         if self._pool:
             self._pool.close()
             self._pool.join()
@@ -149,7 +148,7 @@ class ApiClient:
         """
         cls._default = default
 
-    async def __call_api(
+    def __call_api(
             self, resource_path, method, path_params=None,
             query_params=None, header_params=None, body=None, post_params=None,
             files=None, response_types_map=None, auth_settings=None,
@@ -215,7 +214,7 @@ class ApiClient:
 
         try:
             # perform request and return response
-            response_data = await self.request(
+            response_data = self.request(
                 method, url,
                 query_params=query_params,
                 headers=header_params,
