@@ -18,19 +18,19 @@ Method | HTTP request | Description
 ```python
 from __future__ import print_function
 import time
-import os
 import lusid_drive
 from lusid_drive.rest import ApiException
 from lusid_drive.models.paged_resource_list_of_storage_object import PagedResourceListOfStorageObject
 from lusid_drive.models.search_body import SearchBody
 from pprint import pprint
 
+import os
 from lusid_drive import (
-	  ApiClientFactory,
-	  ApplicationMetadataApi,
-	  EnvironmentVariablesConfigurationLoader,
-	  SecretsFileConfigurationLoader,
-	  ArgsConfigurationLoader
+    ApiClientFactory,
+    SearchApi,
+    EnvironmentVariablesConfigurationLoader,
+    SecretsFileConfigurationLoader,
+    ArgsConfigurationLoader
 )
 
 # Use the lusid_drive ApiClientFactory to build Api instances with a configured api client

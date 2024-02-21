@@ -23,18 +23,18 @@ Method | HTTP request | Description
 ```python
 from __future__ import print_function
 import time
-import os
 import lusid_drive
 from lusid_drive.rest import ApiException
 from lusid_drive.models.storage_object import StorageObject
 from pprint import pprint
 
+import os
 from lusid_drive import (
-	  ApiClientFactory,
-	  ApplicationMetadataApi,
-	  EnvironmentVariablesConfigurationLoader,
-	  SecretsFileConfigurationLoader,
-	  ArgsConfigurationLoader
+    ApiClientFactory,
+    FilesApi,
+    EnvironmentVariablesConfigurationLoader,
+    SecretsFileConfigurationLoader,
+    ArgsConfigurationLoader
 )
 
 # Use the lusid_drive ApiClientFactory to build Api instances with a configured api client
@@ -125,17 +125,17 @@ Name | Type | Description  | Notes
 ```python
 from __future__ import print_function
 import time
-import os
 import lusid_drive
 from lusid_drive.rest import ApiException
 from pprint import pprint
 
+import os
 from lusid_drive import (
-	  ApiClientFactory,
-	  ApplicationMetadataApi,
-	  EnvironmentVariablesConfigurationLoader,
-	  SecretsFileConfigurationLoader,
-	  ArgsConfigurationLoader
+    ApiClientFactory,
+    FilesApi,
+    EnvironmentVariablesConfigurationLoader,
+    SecretsFileConfigurationLoader,
+    ArgsConfigurationLoader
 )
 
 # Use the lusid_drive ApiClientFactory to build Api instances with a configured api client
@@ -218,17 +218,17 @@ void (empty response body)
 ```python
 from __future__ import print_function
 import time
-import os
 import lusid_drive
 from lusid_drive.rest import ApiException
 from pprint import pprint
 
+import os
 from lusid_drive import (
-	  ApiClientFactory,
-	  ApplicationMetadataApi,
-	  EnvironmentVariablesConfigurationLoader,
-	  SecretsFileConfigurationLoader,
-	  ArgsConfigurationLoader
+    ApiClientFactory,
+    FilesApi,
+    EnvironmentVariablesConfigurationLoader,
+    SecretsFileConfigurationLoader,
+    ArgsConfigurationLoader
 )
 
 # Use the lusid_drive ApiClientFactory to build Api instances with a configured api client
@@ -315,18 +315,18 @@ Name | Type | Description  | Notes
 ```python
 from __future__ import print_function
 import time
-import os
 import lusid_drive
 from lusid_drive.rest import ApiException
 from lusid_drive.models.storage_object import StorageObject
 from pprint import pprint
 
+import os
 from lusid_drive import (
-	  ApiClientFactory,
-	  ApplicationMetadataApi,
-	  EnvironmentVariablesConfigurationLoader,
-	  SecretsFileConfigurationLoader,
-	  ArgsConfigurationLoader
+    ApiClientFactory,
+    FilesApi,
+    EnvironmentVariablesConfigurationLoader,
+    SecretsFileConfigurationLoader,
+    ArgsConfigurationLoader
 )
 
 # Use the lusid_drive ApiClientFactory to build Api instances with a configured api client
@@ -411,18 +411,18 @@ Name | Type | Description  | Notes
 ```python
 from __future__ import print_function
 import time
-import os
 import lusid_drive
 from lusid_drive.rest import ApiException
 from lusid_drive.models.storage_object import StorageObject
 from pprint import pprint
 
+import os
 from lusid_drive import (
-	  ApiClientFactory,
-	  ApplicationMetadataApi,
-	  EnvironmentVariablesConfigurationLoader,
-	  SecretsFileConfigurationLoader,
-	  ArgsConfigurationLoader
+    ApiClientFactory,
+    FilesApi,
+    EnvironmentVariablesConfigurationLoader,
+    SecretsFileConfigurationLoader,
+    ArgsConfigurationLoader
 )
 
 # Use the lusid_drive ApiClientFactory to build Api instances with a configured api client
@@ -511,19 +511,19 @@ Name | Type | Description  | Notes
 ```python
 from __future__ import print_function
 import time
-import os
 import lusid_drive
 from lusid_drive.rest import ApiException
 from lusid_drive.models.storage_object import StorageObject
 from lusid_drive.models.update_file import UpdateFile
 from pprint import pprint
 
+import os
 from lusid_drive import (
-	  ApiClientFactory,
-	  ApplicationMetadataApi,
-	  EnvironmentVariablesConfigurationLoader,
-	  SecretsFileConfigurationLoader,
-	  ArgsConfigurationLoader
+    ApiClientFactory,
+    FilesApi,
+    EnvironmentVariablesConfigurationLoader,
+    SecretsFileConfigurationLoader,
+    ArgsConfigurationLoader
 )
 
 # Use the lusid_drive ApiClientFactory to build Api instances with a configured api client
