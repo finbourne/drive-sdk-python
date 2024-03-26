@@ -48,4 +48,49 @@ from lusid_drive.models.update_file import UpdateFile
 from lusid_drive.models.update_folder import UpdateFolder
 
 # import extensions into sdk package
-from lusid_drive.extensions import *
+from lusid_drive.extensions import (
+    SyncApiClientFactory,
+    ApiClientFactory,
+    ConfigurationLoader,
+    SecretsFileConfigurationLoader,
+    EnvironmentVariablesConfigurationLoader,
+    ArgsConfigurationLoader,
+    SyncApiClient
+)
+
+
+__all__ = [
+    "ApplicationMetadataApi",
+    "FilesApi",
+    "FoldersApi",
+    "SearchApi",
+    "AccessControlledAction",
+    "AccessControlledResource",
+    "ActionId",
+    "CreateFolder",
+    "IdSelectorDefinition",
+    "IdentifierPartSchema",
+    "Link",
+    "LusidProblemDetails",
+    "LusidValidationProblemDetails",
+    "PagedResourceListOfStorageObject",
+    "ResourceListOfAccessControlledResource",
+    "SearchBody",
+    "StorageObject",
+    "UpdateFile",
+    "UpdateFolder",
+    "ApiClient",
+    "Configuration",
+    "OpenApiException",
+    "ApiTypeError",
+    "ApiValueError",
+    "ApiKeyError",
+    "ApiException",
+    "SyncApiClientFactory", 
+    "ApiClientFactory",
+    "ConfigurationLoader",
+    "SecretsFileConfigurationLoader",
+    "EnvironmentVariablesConfigurationLoader",
+    "ArgsConfigurationLoader",
+    "SyncApiClient"
+]
