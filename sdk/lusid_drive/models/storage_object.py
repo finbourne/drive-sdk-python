@@ -19,7 +19,7 @@ import json
 
 from datetime import datetime
 from typing import Any, Dict, List, Optional
-from pydantic import BaseModel, Field, StrictInt, StrictStr, conlist, constr, validator
+from pydantic.v1 import BaseModel, Field, StrictInt, StrictStr, conlist, constr, validator
 from lusid_drive.models.link import Link
 
 class StorageObject(BaseModel):
