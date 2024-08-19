@@ -20,67 +20,57 @@ Method | HTTP request | Description
 
 ### Example
 
-* OAuth Authentication (oauth2):
 ```python
-from __future__ import print_function
-import time
-import lusid_drive
-from lusid_drive.rest import ApiException
-from lusid_drive.models.create_folder import CreateFolder
-from lusid_drive.models.storage_object import StorageObject
+import asyncio
+from lusid_drive.exceptions import ApiException
+from lusid_drive.models import *
 from pprint import pprint
-
-import os
 from lusid_drive import (
     ApiClientFactory,
-    FoldersApi,
-    EnvironmentVariablesConfigurationLoader,
-    SecretsFileConfigurationLoader,
-    ArgsConfigurationLoader
+    FoldersApi
 )
 
-# Use the lusid_drive ApiClientFactory to build Api instances with a configured api client
-# By default this will read config from environment variables
-# Then from a secrets.json file found in the current working directory
-api_client_factory = ApiClientFactory()
+async def main():
 
-# The ApiClientFactory can be passed an iterable of configuration loaders to read configuration from
+    with open("secrets.json", "w") as file:
+        file.write('''
+{
+    "api":
+    {
+        "tokenUrl":"<your-token-url>",
+        "driveUrl":"https://<your-domain>.lusid.com/drive",
+        "username":"<your-username>",
+        "password":"<your-password>",
+        "clientId":"<your-client-id>",
+        "clientSecret":"<your-client-secret>"
+    }
+}''')
 
-api_url = "https://fbn-prd.lusid.com/drive"
-# Path to a secrets.json file containing authentication credentials
-# See https://support.lusid.com/knowledgebase/article/KA-01667/en-us
-# for a detailed guide to setting up the SDK make authenticated calls to LUSID APIs
-secrets_path = os.getenv("FBN_SECRETS_PATH")
-app_name="LusidJupyterNotebook"
+    # Use the lusid_drive ApiClientFactory to build Api instances with a configured api client
+    # By default this will read config from environment variables
+    # Then from a secrets.json file found in the current working directory
+    api_client_factory = ApiClientFactory()
 
-config_loaders = [
-	EnvironmentVariablesConfigurationLoader(),
-	SecretsFileConfigurationLoader(api_secrets_file=secrets_path),
-	ArgsConfigurationLoader(api_url=api_url, app_name=app_name)
-]
-api_client_factory = ApiClientFactory(config_loaders=config_loaders)
+    # Enter a context with an instance of the ApiClientFactory to ensure the connection pool is closed after use
+    async with api_client_factory:
+        # Create an instance of the API class
+        api_instance = api_client_factory.build(FoldersApi)
 
+        # Objects can be created either via the class constructor, or using the 'from_dict' or 'from_json' methods
+        # Change the lines below to switch approach
+        # create_folder = CreateFolder()
+        # create_folder = CreateFolder.from_json("")
+        create_folder = CreateFolder.from_dict({"path":"/path/to/saveTo/","name":"folderName"}) # CreateFolder | A CreateFolder object that defines the name and path of the new folder
 
-# The client must configure the authentication and authorization parameters
-# in accordance with the API server security policy.
+        try:
+            # [EARLY ACCESS] CreateFolder: Create a new folder in LUSID Drive
+            api_response = await api_instance.create_folder(create_folder)
+            pprint(api_response)
+        except ApiException as e:
+            print("Exception when calling FoldersApi->create_folder: %s\n" % e)
 
-
-
-# Enter a context with an instance of the ApiClientFactory to ensure the connection pool is closed after use
-async with api_client_factory:
-    # Create an instance of the API class
-    api_instance = api_client_factory.build(lusid_drive.FoldersApi)
-    create_folder = {"path":"/path/to/saveTo/","name":"folderName"} # CreateFolder | A CreateFolder object that defines the name and path of the new folder
-
-    try:
-        # [EARLY ACCESS] CreateFolder: Create a new folder in LUSID Drive
-        api_response = await api_instance.create_folder(create_folder)
-        print("The response of FoldersApi->create_folder:\n")
-        pprint(api_response)
-    except Exception as e:
-        print("Exception when calling FoldersApi->create_folder: %s\n" % e)
+asyncio.run(main())
 ```
-
 
 ### Parameters
 
@@ -91,10 +81,6 @@ Name | Type | Description  | Notes
 ### Return type
 
 [**StorageObject**](StorageObject.md)
-
-### Authorization
-
-[oauth2](../README.md#oauth2)
 
 ### HTTP request headers
 
@@ -108,7 +94,7 @@ Name | Type | Description  | Notes
 **400** | The details of the input related failure |  -  |
 **0** | Error response |  -  |
 
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+[Back to top](#) &#8226; [Back to API list](../README.md#documentation-for-api-endpoints) &#8226; [Back to Model list](../README.md#documentation-for-models) &#8226; [Back to README](../README.md)
 
 # **delete_folder**
 > delete_folder(id)
@@ -117,63 +103,50 @@ Name | Type | Description  | Notes
 
 ### Example
 
-* OAuth Authentication (oauth2):
 ```python
-from __future__ import print_function
-import time
-import lusid_drive
-from lusid_drive.rest import ApiException
+import asyncio
+from lusid_drive.exceptions import ApiException
+from lusid_drive.models import *
 from pprint import pprint
-
-import os
 from lusid_drive import (
     ApiClientFactory,
-    FoldersApi,
-    EnvironmentVariablesConfigurationLoader,
-    SecretsFileConfigurationLoader,
-    ArgsConfigurationLoader
+    FoldersApi
 )
 
-# Use the lusid_drive ApiClientFactory to build Api instances with a configured api client
-# By default this will read config from environment variables
-# Then from a secrets.json file found in the current working directory
-api_client_factory = ApiClientFactory()
+async def main():
 
-# The ApiClientFactory can be passed an iterable of configuration loaders to read configuration from
+    with open("secrets.json", "w") as file:
+        file.write('''
+{
+    "api":
+    {
+        "tokenUrl":"<your-token-url>",
+        "driveUrl":"https://<your-domain>.lusid.com/drive",
+        "username":"<your-username>",
+        "password":"<your-password>",
+        "clientId":"<your-client-id>",
+        "clientSecret":"<your-client-secret>"
+    }
+}''')
 
-api_url = "https://fbn-prd.lusid.com/drive"
-# Path to a secrets.json file containing authentication credentials
-# See https://support.lusid.com/knowledgebase/article/KA-01667/en-us
-# for a detailed guide to setting up the SDK make authenticated calls to LUSID APIs
-secrets_path = os.getenv("FBN_SECRETS_PATH")
-app_name="LusidJupyterNotebook"
+    # Use the lusid_drive ApiClientFactory to build Api instances with a configured api client
+    # By default this will read config from environment variables
+    # Then from a secrets.json file found in the current working directory
+    api_client_factory = ApiClientFactory()
 
-config_loaders = [
-	EnvironmentVariablesConfigurationLoader(),
-	SecretsFileConfigurationLoader(api_secrets_file=secrets_path),
-	ArgsConfigurationLoader(api_url=api_url, app_name=app_name)
-]
-api_client_factory = ApiClientFactory(config_loaders=config_loaders)
+    # Enter a context with an instance of the ApiClientFactory to ensure the connection pool is closed after use
+    async with api_client_factory:
+        # Create an instance of the API class
+        api_instance = api_client_factory.build(FoldersApi)
+        id = 'id_example' # str | Unique ID of the folder
 
+        try:
+            # [EARLY ACCESS] DeleteFolder: Delete a specified folder and all subfolders
+            await api_instance.delete_folder(id)        except ApiException as e:
+            print("Exception when calling FoldersApi->delete_folder: %s\n" % e)
 
-# The client must configure the authentication and authorization parameters
-# in accordance with the API server security policy.
-
-
-
-# Enter a context with an instance of the ApiClientFactory to ensure the connection pool is closed after use
-async with api_client_factory:
-    # Create an instance of the API class
-    api_instance = api_client_factory.build(lusid_drive.FoldersApi)
-    id = 'id_example' # str | Unique ID of the folder
-
-    try:
-        # [EARLY ACCESS] DeleteFolder: Delete a specified folder and all subfolders
-        await api_instance.delete_folder(id)
-    except Exception as e:
-        print("Exception when calling FoldersApi->delete_folder: %s\n" % e)
+asyncio.run(main())
 ```
-
 
 ### Parameters
 
@@ -184,10 +157,6 @@ Name | Type | Description  | Notes
 ### Return type
 
 void (empty response body)
-
-### Authorization
-
-[oauth2](../README.md#oauth2)
 
 ### HTTP request headers
 
@@ -202,7 +171,7 @@ void (empty response body)
 **404** | No folder with this Id exists |  -  |
 **0** | Error response |  -  |
 
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+[Back to top](#) &#8226; [Back to API list](../README.md#documentation-for-api-endpoints) &#8226; [Back to Model list](../README.md#documentation-for-models) &#8226; [Back to README](../README.md)
 
 # **get_folder**
 > StorageObject get_folder(id)
@@ -211,66 +180,52 @@ void (empty response body)
 
 ### Example
 
-* OAuth Authentication (oauth2):
 ```python
-from __future__ import print_function
-import time
-import lusid_drive
-from lusid_drive.rest import ApiException
-from lusid_drive.models.storage_object import StorageObject
+import asyncio
+from lusid_drive.exceptions import ApiException
+from lusid_drive.models import *
 from pprint import pprint
-
-import os
 from lusid_drive import (
     ApiClientFactory,
-    FoldersApi,
-    EnvironmentVariablesConfigurationLoader,
-    SecretsFileConfigurationLoader,
-    ArgsConfigurationLoader
+    FoldersApi
 )
 
-# Use the lusid_drive ApiClientFactory to build Api instances with a configured api client
-# By default this will read config from environment variables
-# Then from a secrets.json file found in the current working directory
-api_client_factory = ApiClientFactory()
+async def main():
 
-# The ApiClientFactory can be passed an iterable of configuration loaders to read configuration from
+    with open("secrets.json", "w") as file:
+        file.write('''
+{
+    "api":
+    {
+        "tokenUrl":"<your-token-url>",
+        "driveUrl":"https://<your-domain>.lusid.com/drive",
+        "username":"<your-username>",
+        "password":"<your-password>",
+        "clientId":"<your-client-id>",
+        "clientSecret":"<your-client-secret>"
+    }
+}''')
 
-api_url = "https://fbn-prd.lusid.com/drive"
-# Path to a secrets.json file containing authentication credentials
-# See https://support.lusid.com/knowledgebase/article/KA-01667/en-us
-# for a detailed guide to setting up the SDK make authenticated calls to LUSID APIs
-secrets_path = os.getenv("FBN_SECRETS_PATH")
-app_name="LusidJupyterNotebook"
+    # Use the lusid_drive ApiClientFactory to build Api instances with a configured api client
+    # By default this will read config from environment variables
+    # Then from a secrets.json file found in the current working directory
+    api_client_factory = ApiClientFactory()
 
-config_loaders = [
-	EnvironmentVariablesConfigurationLoader(),
-	SecretsFileConfigurationLoader(api_secrets_file=secrets_path),
-	ArgsConfigurationLoader(api_url=api_url, app_name=app_name)
-]
-api_client_factory = ApiClientFactory(config_loaders=config_loaders)
+    # Enter a context with an instance of the ApiClientFactory to ensure the connection pool is closed after use
+    async with api_client_factory:
+        # Create an instance of the API class
+        api_instance = api_client_factory.build(FoldersApi)
+        id = 'id_example' # str | Unique ID of the folder
 
+        try:
+            # [EARLY ACCESS] GetFolder: Get metadata of folder
+            api_response = await api_instance.get_folder(id)
+            pprint(api_response)
+        except ApiException as e:
+            print("Exception when calling FoldersApi->get_folder: %s\n" % e)
 
-# The client must configure the authentication and authorization parameters
-# in accordance with the API server security policy.
-
-
-
-# Enter a context with an instance of the ApiClientFactory to ensure the connection pool is closed after use
-async with api_client_factory:
-    # Create an instance of the API class
-    api_instance = api_client_factory.build(lusid_drive.FoldersApi)
-    id = 'id_example' # str | Unique ID of the folder
-
-    try:
-        # [EARLY ACCESS] GetFolder: Get metadata of folder
-        api_response = await api_instance.get_folder(id)
-        print("The response of FoldersApi->get_folder:\n")
-        pprint(api_response)
-    except Exception as e:
-        print("Exception when calling FoldersApi->get_folder: %s\n" % e)
+asyncio.run(main())
 ```
-
 
 ### Parameters
 
@@ -281,10 +236,6 @@ Name | Type | Description  | Notes
 ### Return type
 
 [**StorageObject**](StorageObject.md)
-
-### Authorization
-
-[oauth2](../README.md#oauth2)
 
 ### HTTP request headers
 
@@ -299,7 +250,7 @@ Name | Type | Description  | Notes
 **404** | No folder with this Id exists |  -  |
 **0** | Error response |  -  |
 
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+[Back to top](#) &#8226; [Back to API list](../README.md#documentation-for-api-endpoints) &#8226; [Back to Model list](../README.md#documentation-for-models) &#8226; [Back to README](../README.md)
 
 # **get_folder_contents**
 > PagedResourceListOfStorageObject get_folder_contents(id, page=page, sort_by=sort_by, start=start, limit=limit, filter=filter)
@@ -308,71 +259,57 @@ Name | Type | Description  | Notes
 
 ### Example
 
-* OAuth Authentication (oauth2):
 ```python
-from __future__ import print_function
-import time
-import lusid_drive
-from lusid_drive.rest import ApiException
-from lusid_drive.models.paged_resource_list_of_storage_object import PagedResourceListOfStorageObject
+import asyncio
+from lusid_drive.exceptions import ApiException
+from lusid_drive.models import *
 from pprint import pprint
-
-import os
 from lusid_drive import (
     ApiClientFactory,
-    FoldersApi,
-    EnvironmentVariablesConfigurationLoader,
-    SecretsFileConfigurationLoader,
-    ArgsConfigurationLoader
+    FoldersApi
 )
 
-# Use the lusid_drive ApiClientFactory to build Api instances with a configured api client
-# By default this will read config from environment variables
-# Then from a secrets.json file found in the current working directory
-api_client_factory = ApiClientFactory()
+async def main():
 
-# The ApiClientFactory can be passed an iterable of configuration loaders to read configuration from
+    with open("secrets.json", "w") as file:
+        file.write('''
+{
+    "api":
+    {
+        "tokenUrl":"<your-token-url>",
+        "driveUrl":"https://<your-domain>.lusid.com/drive",
+        "username":"<your-username>",
+        "password":"<your-password>",
+        "clientId":"<your-client-id>",
+        "clientSecret":"<your-client-secret>"
+    }
+}''')
 
-api_url = "https://fbn-prd.lusid.com/drive"
-# Path to a secrets.json file containing authentication credentials
-# See https://support.lusid.com/knowledgebase/article/KA-01667/en-us
-# for a detailed guide to setting up the SDK make authenticated calls to LUSID APIs
-secrets_path = os.getenv("FBN_SECRETS_PATH")
-app_name="LusidJupyterNotebook"
+    # Use the lusid_drive ApiClientFactory to build Api instances with a configured api client
+    # By default this will read config from environment variables
+    # Then from a secrets.json file found in the current working directory
+    api_client_factory = ApiClientFactory()
 
-config_loaders = [
-	EnvironmentVariablesConfigurationLoader(),
-	SecretsFileConfigurationLoader(api_secrets_file=secrets_path),
-	ArgsConfigurationLoader(api_url=api_url, app_name=app_name)
-]
-api_client_factory = ApiClientFactory(config_loaders=config_loaders)
+    # Enter a context with an instance of the ApiClientFactory to ensure the connection pool is closed after use
+    async with api_client_factory:
+        # Create an instance of the API class
+        api_instance = api_client_factory.build(FoldersApi)
+        id = 'id_example' # str | Unique ID of the folder
+        page = 'page_example' # str | The pagination token to use to continue listing contents from a previous call to list contents.              This value is returned from the previous call. If a pagination token is provided the sortBy and filter fields              must not have changed since the original request. Also, if set, a start value cannot be provided. (optional)
+        sort_by = ['sort_by_example'] # List[str] | Order the results by these fields. Use use the '-' sign to denote descending order. (optional)
+        start = 56 # int | When paginating, skip this number of results. (optional)
+        limit = 56 # int | When paginating, limit the number of returned results to this many. (optional)
+        filter = '' # str | Expression to filter the result set. (optional) (default to '')
 
+        try:
+            # [EARLY ACCESS] GetFolderContents: List contents of a folder
+            api_response = await api_instance.get_folder_contents(id, page=page, sort_by=sort_by, start=start, limit=limit, filter=filter)
+            pprint(api_response)
+        except ApiException as e:
+            print("Exception when calling FoldersApi->get_folder_contents: %s\n" % e)
 
-# The client must configure the authentication and authorization parameters
-# in accordance with the API server security policy.
-
-
-
-# Enter a context with an instance of the ApiClientFactory to ensure the connection pool is closed after use
-async with api_client_factory:
-    # Create an instance of the API class
-    api_instance = api_client_factory.build(lusid_drive.FoldersApi)
-    id = 'id_example' # str | Unique ID of the folder
-    page = 'page_example' # str | The pagination token to use to continue listing contents from a previous call to list contents.              This value is returned from the previous call. If a pagination token is provided the sortBy and filter fields              must not have changed since the original request. Also, if set, a start value cannot be provided. (optional)
-    sort_by = ['sort_by_example'] # List[str] | Order the results by these fields. Use use the '-' sign to denote descending order. (optional)
-    start = 56 # int | When paginating, skip this number of results. (optional)
-    limit = 56 # int | When paginating, limit the number of returned results to this many. (optional)
-    filter = '' # str | Expression to filter the result set. (optional) (default to '')
-
-    try:
-        # [EARLY ACCESS] GetFolderContents: List contents of a folder
-        api_response = await api_instance.get_folder_contents(id, page=page, sort_by=sort_by, start=start, limit=limit, filter=filter)
-        print("The response of FoldersApi->get_folder_contents:\n")
-        pprint(api_response)
-    except Exception as e:
-        print("Exception when calling FoldersApi->get_folder_contents: %s\n" % e)
+asyncio.run(main())
 ```
-
 
 ### Parameters
 
@@ -389,10 +326,6 @@ Name | Type | Description  | Notes
 
 [**PagedResourceListOfStorageObject**](PagedResourceListOfStorageObject.md)
 
-### Authorization
-
-[oauth2](../README.md#oauth2)
-
 ### HTTP request headers
 
  - **Content-Type**: Not defined
@@ -406,7 +339,7 @@ Name | Type | Description  | Notes
 **404** | No folder with this Id exists |  -  |
 **0** | Error response |  -  |
 
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+[Back to top](#) &#8226; [Back to API list](../README.md#documentation-for-api-endpoints) &#8226; [Back to Model list](../README.md#documentation-for-models) &#8226; [Back to README](../README.md)
 
 # **get_root_folder**
 > PagedResourceListOfStorageObject get_root_folder(page=page, sort_by=sort_by, start=start, limit=limit, filter=filter)
@@ -415,70 +348,56 @@ Name | Type | Description  | Notes
 
 ### Example
 
-* OAuth Authentication (oauth2):
 ```python
-from __future__ import print_function
-import time
-import lusid_drive
-from lusid_drive.rest import ApiException
-from lusid_drive.models.paged_resource_list_of_storage_object import PagedResourceListOfStorageObject
+import asyncio
+from lusid_drive.exceptions import ApiException
+from lusid_drive.models import *
 from pprint import pprint
-
-import os
 from lusid_drive import (
     ApiClientFactory,
-    FoldersApi,
-    EnvironmentVariablesConfigurationLoader,
-    SecretsFileConfigurationLoader,
-    ArgsConfigurationLoader
+    FoldersApi
 )
 
-# Use the lusid_drive ApiClientFactory to build Api instances with a configured api client
-# By default this will read config from environment variables
-# Then from a secrets.json file found in the current working directory
-api_client_factory = ApiClientFactory()
+async def main():
 
-# The ApiClientFactory can be passed an iterable of configuration loaders to read configuration from
+    with open("secrets.json", "w") as file:
+        file.write('''
+{
+    "api":
+    {
+        "tokenUrl":"<your-token-url>",
+        "driveUrl":"https://<your-domain>.lusid.com/drive",
+        "username":"<your-username>",
+        "password":"<your-password>",
+        "clientId":"<your-client-id>",
+        "clientSecret":"<your-client-secret>"
+    }
+}''')
 
-api_url = "https://fbn-prd.lusid.com/drive"
-# Path to a secrets.json file containing authentication credentials
-# See https://support.lusid.com/knowledgebase/article/KA-01667/en-us
-# for a detailed guide to setting up the SDK make authenticated calls to LUSID APIs
-secrets_path = os.getenv("FBN_SECRETS_PATH")
-app_name="LusidJupyterNotebook"
+    # Use the lusid_drive ApiClientFactory to build Api instances with a configured api client
+    # By default this will read config from environment variables
+    # Then from a secrets.json file found in the current working directory
+    api_client_factory = ApiClientFactory()
 
-config_loaders = [
-	EnvironmentVariablesConfigurationLoader(),
-	SecretsFileConfigurationLoader(api_secrets_file=secrets_path),
-	ArgsConfigurationLoader(api_url=api_url, app_name=app_name)
-]
-api_client_factory = ApiClientFactory(config_loaders=config_loaders)
+    # Enter a context with an instance of the ApiClientFactory to ensure the connection pool is closed after use
+    async with api_client_factory:
+        # Create an instance of the API class
+        api_instance = api_client_factory.build(FoldersApi)
+        page = 'page_example' # str | The pagination token to use to continue listing contents from a previous call to list contents.              This value is returned from the previous call. If a pagination token is provided the sortBy and filter fields              must not have changed since the original request. Also, if set, a start value cannot be provided. (optional)
+        sort_by = ['sort_by_example'] # List[str] | Order the results by these fields. Use use the '-' sign to denote descending order. (optional)
+        start = 56 # int | When paginating, skip this number of results. (optional)
+        limit = 56 # int | When paginating, limit the number of returned results to this many. (optional)
+        filter = 'true' # str | Expression to filter the result set. (optional) (default to 'true')
 
+        try:
+            # [EARLY ACCESS] GetRootFolder: List contents of root folder
+            api_response = await api_instance.get_root_folder(page=page, sort_by=sort_by, start=start, limit=limit, filter=filter)
+            pprint(api_response)
+        except ApiException as e:
+            print("Exception when calling FoldersApi->get_root_folder: %s\n" % e)
 
-# The client must configure the authentication and authorization parameters
-# in accordance with the API server security policy.
-
-
-
-# Enter a context with an instance of the ApiClientFactory to ensure the connection pool is closed after use
-async with api_client_factory:
-    # Create an instance of the API class
-    api_instance = api_client_factory.build(lusid_drive.FoldersApi)
-    page = 'page_example' # str | The pagination token to use to continue listing contents from a previous call to list contents.              This value is returned from the previous call. If a pagination token is provided the sortBy and filter fields              must not have changed since the original request. Also, if set, a start value cannot be provided. (optional)
-    sort_by = ['sort_by_example'] # List[str] | Order the results by these fields. Use use the '-' sign to denote descending order. (optional)
-    start = 56 # int | When paginating, skip this number of results. (optional)
-    limit = 56 # int | When paginating, limit the number of returned results to this many. (optional)
-    filter = 'true' # str | Expression to filter the result set. (optional) (default to 'true')
-
-    try:
-        # [EARLY ACCESS] GetRootFolder: List contents of root folder
-        api_response = await api_instance.get_root_folder(page=page, sort_by=sort_by, start=start, limit=limit, filter=filter)
-        print("The response of FoldersApi->get_root_folder:\n")
-        pprint(api_response)
-    except Exception as e:
-        print("Exception when calling FoldersApi->get_root_folder: %s\n" % e)
+asyncio.run(main())
 ```
-
 
 ### Parameters
 
@@ -494,10 +413,6 @@ Name | Type | Description  | Notes
 
 [**PagedResourceListOfStorageObject**](PagedResourceListOfStorageObject.md)
 
-### Authorization
-
-[oauth2](../README.md#oauth2)
-
 ### HTTP request headers
 
  - **Content-Type**: Not defined
@@ -510,7 +425,7 @@ Name | Type | Description  | Notes
 **400** | The details of the input related failure |  -  |
 **0** | Error response |  -  |
 
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+[Back to top](#) &#8226; [Back to API list](../README.md#documentation-for-api-endpoints) &#8226; [Back to Model list](../README.md#documentation-for-models) &#8226; [Back to README](../README.md)
 
 # **move_folder**
 > PagedResourceListOfStorageObject move_folder(id, request_body, overwrite=overwrite, delete_source=delete_source)
@@ -519,69 +434,55 @@ Name | Type | Description  | Notes
 
 ### Example
 
-* OAuth Authentication (oauth2):
 ```python
-from __future__ import print_function
-import time
-import lusid_drive
-from lusid_drive.rest import ApiException
-from lusid_drive.models.paged_resource_list_of_storage_object import PagedResourceListOfStorageObject
+import asyncio
+from lusid_drive.exceptions import ApiException
+from lusid_drive.models import *
 from pprint import pprint
-
-import os
 from lusid_drive import (
     ApiClientFactory,
-    FoldersApi,
-    EnvironmentVariablesConfigurationLoader,
-    SecretsFileConfigurationLoader,
-    ArgsConfigurationLoader
+    FoldersApi
 )
 
-# Use the lusid_drive ApiClientFactory to build Api instances with a configured api client
-# By default this will read config from environment variables
-# Then from a secrets.json file found in the current working directory
-api_client_factory = ApiClientFactory()
+async def main():
 
-# The ApiClientFactory can be passed an iterable of configuration loaders to read configuration from
+    with open("secrets.json", "w") as file:
+        file.write('''
+{
+    "api":
+    {
+        "tokenUrl":"<your-token-url>",
+        "driveUrl":"https://<your-domain>.lusid.com/drive",
+        "username":"<your-username>",
+        "password":"<your-password>",
+        "clientId":"<your-client-id>",
+        "clientSecret":"<your-client-secret>"
+    }
+}''')
 
-api_url = "https://fbn-prd.lusid.com/drive"
-# Path to a secrets.json file containing authentication credentials
-# See https://support.lusid.com/knowledgebase/article/KA-01667/en-us
-# for a detailed guide to setting up the SDK make authenticated calls to LUSID APIs
-secrets_path = os.getenv("FBN_SECRETS_PATH")
-app_name="LusidJupyterNotebook"
+    # Use the lusid_drive ApiClientFactory to build Api instances with a configured api client
+    # By default this will read config from environment variables
+    # Then from a secrets.json file found in the current working directory
+    api_client_factory = ApiClientFactory()
 
-config_loaders = [
-	EnvironmentVariablesConfigurationLoader(),
-	SecretsFileConfigurationLoader(api_secrets_file=secrets_path),
-	ArgsConfigurationLoader(api_url=api_url, app_name=app_name)
-]
-api_client_factory = ApiClientFactory(config_loaders=config_loaders)
+    # Enter a context with an instance of the ApiClientFactory to ensure the connection pool is closed after use
+    async with api_client_factory:
+        # Create an instance of the API class
+        api_instance = api_client_factory.build(FoldersApi)
+        id = 'id_example' # str | Unique ID of the folder where the files should be moved
+        request_body = ["FolderID1","FolderID2","FolderID3"] # List[str] | Enumerable of unique IDs of files that should be moved
+        overwrite = False # bool | True if the destination has file with same name if should be overwritten (optional) (default to False)
+        delete_source = False # bool | If true after moving the original file is deleted (optional) (default to False)
 
+        try:
+            # [EARLY ACCESS] MoveFolder: Move files to specified folder
+            api_response = await api_instance.move_folder(id, request_body, overwrite=overwrite, delete_source=delete_source)
+            pprint(api_response)
+        except ApiException as e:
+            print("Exception when calling FoldersApi->move_folder: %s\n" % e)
 
-# The client must configure the authentication and authorization parameters
-# in accordance with the API server security policy.
-
-
-
-# Enter a context with an instance of the ApiClientFactory to ensure the connection pool is closed after use
-async with api_client_factory:
-    # Create an instance of the API class
-    api_instance = api_client_factory.build(lusid_drive.FoldersApi)
-    id = 'id_example' # str | Unique ID of the folder where the files should be moved
-    request_body = ["FolderID1","FolderID2","FolderID3"] # List[str] | Enumerable of unique IDs of files that should be moved
-    overwrite = False # bool | True if the destination has file with same name if should be overwritten (optional) (default to False)
-    delete_source = False # bool | If true after moving the original file is deleted (optional) (default to False)
-
-    try:
-        # [EARLY ACCESS] MoveFolder: Move files to specified folder
-        api_response = await api_instance.move_folder(id, request_body, overwrite=overwrite, delete_source=delete_source)
-        print("The response of FoldersApi->move_folder:\n")
-        pprint(api_response)
-    except Exception as e:
-        print("Exception when calling FoldersApi->move_folder: %s\n" % e)
+asyncio.run(main())
 ```
-
 
 ### Parameters
 
@@ -595,10 +496,6 @@ Name | Type | Description  | Notes
 ### Return type
 
 [**PagedResourceListOfStorageObject**](PagedResourceListOfStorageObject.md)
-
-### Authorization
-
-[oauth2](../README.md#oauth2)
 
 ### HTTP request headers
 
@@ -614,7 +511,7 @@ Name | Type | Description  | Notes
 **409** | There is already a file with the same name at this location |  -  |
 **0** | Error response |  -  |
 
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+[Back to top](#) &#8226; [Back to API list](../README.md#documentation-for-api-endpoints) &#8226; [Back to Model list](../README.md#documentation-for-models) &#8226; [Back to README](../README.md)
 
 # **update_folder**
 > StorageObject update_folder(id, update_folder)
@@ -623,68 +520,58 @@ Name | Type | Description  | Notes
 
 ### Example
 
-* OAuth Authentication (oauth2):
 ```python
-from __future__ import print_function
-import time
-import lusid_drive
-from lusid_drive.rest import ApiException
-from lusid_drive.models.storage_object import StorageObject
-from lusid_drive.models.update_folder import UpdateFolder
+import asyncio
+from lusid_drive.exceptions import ApiException
+from lusid_drive.models import *
 from pprint import pprint
-
-import os
 from lusid_drive import (
     ApiClientFactory,
-    FoldersApi,
-    EnvironmentVariablesConfigurationLoader,
-    SecretsFileConfigurationLoader,
-    ArgsConfigurationLoader
+    FoldersApi
 )
 
-# Use the lusid_drive ApiClientFactory to build Api instances with a configured api client
-# By default this will read config from environment variables
-# Then from a secrets.json file found in the current working directory
-api_client_factory = ApiClientFactory()
+async def main():
 
-# The ApiClientFactory can be passed an iterable of configuration loaders to read configuration from
+    with open("secrets.json", "w") as file:
+        file.write('''
+{
+    "api":
+    {
+        "tokenUrl":"<your-token-url>",
+        "driveUrl":"https://<your-domain>.lusid.com/drive",
+        "username":"<your-username>",
+        "password":"<your-password>",
+        "clientId":"<your-client-id>",
+        "clientSecret":"<your-client-secret>"
+    }
+}''')
 
-api_url = "https://fbn-prd.lusid.com/drive"
-# Path to a secrets.json file containing authentication credentials
-# See https://support.lusid.com/knowledgebase/article/KA-01667/en-us
-# for a detailed guide to setting up the SDK make authenticated calls to LUSID APIs
-secrets_path = os.getenv("FBN_SECRETS_PATH")
-app_name="LusidJupyterNotebook"
+    # Use the lusid_drive ApiClientFactory to build Api instances with a configured api client
+    # By default this will read config from environment variables
+    # Then from a secrets.json file found in the current working directory
+    api_client_factory = ApiClientFactory()
 
-config_loaders = [
-	EnvironmentVariablesConfigurationLoader(),
-	SecretsFileConfigurationLoader(api_secrets_file=secrets_path),
-	ArgsConfigurationLoader(api_url=api_url, app_name=app_name)
-]
-api_client_factory = ApiClientFactory(config_loaders=config_loaders)
+    # Enter a context with an instance of the ApiClientFactory to ensure the connection pool is closed after use
+    async with api_client_factory:
+        # Create an instance of the API class
+        api_instance = api_client_factory.build(FoldersApi)
+        id = 'id_example' # str | Unique ID of the folder
 
+        # Objects can be created either via the class constructor, or using the 'from_dict' or 'from_json' methods
+        # Change the lines below to switch approach
+        # update_folder = UpdateFolder()
+        # update_folder = UpdateFolder.from_json("")
+        update_folder = UpdateFolder.from_dict({"path":"/Documents/Common/Legal/","name":"FolderName"}) # UpdateFolder | An UpdateFolder object that defines the new name or path of the folder
 
-# The client must configure the authentication and authorization parameters
-# in accordance with the API server security policy.
+        try:
+            # [EARLY ACCESS] UpdateFolder: Update an existing folder's name, path
+            api_response = await api_instance.update_folder(id, update_folder)
+            pprint(api_response)
+        except ApiException as e:
+            print("Exception when calling FoldersApi->update_folder: %s\n" % e)
 
-
-
-# Enter a context with an instance of the ApiClientFactory to ensure the connection pool is closed after use
-async with api_client_factory:
-    # Create an instance of the API class
-    api_instance = api_client_factory.build(lusid_drive.FoldersApi)
-    id = 'id_example' # str | Unique ID of the folder
-    update_folder = {"path":"/Documents/Common/Legal/","name":"FolderName"} # UpdateFolder | An UpdateFolder object that defines the new name or path of the folder
-
-    try:
-        # [EARLY ACCESS] UpdateFolder: Update an existing folder's name, path
-        api_response = await api_instance.update_folder(id, update_folder)
-        print("The response of FoldersApi->update_folder:\n")
-        pprint(api_response)
-    except Exception as e:
-        print("Exception when calling FoldersApi->update_folder: %s\n" % e)
+asyncio.run(main())
 ```
-
 
 ### Parameters
 
@@ -696,10 +583,6 @@ Name | Type | Description  | Notes
 ### Return type
 
 [**StorageObject**](StorageObject.md)
-
-### Authorization
-
-[oauth2](../README.md#oauth2)
 
 ### HTTP request headers
 
@@ -714,5 +597,5 @@ Name | Type | Description  | Notes
 **404** | No folder with this Id exists |  -  |
 **0** | Error response |  -  |
 
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+[Back to top](#) &#8226; [Back to API list](../README.md#documentation-for-api-endpoints) &#8226; [Back to Model list](../README.md#documentation-for-models) &#8226; [Back to README](../README.md)
 

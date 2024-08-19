@@ -14,71 +14,61 @@ Method | HTTP request | Description
 
 ### Example
 
-* OAuth Authentication (oauth2):
 ```python
-from __future__ import print_function
-import time
-import lusid_drive
-from lusid_drive.rest import ApiException
-from lusid_drive.models.paged_resource_list_of_storage_object import PagedResourceListOfStorageObject
-from lusid_drive.models.search_body import SearchBody
+import asyncio
+from lusid_drive.exceptions import ApiException
+from lusid_drive.models import *
 from pprint import pprint
-
-import os
 from lusid_drive import (
     ApiClientFactory,
-    SearchApi,
-    EnvironmentVariablesConfigurationLoader,
-    SecretsFileConfigurationLoader,
-    ArgsConfigurationLoader
+    SearchApi
 )
 
-# Use the lusid_drive ApiClientFactory to build Api instances with a configured api client
-# By default this will read config from environment variables
-# Then from a secrets.json file found in the current working directory
-api_client_factory = ApiClientFactory()
+async def main():
 
-# The ApiClientFactory can be passed an iterable of configuration loaders to read configuration from
+    with open("secrets.json", "w") as file:
+        file.write('''
+{
+    "api":
+    {
+        "tokenUrl":"<your-token-url>",
+        "driveUrl":"https://<your-domain>.lusid.com/drive",
+        "username":"<your-username>",
+        "password":"<your-password>",
+        "clientId":"<your-client-id>",
+        "clientSecret":"<your-client-secret>"
+    }
+}''')
 
-api_url = "https://fbn-prd.lusid.com/drive"
-# Path to a secrets.json file containing authentication credentials
-# See https://support.lusid.com/knowledgebase/article/KA-01667/en-us
-# for a detailed guide to setting up the SDK make authenticated calls to LUSID APIs
-secrets_path = os.getenv("FBN_SECRETS_PATH")
-app_name="LusidJupyterNotebook"
+    # Use the lusid_drive ApiClientFactory to build Api instances with a configured api client
+    # By default this will read config from environment variables
+    # Then from a secrets.json file found in the current working directory
+    api_client_factory = ApiClientFactory()
 
-config_loaders = [
-	EnvironmentVariablesConfigurationLoader(),
-	SecretsFileConfigurationLoader(api_secrets_file=secrets_path),
-	ArgsConfigurationLoader(api_url=api_url, app_name=app_name)
-]
-api_client_factory = ApiClientFactory(config_loaders=config_loaders)
+    # Enter a context with an instance of the ApiClientFactory to ensure the connection pool is closed after use
+    async with api_client_factory:
+        # Create an instance of the API class
+        api_instance = api_client_factory.build(SearchApi)
 
+        # Objects can be created either via the class constructor, or using the 'from_dict' or 'from_json' methods
+        # Change the lines below to switch approach
+        # search_body = SearchBody()
+        # search_body = SearchBody.from_json("")
+        search_body = SearchBody.from_dict({"withPath":"/some/path","name":"filename.pdf"}) # SearchBody | Search parameters
+        page = 'page_example' # str |  (optional)
+        sort_by = ['sort_by_example'] # List[str] |  (optional)
+        limit = 56 # int |  (optional)
+        filter = '' # str |  (optional) (default to '')
 
-# The client must configure the authentication and authorization parameters
-# in accordance with the API server security policy.
+        try:
+            # [EARLY ACCESS] Search: Search for a file or folder with a given name and path
+            api_response = await api_instance.search(search_body, page=page, sort_by=sort_by, limit=limit, filter=filter)
+            pprint(api_response)
+        except ApiException as e:
+            print("Exception when calling SearchApi->search: %s\n" % e)
 
-
-
-# Enter a context with an instance of the ApiClientFactory to ensure the connection pool is closed after use
-async with api_client_factory:
-    # Create an instance of the API class
-    api_instance = api_client_factory.build(lusid_drive.SearchApi)
-    search_body = {"withPath":"/some/path","name":"filename.pdf"} # SearchBody | Search parameters
-    page = 'page_example' # str |  (optional)
-    sort_by = ['sort_by_example'] # List[str] |  (optional)
-    limit = 56 # int |  (optional)
-    filter = '' # str |  (optional) (default to '')
-
-    try:
-        # [EARLY ACCESS] Search: Search for a file or folder with a given name and path
-        api_response = await api_instance.search(search_body, page=page, sort_by=sort_by, limit=limit, filter=filter)
-        print("The response of SearchApi->search:\n")
-        pprint(api_response)
-    except Exception as e:
-        print("Exception when calling SearchApi->search: %s\n" % e)
+asyncio.run(main())
 ```
-
 
 ### Parameters
 
@@ -94,10 +84,6 @@ Name | Type | Description  | Notes
 
 [**PagedResourceListOfStorageObject**](PagedResourceListOfStorageObject.md)
 
-### Authorization
-
-[oauth2](../README.md#oauth2)
-
 ### HTTP request headers
 
  - **Content-Type**: application/json
@@ -110,5 +96,5 @@ Name | Type | Description  | Notes
 **400** | The details of the input related failure |  -  |
 **0** | Error response |  -  |
 
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+[Back to top](#) &#8226; [Back to API list](../README.md#documentation-for-api-endpoints) &#8226; [Back to Model list](../README.md#documentation-for-models) &#8226; [Back to README](../README.md)
 

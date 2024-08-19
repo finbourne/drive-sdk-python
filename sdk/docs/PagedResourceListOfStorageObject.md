@@ -27,6 +27,6 @@ paged_resource_list_of_storage_object_dict = paged_resource_list_of_storage_obje
 # create an instance of PagedResourceListOfStorageObject from a dict
 paged_resource_list_of_storage_object_form_dict = paged_resource_list_of_storage_object.from_dict(paged_resource_list_of_storage_object_dict)
 ```
-[[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
+[Back to Model list](../README.md#documentation-for-models) &#8226; [Back to API list](../README.md#documentation-for-api-endpoints) &#8226; [Back to README](../README.md)
 
 

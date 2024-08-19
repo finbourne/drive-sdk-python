@@ -19,69 +19,55 @@ Method | HTTP request | Description
 
 ### Example
 
-* OAuth Authentication (oauth2):
 ```python
-from __future__ import print_function
-import time
-import lusid_drive
-from lusid_drive.rest import ApiException
-from lusid_drive.models.storage_object import StorageObject
+import asyncio
+from lusid_drive.exceptions import ApiException
+from lusid_drive.models import *
 from pprint import pprint
-
-import os
 from lusid_drive import (
     ApiClientFactory,
-    FilesApi,
-    EnvironmentVariablesConfigurationLoader,
-    SecretsFileConfigurationLoader,
-    ArgsConfigurationLoader
+    FilesApi
 )
 
-# Use the lusid_drive ApiClientFactory to build Api instances with a configured api client
-# By default this will read config from environment variables
-# Then from a secrets.json file found in the current working directory
-api_client_factory = ApiClientFactory()
+async def main():
 
-# The ApiClientFactory can be passed an iterable of configuration loaders to read configuration from
+    with open("secrets.json", "w") as file:
+        file.write('''
+{
+    "api":
+    {
+        "tokenUrl":"<your-token-url>",
+        "driveUrl":"https://<your-domain>.lusid.com/drive",
+        "username":"<your-username>",
+        "password":"<your-password>",
+        "clientId":"<your-client-id>",
+        "clientSecret":"<your-client-secret>"
+    }
+}''')
 
-api_url = "https://fbn-prd.lusid.com/drive"
-# Path to a secrets.json file containing authentication credentials
-# See https://support.lusid.com/knowledgebase/article/KA-01667/en-us
-# for a detailed guide to setting up the SDK make authenticated calls to LUSID APIs
-secrets_path = os.getenv("FBN_SECRETS_PATH")
-app_name="LusidJupyterNotebook"
+    # Use the lusid_drive ApiClientFactory to build Api instances with a configured api client
+    # By default this will read config from environment variables
+    # Then from a secrets.json file found in the current working directory
+    api_client_factory = ApiClientFactory()
 
-config_loaders = [
-	EnvironmentVariablesConfigurationLoader(),
-	SecretsFileConfigurationLoader(api_secrets_file=secrets_path),
-	ArgsConfigurationLoader(api_url=api_url, app_name=app_name)
-]
-api_client_factory = ApiClientFactory(config_loaders=config_loaders)
+    # Enter a context with an instance of the ApiClientFactory to ensure the connection pool is closed after use
+    async with api_client_factory:
+        # Create an instance of the API class
+        api_instance = api_client_factory.build(FilesApi)
+        x_lusid_drive_filename = 'x_lusid_drive_filename_example' # str | File name.
+        x_lusid_drive_path = 'x_lusid_drive_path_example' # str | File path.
+        content_length = 56 # int | The size in bytes of the file to be uploaded
+        body = None # bytearray | 
 
+        try:
+            # [EARLY ACCESS] CreateFile: Uploads a file to Lusid Drive. If using an SDK, consider using the UploadAsStreamAsync function for larger files instead.
+            api_response = await api_instance.create_file(x_lusid_drive_filename, x_lusid_drive_path, content_length, body)
+            pprint(api_response)
+        except ApiException as e:
+            print("Exception when calling FilesApi->create_file: %s\n" % e)
 
-# The client must configure the authentication and authorization parameters
-# in accordance with the API server security policy.
-
-
-
-# Enter a context with an instance of the ApiClientFactory to ensure the connection pool is closed after use
-async with api_client_factory:
-    # Create an instance of the API class
-    api_instance = api_client_factory.build(lusid_drive.FilesApi)
-    x_lusid_drive_filename = 'x_lusid_drive_filename_example' # str | File name.
-    x_lusid_drive_path = 'x_lusid_drive_path_example' # str | File path.
-    content_length = 56 # int | The size in bytes of the file to be uploaded
-    body = None # bytearray | 
-
-    try:
-        # [EARLY ACCESS] CreateFile: Uploads a file to Lusid Drive. If using an SDK, consider using the UploadAsStreamAsync function for larger files instead.
-        api_response = await api_instance.create_file(x_lusid_drive_filename, x_lusid_drive_path, content_length, body)
-        print("The response of FilesApi->create_file:\n")
-        pprint(api_response)
-    except Exception as e:
-        print("Exception when calling FilesApi->create_file: %s\n" % e)
+asyncio.run(main())
 ```
-
 
 ### Parameters
 
@@ -96,10 +82,6 @@ Name | Type | Description  | Notes
 
 [**StorageObject**](StorageObject.md)
 
-### Authorization
-
-[oauth2](../README.md#oauth2)
-
 ### HTTP request headers
 
  - **Content-Type**: application/octet-stream
@@ -112,7 +94,7 @@ Name | Type | Description  | Notes
 **400** | The details of the input related failure |  -  |
 **0** | Error response |  -  |
 
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+[Back to top](#) &#8226; [Back to API list](../README.md#documentation-for-api-endpoints) &#8226; [Back to Model list](../README.md#documentation-for-models) &#8226; [Back to README](../README.md)
 
 # **delete_file**
 > delete_file(id)
@@ -121,63 +103,50 @@ Name | Type | Description  | Notes
 
 ### Example
 
-* OAuth Authentication (oauth2):
 ```python
-from __future__ import print_function
-import time
-import lusid_drive
-from lusid_drive.rest import ApiException
+import asyncio
+from lusid_drive.exceptions import ApiException
+from lusid_drive.models import *
 from pprint import pprint
-
-import os
 from lusid_drive import (
     ApiClientFactory,
-    FilesApi,
-    EnvironmentVariablesConfigurationLoader,
-    SecretsFileConfigurationLoader,
-    ArgsConfigurationLoader
+    FilesApi
 )
 
-# Use the lusid_drive ApiClientFactory to build Api instances with a configured api client
-# By default this will read config from environment variables
-# Then from a secrets.json file found in the current working directory
-api_client_factory = ApiClientFactory()
+async def main():
 
-# The ApiClientFactory can be passed an iterable of configuration loaders to read configuration from
+    with open("secrets.json", "w") as file:
+        file.write('''
+{
+    "api":
+    {
+        "tokenUrl":"<your-token-url>",
+        "driveUrl":"https://<your-domain>.lusid.com/drive",
+        "username":"<your-username>",
+        "password":"<your-password>",
+        "clientId":"<your-client-id>",
+        "clientSecret":"<your-client-secret>"
+    }
+}''')
 
-api_url = "https://fbn-prd.lusid.com/drive"
-# Path to a secrets.json file containing authentication credentials
-# See https://support.lusid.com/knowledgebase/article/KA-01667/en-us
-# for a detailed guide to setting up the SDK make authenticated calls to LUSID APIs
-secrets_path = os.getenv("FBN_SECRETS_PATH")
-app_name="LusidJupyterNotebook"
+    # Use the lusid_drive ApiClientFactory to build Api instances with a configured api client
+    # By default this will read config from environment variables
+    # Then from a secrets.json file found in the current working directory
+    api_client_factory = ApiClientFactory()
 
-config_loaders = [
-	EnvironmentVariablesConfigurationLoader(),
-	SecretsFileConfigurationLoader(api_secrets_file=secrets_path),
-	ArgsConfigurationLoader(api_url=api_url, app_name=app_name)
-]
-api_client_factory = ApiClientFactory(config_loaders=config_loaders)
+    # Enter a context with an instance of the ApiClientFactory to ensure the connection pool is closed after use
+    async with api_client_factory:
+        # Create an instance of the API class
+        api_instance = api_client_factory.build(FilesApi)
+        id = 'id_example' # str | Identifier of the file to be deleted.
 
+        try:
+            # [EARLY ACCESS] DeleteFile: Deletes a file from Drive.
+            await api_instance.delete_file(id)        except ApiException as e:
+            print("Exception when calling FilesApi->delete_file: %s\n" % e)
 
-# The client must configure the authentication and authorization parameters
-# in accordance with the API server security policy.
-
-
-
-# Enter a context with an instance of the ApiClientFactory to ensure the connection pool is closed after use
-async with api_client_factory:
-    # Create an instance of the API class
-    api_instance = api_client_factory.build(lusid_drive.FilesApi)
-    id = 'id_example' # str | Identifier of the file to be deleted.
-
-    try:
-        # [EARLY ACCESS] DeleteFile: Deletes a file from Drive.
-        await api_instance.delete_file(id)
-    except Exception as e:
-        print("Exception when calling FilesApi->delete_file: %s\n" % e)
+asyncio.run(main())
 ```
-
 
 ### Parameters
 
@@ -188,10 +157,6 @@ Name | Type | Description  | Notes
 ### Return type
 
 void (empty response body)
-
-### Authorization
-
-[oauth2](../README.md#oauth2)
 
 ### HTTP request headers
 
@@ -205,7 +170,7 @@ void (empty response body)
 **400** | The details of the input related failure |  -  |
 **0** | Error response |  -  |
 
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+[Back to top](#) &#8226; [Back to API list](../README.md#documentation-for-api-endpoints) &#8226; [Back to Model list](../README.md#documentation-for-models) &#8226; [Back to README](../README.md)
 
 # **download_file**
 > bytearray download_file(id)
@@ -214,65 +179,52 @@ void (empty response body)
 
 ### Example
 
-* OAuth Authentication (oauth2):
 ```python
-from __future__ import print_function
-import time
-import lusid_drive
-from lusid_drive.rest import ApiException
+import asyncio
+from lusid_drive.exceptions import ApiException
+from lusid_drive.models import *
 from pprint import pprint
-
-import os
 from lusid_drive import (
     ApiClientFactory,
-    FilesApi,
-    EnvironmentVariablesConfigurationLoader,
-    SecretsFileConfigurationLoader,
-    ArgsConfigurationLoader
+    FilesApi
 )
 
-# Use the lusid_drive ApiClientFactory to build Api instances with a configured api client
-# By default this will read config from environment variables
-# Then from a secrets.json file found in the current working directory
-api_client_factory = ApiClientFactory()
+async def main():
 
-# The ApiClientFactory can be passed an iterable of configuration loaders to read configuration from
+    with open("secrets.json", "w") as file:
+        file.write('''
+{
+    "api":
+    {
+        "tokenUrl":"<your-token-url>",
+        "driveUrl":"https://<your-domain>.lusid.com/drive",
+        "username":"<your-username>",
+        "password":"<your-password>",
+        "clientId":"<your-client-id>",
+        "clientSecret":"<your-client-secret>"
+    }
+}''')
 
-api_url = "https://fbn-prd.lusid.com/drive"
-# Path to a secrets.json file containing authentication credentials
-# See https://support.lusid.com/knowledgebase/article/KA-01667/en-us
-# for a detailed guide to setting up the SDK make authenticated calls to LUSID APIs
-secrets_path = os.getenv("FBN_SECRETS_PATH")
-app_name="LusidJupyterNotebook"
+    # Use the lusid_drive ApiClientFactory to build Api instances with a configured api client
+    # By default this will read config from environment variables
+    # Then from a secrets.json file found in the current working directory
+    api_client_factory = ApiClientFactory()
 
-config_loaders = [
-	EnvironmentVariablesConfigurationLoader(),
-	SecretsFileConfigurationLoader(api_secrets_file=secrets_path),
-	ArgsConfigurationLoader(api_url=api_url, app_name=app_name)
-]
-api_client_factory = ApiClientFactory(config_loaders=config_loaders)
+    # Enter a context with an instance of the ApiClientFactory to ensure the connection pool is closed after use
+    async with api_client_factory:
+        # Create an instance of the API class
+        api_instance = api_client_factory.build(FilesApi)
+        id = 'id_example' # str | Identifier of the file to be downloaded.
 
+        try:
+            # [EARLY ACCESS] DownloadFile: Download the file from Drive.
+            api_response = await api_instance.download_file(id)
+            pprint(api_response)
+        except ApiException as e:
+            print("Exception when calling FilesApi->download_file: %s\n" % e)
 
-# The client must configure the authentication and authorization parameters
-# in accordance with the API server security policy.
-
-
-
-# Enter a context with an instance of the ApiClientFactory to ensure the connection pool is closed after use
-async with api_client_factory:
-    # Create an instance of the API class
-    api_instance = api_client_factory.build(lusid_drive.FilesApi)
-    id = 'id_example' # str | Identifier of the file to be downloaded.
-
-    try:
-        # [EARLY ACCESS] DownloadFile: Download the file from Drive.
-        api_response = await api_instance.download_file(id)
-        print("The response of FilesApi->download_file:\n")
-        pprint(api_response)
-    except Exception as e:
-        print("Exception when calling FilesApi->download_file: %s\n" % e)
+asyncio.run(main())
 ```
-
 
 ### Parameters
 
@@ -283,10 +235,6 @@ Name | Type | Description  | Notes
 ### Return type
 
 **bytearray**
-
-### Authorization
-
-[oauth2](../README.md#oauth2)
 
 ### HTTP request headers
 
@@ -302,7 +250,7 @@ Name | Type | Description  | Notes
 **400** | The details of the input related failure |  -  |
 **0** | Error response |  -  |
 
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+[Back to top](#) &#8226; [Back to API list](../README.md#documentation-for-api-endpoints) &#8226; [Back to Model list](../README.md#documentation-for-models) &#8226; [Back to README](../README.md)
 
 # **get_file**
 > StorageObject get_file(id)
@@ -311,66 +259,52 @@ Name | Type | Description  | Notes
 
 ### Example
 
-* OAuth Authentication (oauth2):
 ```python
-from __future__ import print_function
-import time
-import lusid_drive
-from lusid_drive.rest import ApiException
-from lusid_drive.models.storage_object import StorageObject
+import asyncio
+from lusid_drive.exceptions import ApiException
+from lusid_drive.models import *
 from pprint import pprint
-
-import os
 from lusid_drive import (
     ApiClientFactory,
-    FilesApi,
-    EnvironmentVariablesConfigurationLoader,
-    SecretsFileConfigurationLoader,
-    ArgsConfigurationLoader
+    FilesApi
 )
 
-# Use the lusid_drive ApiClientFactory to build Api instances with a configured api client
-# By default this will read config from environment variables
-# Then from a secrets.json file found in the current working directory
-api_client_factory = ApiClientFactory()
+async def main():
 
-# The ApiClientFactory can be passed an iterable of configuration loaders to read configuration from
+    with open("secrets.json", "w") as file:
+        file.write('''
+{
+    "api":
+    {
+        "tokenUrl":"<your-token-url>",
+        "driveUrl":"https://<your-domain>.lusid.com/drive",
+        "username":"<your-username>",
+        "password":"<your-password>",
+        "clientId":"<your-client-id>",
+        "clientSecret":"<your-client-secret>"
+    }
+}''')
 
-api_url = "https://fbn-prd.lusid.com/drive"
-# Path to a secrets.json file containing authentication credentials
-# See https://support.lusid.com/knowledgebase/article/KA-01667/en-us
-# for a detailed guide to setting up the SDK make authenticated calls to LUSID APIs
-secrets_path = os.getenv("FBN_SECRETS_PATH")
-app_name="LusidJupyterNotebook"
+    # Use the lusid_drive ApiClientFactory to build Api instances with a configured api client
+    # By default this will read config from environment variables
+    # Then from a secrets.json file found in the current working directory
+    api_client_factory = ApiClientFactory()
 
-config_loaders = [
-	EnvironmentVariablesConfigurationLoader(),
-	SecretsFileConfigurationLoader(api_secrets_file=secrets_path),
-	ArgsConfigurationLoader(api_url=api_url, app_name=app_name)
-]
-api_client_factory = ApiClientFactory(config_loaders=config_loaders)
+    # Enter a context with an instance of the ApiClientFactory to ensure the connection pool is closed after use
+    async with api_client_factory:
+        # Create an instance of the API class
+        api_instance = api_client_factory.build(FilesApi)
+        id = 'id_example' # str | Identifier of the file to be retrieved.
 
+        try:
+            # [EARLY ACCESS] GetFile: Get a file stored in Drive.
+            api_response = await api_instance.get_file(id)
+            pprint(api_response)
+        except ApiException as e:
+            print("Exception when calling FilesApi->get_file: %s\n" % e)
 
-# The client must configure the authentication and authorization parameters
-# in accordance with the API server security policy.
-
-
-
-# Enter a context with an instance of the ApiClientFactory to ensure the connection pool is closed after use
-async with api_client_factory:
-    # Create an instance of the API class
-    api_instance = api_client_factory.build(lusid_drive.FilesApi)
-    id = 'id_example' # str | Identifier of the file to be retrieved.
-
-    try:
-        # [EARLY ACCESS] GetFile: Get a file stored in Drive.
-        api_response = await api_instance.get_file(id)
-        print("The response of FilesApi->get_file:\n")
-        pprint(api_response)
-    except Exception as e:
-        print("Exception when calling FilesApi->get_file: %s\n" % e)
+asyncio.run(main())
 ```
-
 
 ### Parameters
 
@@ -381,10 +315,6 @@ Name | Type | Description  | Notes
 ### Return type
 
 [**StorageObject**](StorageObject.md)
-
-### Authorization
-
-[oauth2](../README.md#oauth2)
 
 ### HTTP request headers
 
@@ -398,7 +328,7 @@ Name | Type | Description  | Notes
 **400** | The details of the input related failure |  -  |
 **0** | Error response |  -  |
 
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+[Back to top](#) &#8226; [Back to API list](../README.md#documentation-for-api-endpoints) &#8226; [Back to Model list](../README.md#documentation-for-models) &#8226; [Back to README](../README.md)
 
 # **update_file_contents**
 > StorageObject update_file_contents(id, content_length, body)
@@ -407,68 +337,54 @@ Name | Type | Description  | Notes
 
 ### Example
 
-* OAuth Authentication (oauth2):
 ```python
-from __future__ import print_function
-import time
-import lusid_drive
-from lusid_drive.rest import ApiException
-from lusid_drive.models.storage_object import StorageObject
+import asyncio
+from lusid_drive.exceptions import ApiException
+from lusid_drive.models import *
 from pprint import pprint
-
-import os
 from lusid_drive import (
     ApiClientFactory,
-    FilesApi,
-    EnvironmentVariablesConfigurationLoader,
-    SecretsFileConfigurationLoader,
-    ArgsConfigurationLoader
+    FilesApi
 )
 
-# Use the lusid_drive ApiClientFactory to build Api instances with a configured api client
-# By default this will read config from environment variables
-# Then from a secrets.json file found in the current working directory
-api_client_factory = ApiClientFactory()
+async def main():
 
-# The ApiClientFactory can be passed an iterable of configuration loaders to read configuration from
+    with open("secrets.json", "w") as file:
+        file.write('''
+{
+    "api":
+    {
+        "tokenUrl":"<your-token-url>",
+        "driveUrl":"https://<your-domain>.lusid.com/drive",
+        "username":"<your-username>",
+        "password":"<your-password>",
+        "clientId":"<your-client-id>",
+        "clientSecret":"<your-client-secret>"
+    }
+}''')
 
-api_url = "https://fbn-prd.lusid.com/drive"
-# Path to a secrets.json file containing authentication credentials
-# See https://support.lusid.com/knowledgebase/article/KA-01667/en-us
-# for a detailed guide to setting up the SDK make authenticated calls to LUSID APIs
-secrets_path = os.getenv("FBN_SECRETS_PATH")
-app_name="LusidJupyterNotebook"
+    # Use the lusid_drive ApiClientFactory to build Api instances with a configured api client
+    # By default this will read config from environment variables
+    # Then from a secrets.json file found in the current working directory
+    api_client_factory = ApiClientFactory()
 
-config_loaders = [
-	EnvironmentVariablesConfigurationLoader(),
-	SecretsFileConfigurationLoader(api_secrets_file=secrets_path),
-	ArgsConfigurationLoader(api_url=api_url, app_name=app_name)
-]
-api_client_factory = ApiClientFactory(config_loaders=config_loaders)
+    # Enter a context with an instance of the ApiClientFactory to ensure the connection pool is closed after use
+    async with api_client_factory:
+        # Create an instance of the API class
+        api_instance = api_client_factory.build(FilesApi)
+        id = 'id_example' # str | The unique file identifier
+        content_length = 56 # int | The size in bytes of the file to be uploaded
+        body = None # bytearray | 
 
+        try:
+            # [EARLY ACCESS] UpdateFileContents: Updates contents of a file in Drive.
+            api_response = await api_instance.update_file_contents(id, content_length, body)
+            pprint(api_response)
+        except ApiException as e:
+            print("Exception when calling FilesApi->update_file_contents: %s\n" % e)
 
-# The client must configure the authentication and authorization parameters
-# in accordance with the API server security policy.
-
-
-
-# Enter a context with an instance of the ApiClientFactory to ensure the connection pool is closed after use
-async with api_client_factory:
-    # Create an instance of the API class
-    api_instance = api_client_factory.build(lusid_drive.FilesApi)
-    id = 'id_example' # str | The unique file identifier
-    content_length = 56 # int | The size in bytes of the file to be uploaded
-    body = None # bytearray | 
-
-    try:
-        # [EARLY ACCESS] UpdateFileContents: Updates contents of a file in Drive.
-        api_response = await api_instance.update_file_contents(id, content_length, body)
-        print("The response of FilesApi->update_file_contents:\n")
-        pprint(api_response)
-    except Exception as e:
-        print("Exception when calling FilesApi->update_file_contents: %s\n" % e)
+asyncio.run(main())
 ```
-
 
 ### Parameters
 
@@ -482,10 +398,6 @@ Name | Type | Description  | Notes
 
 [**StorageObject**](StorageObject.md)
 
-### Authorization
-
-[oauth2](../README.md#oauth2)
-
 ### HTTP request headers
 
  - **Content-Type**: application/octet-stream
@@ -498,7 +410,7 @@ Name | Type | Description  | Notes
 **400** | The details of the input related failure |  -  |
 **0** | Error response |  -  |
 
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+[Back to top](#) &#8226; [Back to API list](../README.md#documentation-for-api-endpoints) &#8226; [Back to Model list](../README.md#documentation-for-models) &#8226; [Back to README](../README.md)
 
 # **update_file_metadata**
 > StorageObject update_file_metadata(id, update_file)
@@ -507,68 +419,58 @@ Name | Type | Description  | Notes
 
 ### Example
 
-* OAuth Authentication (oauth2):
 ```python
-from __future__ import print_function
-import time
-import lusid_drive
-from lusid_drive.rest import ApiException
-from lusid_drive.models.storage_object import StorageObject
-from lusid_drive.models.update_file import UpdateFile
+import asyncio
+from lusid_drive.exceptions import ApiException
+from lusid_drive.models import *
 from pprint import pprint
-
-import os
 from lusid_drive import (
     ApiClientFactory,
-    FilesApi,
-    EnvironmentVariablesConfigurationLoader,
-    SecretsFileConfigurationLoader,
-    ArgsConfigurationLoader
+    FilesApi
 )
 
-# Use the lusid_drive ApiClientFactory to build Api instances with a configured api client
-# By default this will read config from environment variables
-# Then from a secrets.json file found in the current working directory
-api_client_factory = ApiClientFactory()
+async def main():
 
-# The ApiClientFactory can be passed an iterable of configuration loaders to read configuration from
+    with open("secrets.json", "w") as file:
+        file.write('''
+{
+    "api":
+    {
+        "tokenUrl":"<your-token-url>",
+        "driveUrl":"https://<your-domain>.lusid.com/drive",
+        "username":"<your-username>",
+        "password":"<your-password>",
+        "clientId":"<your-client-id>",
+        "clientSecret":"<your-client-secret>"
+    }
+}''')
 
-api_url = "https://fbn-prd.lusid.com/drive"
-# Path to a secrets.json file containing authentication credentials
-# See https://support.lusid.com/knowledgebase/article/KA-01667/en-us
-# for a detailed guide to setting up the SDK make authenticated calls to LUSID APIs
-secrets_path = os.getenv("FBN_SECRETS_PATH")
-app_name="LusidJupyterNotebook"
+    # Use the lusid_drive ApiClientFactory to build Api instances with a configured api client
+    # By default this will read config from environment variables
+    # Then from a secrets.json file found in the current working directory
+    api_client_factory = ApiClientFactory()
 
-config_loaders = [
-	EnvironmentVariablesConfigurationLoader(),
-	SecretsFileConfigurationLoader(api_secrets_file=secrets_path),
-	ArgsConfigurationLoader(api_url=api_url, app_name=app_name)
-]
-api_client_factory = ApiClientFactory(config_loaders=config_loaders)
+    # Enter a context with an instance of the ApiClientFactory to ensure the connection pool is closed after use
+    async with api_client_factory:
+        # Create an instance of the API class
+        api_instance = api_client_factory.build(FilesApi)
+        id = 'id_example' # str | Identifier of the file to be updated
 
+        # Objects can be created either via the class constructor, or using the 'from_dict' or 'from_json' methods
+        # Change the lines below to switch approach
+        # update_file = UpdateFile()
+        # update_file = UpdateFile.from_json("")
+        update_file = UpdateFile.from_dict({"path":"/New/parent/folder/path","name":"new-file-name"}) # UpdateFile | Update to be applied to file
 
-# The client must configure the authentication and authorization parameters
-# in accordance with the API server security policy.
+        try:
+            # [EARLY ACCESS] UpdateFileMetadata: Updates metadata for a file in Drive.
+            api_response = await api_instance.update_file_metadata(id, update_file)
+            pprint(api_response)
+        except ApiException as e:
+            print("Exception when calling FilesApi->update_file_metadata: %s\n" % e)
 
-
-
-# Enter a context with an instance of the ApiClientFactory to ensure the connection pool is closed after use
-async with api_client_factory:
-    # Create an instance of the API class
-    api_instance = api_client_factory.build(lusid_drive.FilesApi)
-    id = 'id_example' # str | Identifier of the file to be updated
-    update_file = {"path":"/New/parent/folder/path","name":"new-file-name"} # UpdateFile | Update to be applied to file
-
-    try:
-        # [EARLY ACCESS] UpdateFileMetadata: Updates metadata for a file in Drive.
-        api_response = await api_instance.update_file_metadata(id, update_file)
-        print("The response of FilesApi->update_file_metadata:\n")
-        pprint(api_response)
-    except Exception as e:
-        print("Exception when calling FilesApi->update_file_metadata: %s\n" % e)
+asyncio.run(main())
 ```
-
 
 ### Parameters
 
@@ -580,10 +482,6 @@ Name | Type | Description  | Notes
 ### Return type
 
 [**StorageObject**](StorageObject.md)
-
-### Authorization
-
-[oauth2](../README.md#oauth2)
 
 ### HTTP request headers
 
@@ -597,5 +495,5 @@ Name | Type | Description  | Notes
 **400** | The details of the input related failure |  -  |
 **0** | Error response |  -  |
 
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+[Back to top](#) &#8226; [Back to API list](../README.md#documentation-for-api-endpoints) &#8226; [Back to Model list](../README.md#documentation-for-models) &#8226; [Back to README](../README.md)
 

@@ -356,12 +356,21 @@ class Configuration:
         """
         auth = {}
         if self.access_token is not None:
-            auth['oauth2'] = {
-                'type': 'oauth2',
-                'in': 'header',
-                'key': 'Authorization',
-                'value': 'Bearer ' + self.access_token
-            }
+
+            if isinstance(self.access_token, str):
+                auth['oauth2'] = {
+                    'type': 'bearer',
+                    'in': 'header',
+                    'key': 'Authorization',
+                    'value': 'Bearer ' + self.access_token
+                }
+            else:
+                auth['oauth2'] = {
+                    'type': 'bearer',
+                    'in': 'header',
+                    'key': 'Authorization',
+                    'value': 'Bearer ' + self.access_token.data
+                }
         return auth
 
     def to_debug_report(self):
