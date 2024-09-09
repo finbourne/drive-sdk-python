@@ -511,7 +511,7 @@ class FoldersApi:
 
     @validate_arguments
     def get_folder_contents(self, id : Annotated[constr(strict=True, max_length=40, min_length=30), Field(..., description="Unique ID of the folder")], page : Annotated[Optional[constr(strict=True, max_length=500, min_length=1)], Field(description="The pagination token to use to continue listing contents from a previous call to list contents.              This value is returned from the previous call. If a pagination token is provided the sortBy and filter fields              must not have changed since the original request. Also, if set, a start value cannot be provided.")] = None, sort_by : Annotated[Optional[conlist(StrictStr)], Field(description="Order the results by these fields. Use use the '-' sign to denote descending order.")] = None, start : Annotated[Optional[StrictInt], Field(description="When paginating, skip this number of results.")] = None, limit : Annotated[Optional[StrictInt], Field(description="When paginating, limit the number of returned results to this many.")] = None, filter : Annotated[Optional[constr(strict=True, max_length=16384, min_length=0)], Field(description="Expression to filter the result set.")] = None, async_req: Optional[bool]=None, **kwargs) -> Union[PagedResourceListOfStorageObject, Awaitable[PagedResourceListOfStorageObject]]:  # noqa: E501
-        """[EARLY ACCESS] GetFolderContents: List contents of a folder  # noqa: E501
+        """GetFolderContents: List contents of a folder  # noqa: E501
 
         This method makes a synchronous HTTP request by default. To make an
         asynchronous HTTP request, please pass async_req=True
@@ -552,7 +552,7 @@ class FoldersApi:
 
     @validate_arguments
     def get_folder_contents_with_http_info(self, id : Annotated[constr(strict=True, max_length=40, min_length=30), Field(..., description="Unique ID of the folder")], page : Annotated[Optional[constr(strict=True, max_length=500, min_length=1)], Field(description="The pagination token to use to continue listing contents from a previous call to list contents.              This value is returned from the previous call. If a pagination token is provided the sortBy and filter fields              must not have changed since the original request. Also, if set, a start value cannot be provided.")] = None, sort_by : Annotated[Optional[conlist(StrictStr)], Field(description="Order the results by these fields. Use use the '-' sign to denote descending order.")] = None, start : Annotated[Optional[StrictInt], Field(description="When paginating, skip this number of results.")] = None, limit : Annotated[Optional[StrictInt], Field(description="When paginating, limit the number of returned results to this many.")] = None, filter : Annotated[Optional[constr(strict=True, max_length=16384, min_length=0)], Field(description="Expression to filter the result set.")] = None, **kwargs) -> ApiResponse:  # noqa: E501
-        """[EARLY ACCESS] GetFolderContents: List contents of a folder  # noqa: E501
+        """GetFolderContents: List contents of a folder  # noqa: E501
 
         This method makes a synchronous HTTP request by default. To make an
         asynchronous HTTP request, please pass async_req=True
@@ -702,7 +702,7 @@ class FoldersApi:
 
     @validate_arguments
     def get_root_folder(self, page : Annotated[Optional[constr(strict=True, max_length=500, min_length=1)], Field(description="The pagination token to use to continue listing contents from a previous call to list contents.              This value is returned from the previous call. If a pagination token is provided the sortBy and filter fields              must not have changed since the original request. Also, if set, a start value cannot be provided.")] = None, sort_by : Annotated[Optional[conlist(StrictStr)], Field(description="Order the results by these fields. Use use the '-' sign to denote descending order.")] = None, start : Annotated[Optional[StrictInt], Field(description="When paginating, skip this number of results.")] = None, limit : Annotated[Optional[StrictInt], Field(description="When paginating, limit the number of returned results to this many.")] = None, filter : Annotated[Optional[constr(strict=True, max_length=16384, min_length=0)], Field(description="Expression to filter the result set.")] = None, async_req: Optional[bool]=None, **kwargs) -> Union[PagedResourceListOfStorageObject, Awaitable[PagedResourceListOfStorageObject]]:  # noqa: E501
-        """[EARLY ACCESS] GetRootFolder: List contents of root folder  # noqa: E501
+        """GetRootFolder: List contents of root folder  # noqa: E501
 
         This method makes a synchronous HTTP request by default. To make an
         asynchronous HTTP request, please pass async_req=True
@@ -741,7 +741,7 @@ class FoldersApi:
 
     @validate_arguments
     def get_root_folder_with_http_info(self, page : Annotated[Optional[constr(strict=True, max_length=500, min_length=1)], Field(description="The pagination token to use to continue listing contents from a previous call to list contents.              This value is returned from the previous call. If a pagination token is provided the sortBy and filter fields              must not have changed since the original request. Also, if set, a start value cannot be provided.")] = None, sort_by : Annotated[Optional[conlist(StrictStr)], Field(description="Order the results by these fields. Use use the '-' sign to denote descending order.")] = None, start : Annotated[Optional[StrictInt], Field(description="When paginating, skip this number of results.")] = None, limit : Annotated[Optional[StrictInt], Field(description="When paginating, limit the number of returned results to this many.")] = None, filter : Annotated[Optional[constr(strict=True, max_length=16384, min_length=0)], Field(description="Expression to filter the result set.")] = None, **kwargs) -> ApiResponse:  # noqa: E501
-        """[EARLY ACCESS] GetRootFolder: List contents of root folder  # noqa: E501
+        """GetRootFolder: List contents of root folder  # noqa: E501
 
         This method makes a synchronous HTTP request by default. To make an
         asynchronous HTTP request, please pass async_req=True

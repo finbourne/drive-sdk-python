@@ -57,7 +57,7 @@ class FilesApi:
 
     @validate_arguments
     def create_file(self, x_lusid_drive_filename : Annotated[constr(strict=True, max_length=256, min_length=1), Field(..., description="File name.")], x_lusid_drive_path : Annotated[constr(strict=True, max_length=512, min_length=1), Field(..., description="File path.")], content_length : Annotated[StrictInt, Field(..., description="The size in bytes of the file to be uploaded")], body : Union[StrictBytes, StrictStr], async_req: Optional[bool]=None, **kwargs) -> Union[StorageObject, Awaitable[StorageObject]]:  # noqa: E501
-        """[EARLY ACCESS] CreateFile: Uploads a file to Lusid Drive. If using an SDK, consider using the UploadAsStreamAsync function for larger files instead.  # noqa: E501
+        """CreateFile: Uploads a file to Lusid Drive. If using an SDK, consider using the UploadAsStreamAsync function for larger files instead.  # noqa: E501
 
         This method makes a synchronous HTTP request by default. To make an
         asynchronous HTTP request, please pass async_req=True
@@ -94,7 +94,7 @@ class FilesApi:
 
     @validate_arguments
     def create_file_with_http_info(self, x_lusid_drive_filename : Annotated[constr(strict=True, max_length=256, min_length=1), Field(..., description="File name.")], x_lusid_drive_path : Annotated[constr(strict=True, max_length=512, min_length=1), Field(..., description="File path.")], content_length : Annotated[StrictInt, Field(..., description="The size in bytes of the file to be uploaded")], body : Union[StrictBytes, StrictStr], **kwargs) -> ApiResponse:  # noqa: E501
-        """[EARLY ACCESS] CreateFile: Uploads a file to Lusid Drive. If using an SDK, consider using the UploadAsStreamAsync function for larger files instead.  # noqa: E501
+        """CreateFile: Uploads a file to Lusid Drive. If using an SDK, consider using the UploadAsStreamAsync function for larger files instead.  # noqa: E501
 
         This method makes a synchronous HTTP request by default. To make an
         asynchronous HTTP request, please pass async_req=True
@@ -383,7 +383,7 @@ class FilesApi:
 
     @validate_arguments
     def download_file(self, id : Annotated[constr(strict=True, max_length=40, min_length=30), Field(..., description="Identifier of the file to be downloaded.")], async_req: Optional[bool]=None, **kwargs) -> Union[bytearray, Awaitable[bytearray]]:  # noqa: E501
-        """[EARLY ACCESS] DownloadFile: Download the file from Drive.  # noqa: E501
+        """DownloadFile: Download the file from Drive.  # noqa: E501
 
         This method makes a synchronous HTTP request by default. To make an
         asynchronous HTTP request, please pass async_req=True
@@ -414,7 +414,7 @@ class FilesApi:
 
     @validate_arguments
     def download_file_with_http_info(self, id : Annotated[constr(strict=True, max_length=40, min_length=30), Field(..., description="Identifier of the file to be downloaded.")], **kwargs) -> ApiResponse:  # noqa: E501
-        """[EARLY ACCESS] DownloadFile: Download the file from Drive.  # noqa: E501
+        """DownloadFile: Download the file from Drive.  # noqa: E501
 
         This method makes a synchronous HTTP request by default. To make an
         asynchronous HTTP request, please pass async_req=True

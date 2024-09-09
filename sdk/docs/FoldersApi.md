@@ -7,8 +7,8 @@ Method | HTTP request | Description
 [**create_folder**](FoldersApi.md#create_folder) | **POST** /api/folders | [EARLY ACCESS] CreateFolder: Create a new folder in LUSID Drive
 [**delete_folder**](FoldersApi.md#delete_folder) | **DELETE** /api/folders/{id} | [EARLY ACCESS] DeleteFolder: Delete a specified folder and all subfolders
 [**get_folder**](FoldersApi.md#get_folder) | **GET** /api/folders/{id} | [EARLY ACCESS] GetFolder: Get metadata of folder
-[**get_folder_contents**](FoldersApi.md#get_folder_contents) | **GET** /api/folders/{id}/contents | [EARLY ACCESS] GetFolderContents: List contents of a folder
-[**get_root_folder**](FoldersApi.md#get_root_folder) | **GET** /api/folders | [EARLY ACCESS] GetRootFolder: List contents of root folder
+[**get_folder_contents**](FoldersApi.md#get_folder_contents) | **GET** /api/folders/{id}/contents | GetFolderContents: List contents of a folder
+[**get_root_folder**](FoldersApi.md#get_root_folder) | **GET** /api/folders | GetRootFolder: List contents of root folder
 [**move_folder**](FoldersApi.md#move_folder) | **POST** /api/folders/{id} | [EARLY ACCESS] MoveFolder: Move files to specified folder
 [**update_folder**](FoldersApi.md#update_folder) | **PUT** /api/folders/{id} | [EARLY ACCESS] UpdateFolder: Update an existing folder&#39;s name, path
 
@@ -255,7 +255,7 @@ Name | Type | Description  | Notes
 # **get_folder_contents**
 > PagedResourceListOfStorageObject get_folder_contents(id, page=page, sort_by=sort_by, start=start, limit=limit, filter=filter)
 
-[EARLY ACCESS] GetFolderContents: List contents of a folder
+GetFolderContents: List contents of a folder
 
 ### Example
 
@@ -302,7 +302,7 @@ async def main():
         filter = '' # str | Expression to filter the result set. (optional) (default to '')
 
         try:
-            # [EARLY ACCESS] GetFolderContents: List contents of a folder
+            # GetFolderContents: List contents of a folder
             api_response = await api_instance.get_folder_contents(id, page=page, sort_by=sort_by, start=start, limit=limit, filter=filter)
             pprint(api_response)
         except ApiException as e:
@@ -344,7 +344,7 @@ Name | Type | Description  | Notes
 # **get_root_folder**
 > PagedResourceListOfStorageObject get_root_folder(page=page, sort_by=sort_by, start=start, limit=limit, filter=filter)
 
-[EARLY ACCESS] GetRootFolder: List contents of root folder
+GetRootFolder: List contents of root folder
 
 ### Example
 
@@ -390,7 +390,7 @@ async def main():
         filter = 'true' # str | Expression to filter the result set. (optional) (default to 'true')
 
         try:
-            # [EARLY ACCESS] GetRootFolder: List contents of root folder
+            # GetRootFolder: List contents of root folder
             api_response = await api_instance.get_root_folder(page=page, sort_by=sort_by, start=start, limit=limit, filter=filter)
             pprint(api_response)
         except ApiException as e:

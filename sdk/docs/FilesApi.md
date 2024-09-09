@@ -4,9 +4,9 @@ All URIs are relative to *https://fbn-prd.lusid.com/drive*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**create_file**](FilesApi.md#create_file) | **POST** /api/files | [EARLY ACCESS] CreateFile: Uploads a file to Lusid Drive. If using an SDK, consider using the UploadAsStreamAsync function for larger files instead.
+[**create_file**](FilesApi.md#create_file) | **POST** /api/files | CreateFile: Uploads a file to Lusid Drive. If using an SDK, consider using the UploadAsStreamAsync function for larger files instead.
 [**delete_file**](FilesApi.md#delete_file) | **DELETE** /api/files/{id} | [EARLY ACCESS] DeleteFile: Deletes a file from Drive.
-[**download_file**](FilesApi.md#download_file) | **GET** /api/files/{id}/contents | [EARLY ACCESS] DownloadFile: Download the file from Drive.
+[**download_file**](FilesApi.md#download_file) | **GET** /api/files/{id}/contents | DownloadFile: Download the file from Drive.
 [**get_file**](FilesApi.md#get_file) | **GET** /api/files/{id} | [EARLY ACCESS] GetFile: Get a file stored in Drive.
 [**update_file_contents**](FilesApi.md#update_file_contents) | **PUT** /api/files/{id}/contents | [EARLY ACCESS] UpdateFileContents: Updates contents of a file in Drive.
 [**update_file_metadata**](FilesApi.md#update_file_metadata) | **PUT** /api/files/{id} | [EARLY ACCESS] UpdateFileMetadata: Updates metadata for a file in Drive.
@@ -15,7 +15,7 @@ Method | HTTP request | Description
 # **create_file**
 > StorageObject create_file(x_lusid_drive_filename, x_lusid_drive_path, content_length, body)
 
-[EARLY ACCESS] CreateFile: Uploads a file to Lusid Drive. If using an SDK, consider using the UploadAsStreamAsync function for larger files instead.
+CreateFile: Uploads a file to Lusid Drive. If using an SDK, consider using the UploadAsStreamAsync function for larger files instead.
 
 ### Example
 
@@ -60,7 +60,7 @@ async def main():
         body = None # bytearray | 
 
         try:
-            # [EARLY ACCESS] CreateFile: Uploads a file to Lusid Drive. If using an SDK, consider using the UploadAsStreamAsync function for larger files instead.
+            # CreateFile: Uploads a file to Lusid Drive. If using an SDK, consider using the UploadAsStreamAsync function for larger files instead.
             api_response = await api_instance.create_file(x_lusid_drive_filename, x_lusid_drive_path, content_length, body)
             pprint(api_response)
         except ApiException as e:
@@ -175,7 +175,7 @@ void (empty response body)
 # **download_file**
 > bytearray download_file(id)
 
-[EARLY ACCESS] DownloadFile: Download the file from Drive.
+DownloadFile: Download the file from Drive.
 
 ### Example
 
@@ -217,7 +217,7 @@ async def main():
         id = 'id_example' # str | Identifier of the file to be downloaded.
 
         try:
-            # [EARLY ACCESS] DownloadFile: Download the file from Drive.
+            # DownloadFile: Download the file from Drive.
             api_response = await api_instance.download_file(id)
             pprint(api_response)
         except ApiException as e:
