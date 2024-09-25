@@ -22,6 +22,7 @@ CreateFile: Uploads a file to Lusid Drive. If using an SDK, consider using the U
 ```python
 import asyncio
 from lusid_drive.exceptions import ApiException
+from lusid_drive.extensions.configuration_options import ConfigurationOptions
 from lusid_drive.models import *
 from pprint import pprint
 from lusid_drive import (
@@ -48,6 +49,14 @@ async def main():
     # Use the lusid_drive ApiClientFactory to build Api instances with a configured api client
     # By default this will read config from environment variables
     # Then from a secrets.json file found in the current working directory
+
+    # uncomment the below to use configuration overrides
+    # opts = ConfigurationOptions();
+    # opts.total_timeout_ms = 30_000
+
+    # uncomment the below to use an api client factory with overrides
+    # api_client_factory = ApiClientFactory(opts=opts)
+
     api_client_factory = ApiClientFactory()
 
     # Enter a context with an instance of the ApiClientFactory to ensure the connection pool is closed after use
@@ -60,6 +69,9 @@ async def main():
         body = None # bytearray | 
 
         try:
+            # uncomment the below to set overrides at the request level
+            # api_response = await api_instance.create_file(x_lusid_drive_filename, x_lusid_drive_path, content_length, body, opts=opts)
+
             # CreateFile: Uploads a file to Lusid Drive. If using an SDK, consider using the UploadAsStreamAsync function for larger files instead.
             api_response = await api_instance.create_file(x_lusid_drive_filename, x_lusid_drive_path, content_length, body)
             pprint(api_response)
@@ -106,6 +118,7 @@ Name | Type | Description  | Notes
 ```python
 import asyncio
 from lusid_drive.exceptions import ApiException
+from lusid_drive.extensions.configuration_options import ConfigurationOptions
 from lusid_drive.models import *
 from pprint import pprint
 from lusid_drive import (
@@ -132,6 +145,14 @@ async def main():
     # Use the lusid_drive ApiClientFactory to build Api instances with a configured api client
     # By default this will read config from environment variables
     # Then from a secrets.json file found in the current working directory
+
+    # uncomment the below to use configuration overrides
+    # opts = ConfigurationOptions();
+    # opts.total_timeout_ms = 30_000
+
+    # uncomment the below to use an api client factory with overrides
+    # api_client_factory = ApiClientFactory(opts=opts)
+
     api_client_factory = ApiClientFactory()
 
     # Enter a context with an instance of the ApiClientFactory to ensure the connection pool is closed after use
@@ -141,6 +162,9 @@ async def main():
         id = 'id_example' # str | Identifier of the file to be deleted.
 
         try:
+            # uncomment the below to set overrides at the request level
+            # await api_instance.delete_file(id, opts=opts)
+
             # [EARLY ACCESS] DeleteFile: Deletes a file from Drive.
             await api_instance.delete_file(id)        except ApiException as e:
             print("Exception when calling FilesApi->delete_file: %s\n" % e)
@@ -182,6 +206,7 @@ DownloadFile: Download the file from Drive.
 ```python
 import asyncio
 from lusid_drive.exceptions import ApiException
+from lusid_drive.extensions.configuration_options import ConfigurationOptions
 from lusid_drive.models import *
 from pprint import pprint
 from lusid_drive import (
@@ -208,6 +233,14 @@ async def main():
     # Use the lusid_drive ApiClientFactory to build Api instances with a configured api client
     # By default this will read config from environment variables
     # Then from a secrets.json file found in the current working directory
+
+    # uncomment the below to use configuration overrides
+    # opts = ConfigurationOptions();
+    # opts.total_timeout_ms = 30_000
+
+    # uncomment the below to use an api client factory with overrides
+    # api_client_factory = ApiClientFactory(opts=opts)
+
     api_client_factory = ApiClientFactory()
 
     # Enter a context with an instance of the ApiClientFactory to ensure the connection pool is closed after use
@@ -217,6 +250,9 @@ async def main():
         id = 'id_example' # str | Identifier of the file to be downloaded.
 
         try:
+            # uncomment the below to set overrides at the request level
+            # api_response = await api_instance.download_file(id, opts=opts)
+
             # DownloadFile: Download the file from Drive.
             api_response = await api_instance.download_file(id)
             pprint(api_response)
@@ -262,6 +298,7 @@ Name | Type | Description  | Notes
 ```python
 import asyncio
 from lusid_drive.exceptions import ApiException
+from lusid_drive.extensions.configuration_options import ConfigurationOptions
 from lusid_drive.models import *
 from pprint import pprint
 from lusid_drive import (
@@ -288,6 +325,14 @@ async def main():
     # Use the lusid_drive ApiClientFactory to build Api instances with a configured api client
     # By default this will read config from environment variables
     # Then from a secrets.json file found in the current working directory
+
+    # uncomment the below to use configuration overrides
+    # opts = ConfigurationOptions();
+    # opts.total_timeout_ms = 30_000
+
+    # uncomment the below to use an api client factory with overrides
+    # api_client_factory = ApiClientFactory(opts=opts)
+
     api_client_factory = ApiClientFactory()
 
     # Enter a context with an instance of the ApiClientFactory to ensure the connection pool is closed after use
@@ -297,6 +342,9 @@ async def main():
         id = 'id_example' # str | Identifier of the file to be retrieved.
 
         try:
+            # uncomment the below to set overrides at the request level
+            # api_response = await api_instance.get_file(id, opts=opts)
+
             # [EARLY ACCESS] GetFile: Get a file stored in Drive.
             api_response = await api_instance.get_file(id)
             pprint(api_response)
@@ -340,6 +388,7 @@ Name | Type | Description  | Notes
 ```python
 import asyncio
 from lusid_drive.exceptions import ApiException
+from lusid_drive.extensions.configuration_options import ConfigurationOptions
 from lusid_drive.models import *
 from pprint import pprint
 from lusid_drive import (
@@ -366,6 +415,14 @@ async def main():
     # Use the lusid_drive ApiClientFactory to build Api instances with a configured api client
     # By default this will read config from environment variables
     # Then from a secrets.json file found in the current working directory
+
+    # uncomment the below to use configuration overrides
+    # opts = ConfigurationOptions();
+    # opts.total_timeout_ms = 30_000
+
+    # uncomment the below to use an api client factory with overrides
+    # api_client_factory = ApiClientFactory(opts=opts)
+
     api_client_factory = ApiClientFactory()
 
     # Enter a context with an instance of the ApiClientFactory to ensure the connection pool is closed after use
@@ -377,6 +434,9 @@ async def main():
         body = None # bytearray | 
 
         try:
+            # uncomment the below to set overrides at the request level
+            # api_response = await api_instance.update_file_contents(id, content_length, body, opts=opts)
+
             # [EARLY ACCESS] UpdateFileContents: Updates contents of a file in Drive.
             api_response = await api_instance.update_file_contents(id, content_length, body)
             pprint(api_response)
@@ -422,6 +482,7 @@ Name | Type | Description  | Notes
 ```python
 import asyncio
 from lusid_drive.exceptions import ApiException
+from lusid_drive.extensions.configuration_options import ConfigurationOptions
 from lusid_drive.models import *
 from pprint import pprint
 from lusid_drive import (
@@ -448,6 +509,14 @@ async def main():
     # Use the lusid_drive ApiClientFactory to build Api instances with a configured api client
     # By default this will read config from environment variables
     # Then from a secrets.json file found in the current working directory
+
+    # uncomment the below to use configuration overrides
+    # opts = ConfigurationOptions();
+    # opts.total_timeout_ms = 30_000
+
+    # uncomment the below to use an api client factory with overrides
+    # api_client_factory = ApiClientFactory(opts=opts)
+
     api_client_factory = ApiClientFactory()
 
     # Enter a context with an instance of the ApiClientFactory to ensure the connection pool is closed after use
@@ -463,6 +532,9 @@ async def main():
         update_file = UpdateFile.from_dict({"path":"/New/parent/folder/path","name":"new-file-name"}) # UpdateFile | Update to be applied to file
 
         try:
+            # uncomment the below to set overrides at the request level
+            # api_response = await api_instance.update_file_metadata(id, update_file, opts=opts)
+
             # [EARLY ACCESS] UpdateFileMetadata: Updates metadata for a file in Drive.
             api_response = await api_instance.update_file_metadata(id, update_file)
             pprint(api_response)

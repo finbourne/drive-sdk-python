@@ -23,6 +23,7 @@ Method | HTTP request | Description
 ```python
 import asyncio
 from lusid_drive.exceptions import ApiException
+from lusid_drive.extensions.configuration_options import ConfigurationOptions
 from lusid_drive.models import *
 from pprint import pprint
 from lusid_drive import (
@@ -49,6 +50,14 @@ async def main():
     # Use the lusid_drive ApiClientFactory to build Api instances with a configured api client
     # By default this will read config from environment variables
     # Then from a secrets.json file found in the current working directory
+
+    # uncomment the below to use configuration overrides
+    # opts = ConfigurationOptions();
+    # opts.total_timeout_ms = 30_000
+
+    # uncomment the below to use an api client factory with overrides
+    # api_client_factory = ApiClientFactory(opts=opts)
+
     api_client_factory = ApiClientFactory()
 
     # Enter a context with an instance of the ApiClientFactory to ensure the connection pool is closed after use
@@ -63,6 +72,9 @@ async def main():
         create_folder = CreateFolder.from_dict({"path":"/path/to/saveTo/","name":"folderName"}) # CreateFolder | A CreateFolder object that defines the name and path of the new folder
 
         try:
+            # uncomment the below to set overrides at the request level
+            # api_response = await api_instance.create_folder(create_folder, opts=opts)
+
             # [EARLY ACCESS] CreateFolder: Create a new folder in LUSID Drive
             api_response = await api_instance.create_folder(create_folder)
             pprint(api_response)
@@ -106,6 +118,7 @@ Name | Type | Description  | Notes
 ```python
 import asyncio
 from lusid_drive.exceptions import ApiException
+from lusid_drive.extensions.configuration_options import ConfigurationOptions
 from lusid_drive.models import *
 from pprint import pprint
 from lusid_drive import (
@@ -132,6 +145,14 @@ async def main():
     # Use the lusid_drive ApiClientFactory to build Api instances with a configured api client
     # By default this will read config from environment variables
     # Then from a secrets.json file found in the current working directory
+
+    # uncomment the below to use configuration overrides
+    # opts = ConfigurationOptions();
+    # opts.total_timeout_ms = 30_000
+
+    # uncomment the below to use an api client factory with overrides
+    # api_client_factory = ApiClientFactory(opts=opts)
+
     api_client_factory = ApiClientFactory()
 
     # Enter a context with an instance of the ApiClientFactory to ensure the connection pool is closed after use
@@ -141,6 +162,9 @@ async def main():
         id = 'id_example' # str | Unique ID of the folder
 
         try:
+            # uncomment the below to set overrides at the request level
+            # await api_instance.delete_folder(id, opts=opts)
+
             # [EARLY ACCESS] DeleteFolder: Delete a specified folder and all subfolders
             await api_instance.delete_folder(id)        except ApiException as e:
             print("Exception when calling FoldersApi->delete_folder: %s\n" % e)
@@ -183,6 +207,7 @@ void (empty response body)
 ```python
 import asyncio
 from lusid_drive.exceptions import ApiException
+from lusid_drive.extensions.configuration_options import ConfigurationOptions
 from lusid_drive.models import *
 from pprint import pprint
 from lusid_drive import (
@@ -209,6 +234,14 @@ async def main():
     # Use the lusid_drive ApiClientFactory to build Api instances with a configured api client
     # By default this will read config from environment variables
     # Then from a secrets.json file found in the current working directory
+
+    # uncomment the below to use configuration overrides
+    # opts = ConfigurationOptions();
+    # opts.total_timeout_ms = 30_000
+
+    # uncomment the below to use an api client factory with overrides
+    # api_client_factory = ApiClientFactory(opts=opts)
+
     api_client_factory = ApiClientFactory()
 
     # Enter a context with an instance of the ApiClientFactory to ensure the connection pool is closed after use
@@ -218,6 +251,9 @@ async def main():
         id = 'id_example' # str | Unique ID of the folder
 
         try:
+            # uncomment the below to set overrides at the request level
+            # api_response = await api_instance.get_folder(id, opts=opts)
+
             # [EARLY ACCESS] GetFolder: Get metadata of folder
             api_response = await api_instance.get_folder(id)
             pprint(api_response)
@@ -262,6 +298,7 @@ GetFolderContents: List contents of a folder
 ```python
 import asyncio
 from lusid_drive.exceptions import ApiException
+from lusid_drive.extensions.configuration_options import ConfigurationOptions
 from lusid_drive.models import *
 from pprint import pprint
 from lusid_drive import (
@@ -288,6 +325,14 @@ async def main():
     # Use the lusid_drive ApiClientFactory to build Api instances with a configured api client
     # By default this will read config from environment variables
     # Then from a secrets.json file found in the current working directory
+
+    # uncomment the below to use configuration overrides
+    # opts = ConfigurationOptions();
+    # opts.total_timeout_ms = 30_000
+
+    # uncomment the below to use an api client factory with overrides
+    # api_client_factory = ApiClientFactory(opts=opts)
+
     api_client_factory = ApiClientFactory()
 
     # Enter a context with an instance of the ApiClientFactory to ensure the connection pool is closed after use
@@ -302,6 +347,9 @@ async def main():
         filter = '' # str | Expression to filter the result set. (optional) (default to '')
 
         try:
+            # uncomment the below to set overrides at the request level
+            # api_response = await api_instance.get_folder_contents(id, page=page, sort_by=sort_by, start=start, limit=limit, filter=filter, opts=opts)
+
             # GetFolderContents: List contents of a folder
             api_response = await api_instance.get_folder_contents(id, page=page, sort_by=sort_by, start=start, limit=limit, filter=filter)
             pprint(api_response)
@@ -351,6 +399,7 @@ GetRootFolder: List contents of root folder
 ```python
 import asyncio
 from lusid_drive.exceptions import ApiException
+from lusid_drive.extensions.configuration_options import ConfigurationOptions
 from lusid_drive.models import *
 from pprint import pprint
 from lusid_drive import (
@@ -377,6 +426,14 @@ async def main():
     # Use the lusid_drive ApiClientFactory to build Api instances with a configured api client
     # By default this will read config from environment variables
     # Then from a secrets.json file found in the current working directory
+
+    # uncomment the below to use configuration overrides
+    # opts = ConfigurationOptions();
+    # opts.total_timeout_ms = 30_000
+
+    # uncomment the below to use an api client factory with overrides
+    # api_client_factory = ApiClientFactory(opts=opts)
+
     api_client_factory = ApiClientFactory()
 
     # Enter a context with an instance of the ApiClientFactory to ensure the connection pool is closed after use
@@ -390,6 +447,9 @@ async def main():
         filter = 'true' # str | Expression to filter the result set. (optional) (default to 'true')
 
         try:
+            # uncomment the below to set overrides at the request level
+            # api_response = await api_instance.get_root_folder(page=page, sort_by=sort_by, start=start, limit=limit, filter=filter, opts=opts)
+
             # GetRootFolder: List contents of root folder
             api_response = await api_instance.get_root_folder(page=page, sort_by=sort_by, start=start, limit=limit, filter=filter)
             pprint(api_response)
@@ -437,6 +497,7 @@ Name | Type | Description  | Notes
 ```python
 import asyncio
 from lusid_drive.exceptions import ApiException
+from lusid_drive.extensions.configuration_options import ConfigurationOptions
 from lusid_drive.models import *
 from pprint import pprint
 from lusid_drive import (
@@ -463,6 +524,14 @@ async def main():
     # Use the lusid_drive ApiClientFactory to build Api instances with a configured api client
     # By default this will read config from environment variables
     # Then from a secrets.json file found in the current working directory
+
+    # uncomment the below to use configuration overrides
+    # opts = ConfigurationOptions();
+    # opts.total_timeout_ms = 30_000
+
+    # uncomment the below to use an api client factory with overrides
+    # api_client_factory = ApiClientFactory(opts=opts)
+
     api_client_factory = ApiClientFactory()
 
     # Enter a context with an instance of the ApiClientFactory to ensure the connection pool is closed after use
@@ -475,6 +544,9 @@ async def main():
         delete_source = False # bool | If true after moving the original file is deleted (optional) (default to False)
 
         try:
+            # uncomment the below to set overrides at the request level
+            # api_response = await api_instance.move_folder(id, request_body, overwrite=overwrite, delete_source=delete_source, opts=opts)
+
             # [EARLY ACCESS] MoveFolder: Move files to specified folder
             api_response = await api_instance.move_folder(id, request_body, overwrite=overwrite, delete_source=delete_source)
             pprint(api_response)
@@ -523,6 +595,7 @@ Name | Type | Description  | Notes
 ```python
 import asyncio
 from lusid_drive.exceptions import ApiException
+from lusid_drive.extensions.configuration_options import ConfigurationOptions
 from lusid_drive.models import *
 from pprint import pprint
 from lusid_drive import (
@@ -549,6 +622,14 @@ async def main():
     # Use the lusid_drive ApiClientFactory to build Api instances with a configured api client
     # By default this will read config from environment variables
     # Then from a secrets.json file found in the current working directory
+
+    # uncomment the below to use configuration overrides
+    # opts = ConfigurationOptions();
+    # opts.total_timeout_ms = 30_000
+
+    # uncomment the below to use an api client factory with overrides
+    # api_client_factory = ApiClientFactory(opts=opts)
+
     api_client_factory = ApiClientFactory()
 
     # Enter a context with an instance of the ApiClientFactory to ensure the connection pool is closed after use
@@ -564,6 +645,9 @@ async def main():
         update_folder = UpdateFolder.from_dict({"path":"/Documents/Common/Legal/","name":"FolderName"}) # UpdateFolder | An UpdateFolder object that defines the new name or path of the folder
 
         try:
+            # uncomment the below to set overrides at the request level
+            # api_response = await api_instance.update_folder(id, update_folder, opts=opts)
+
             # [EARLY ACCESS] UpdateFolder: Update an existing folder's name, path
             api_response = await api_instance.update_folder(id, update_folder)
             pprint(api_response)

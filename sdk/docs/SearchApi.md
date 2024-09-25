@@ -17,6 +17,7 @@ Method | HTTP request | Description
 ```python
 import asyncio
 from lusid_drive.exceptions import ApiException
+from lusid_drive.extensions.configuration_options import ConfigurationOptions
 from lusid_drive.models import *
 from pprint import pprint
 from lusid_drive import (
@@ -43,6 +44,14 @@ async def main():
     # Use the lusid_drive ApiClientFactory to build Api instances with a configured api client
     # By default this will read config from environment variables
     # Then from a secrets.json file found in the current working directory
+
+    # uncomment the below to use configuration overrides
+    # opts = ConfigurationOptions();
+    # opts.total_timeout_ms = 30_000
+
+    # uncomment the below to use an api client factory with overrides
+    # api_client_factory = ApiClientFactory(opts=opts)
+
     api_client_factory = ApiClientFactory()
 
     # Enter a context with an instance of the ApiClientFactory to ensure the connection pool is closed after use
@@ -61,6 +70,9 @@ async def main():
         filter = '' # str |  (optional) (default to '')
 
         try:
+            # uncomment the below to set overrides at the request level
+            # api_response = await api_instance.search(search_body, page=page, sort_by=sort_by, limit=limit, filter=filter, opts=opts)
+
             # [EARLY ACCESS] Search: Search for a file or folder with a given name and path
             api_response = await api_instance.search(search_body, page=page, sort_by=sort_by, limit=limit, filter=filter)
             pprint(api_response)
