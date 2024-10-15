@@ -67,9 +67,9 @@ async def main():
 
         # Objects can be created either via the class constructor, or using the 'from_dict' or 'from_json' methods
         # Change the lines below to switch approach
-        # create_folder = CreateFolder()
         # create_folder = CreateFolder.from_json("")
-        create_folder = CreateFolder.from_dict({"path":"/path/to/saveTo/","name":"folderName"}) # CreateFolder | A CreateFolder object that defines the name and path of the new folder
+        # create_folder = CreateFolder.from_dict({})
+        create_folder = CreateFolder()
 
         try:
             # uncomment the below to set overrides at the request level
@@ -640,9 +640,9 @@ async def main():
 
         # Objects can be created either via the class constructor, or using the 'from_dict' or 'from_json' methods
         # Change the lines below to switch approach
-        # update_folder = UpdateFolder()
         # update_folder = UpdateFolder.from_json("")
-        update_folder = UpdateFolder.from_dict({"path":"/Documents/Common/Legal/","name":"FolderName"}) # UpdateFolder | An UpdateFolder object that defines the new name or path of the folder
+        # update_folder = UpdateFolder.from_dict({})
+        update_folder = UpdateFolder()
 
         try:
             # uncomment the below to set overrides at the request level

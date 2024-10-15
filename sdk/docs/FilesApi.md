@@ -527,9 +527,9 @@ async def main():
 
         # Objects can be created either via the class constructor, or using the 'from_dict' or 'from_json' methods
         # Change the lines below to switch approach
-        # update_file = UpdateFile()
         # update_file = UpdateFile.from_json("")
-        update_file = UpdateFile.from_dict({"path":"/New/parent/folder/path","name":"new-file-name"}) # UpdateFile | Update to be applied to file
+        # update_file = UpdateFile.from_dict({})
+        update_file = UpdateFile()
 
         try:
             # uncomment the below to set overrides at the request level

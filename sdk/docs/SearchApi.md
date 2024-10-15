@@ -61,9 +61,9 @@ async def main():
 
         # Objects can be created either via the class constructor, or using the 'from_dict' or 'from_json' methods
         # Change the lines below to switch approach
-        # search_body = SearchBody()
         # search_body = SearchBody.from_json("")
-        search_body = SearchBody.from_dict({"withPath":"/some/path","name":"filename.pdf"}) # SearchBody | Search parameters
+        # search_body = SearchBody.from_dict({})
+        search_body = SearchBody()
         page = 'page_example' # str |  (optional)
         sort_by = ['sort_by_example'] # List[str] |  (optional)
         limit = 56 # int |  (optional)
