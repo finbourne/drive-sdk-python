@@ -26,7 +26,7 @@ class StorageObject(BaseModel):
     """
     An object representation of a drive file or folder  # noqa: E501
     """
-    id: constr(strict=True, max_length=40, min_length=30) = Field(..., description="File or folder identifier")
+    id: constr(strict=True, max_length=36, min_length=36) = Field(..., description="File or folder identifier")
     path: constr(strict=True, max_length=512, min_length=1) = Field(..., description="Path of the folder or file")
     name: constr(strict=True, max_length=256, min_length=1) = Field(..., description="Name of the folder or file")
     created_by: constr(strict=True, min_length=1) = Field(..., alias="createdBy", description="Identifier of the user who created the file or folder")

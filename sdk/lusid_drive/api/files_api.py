@@ -229,15 +229,15 @@ class FilesApi:
             _request_auth=_params.get('_request_auth'))
 
     @overload
-    async def delete_file(self, id : Annotated[constr(strict=True, max_length=40, min_length=30), Field(..., description="Identifier of the file to be deleted.")], **kwargs) -> None:  # noqa: E501
+    async def delete_file(self, id : Annotated[constr(strict=True, max_length=36, min_length=36), Field(..., description="Identifier of the file to be deleted.")], **kwargs) -> None:  # noqa: E501
         ...
 
     @overload
-    def delete_file(self, id : Annotated[constr(strict=True, max_length=40, min_length=30), Field(..., description="Identifier of the file to be deleted.")], async_req: Optional[bool]=True, **kwargs) -> None:  # noqa: E501
+    def delete_file(self, id : Annotated[constr(strict=True, max_length=36, min_length=36), Field(..., description="Identifier of the file to be deleted.")], async_req: Optional[bool]=True, **kwargs) -> None:  # noqa: E501
         ...
 
     @validate_arguments
-    def delete_file(self, id : Annotated[constr(strict=True, max_length=40, min_length=30), Field(..., description="Identifier of the file to be deleted.")], async_req: Optional[bool]=None, **kwargs) -> Union[None, Awaitable[None]]:  # noqa: E501
+    def delete_file(self, id : Annotated[constr(strict=True, max_length=36, min_length=36), Field(..., description="Identifier of the file to be deleted.")], async_req: Optional[bool]=None, **kwargs) -> Union[None, Awaitable[None]]:  # noqa: E501
         """[EARLY ACCESS] DeleteFile: Deletes a file from Drive.  # noqa: E501
 
         This method makes a synchronous HTTP request by default. To make an
@@ -267,7 +267,7 @@ class FilesApi:
         return self.delete_file_with_http_info(id, **kwargs)  # noqa: E501
 
     @validate_arguments
-    def delete_file_with_http_info(self, id : Annotated[constr(strict=True, max_length=40, min_length=30), Field(..., description="Identifier of the file to be deleted.")], **kwargs) -> ApiResponse:  # noqa: E501
+    def delete_file_with_http_info(self, id : Annotated[constr(strict=True, max_length=36, min_length=36), Field(..., description="Identifier of the file to be deleted.")], **kwargs) -> ApiResponse:  # noqa: E501
         """[EARLY ACCESS] DeleteFile: Deletes a file from Drive.  # noqa: E501
 
         This method makes a synchronous HTTP request by default. To make an
@@ -375,15 +375,15 @@ class FilesApi:
             _request_auth=_params.get('_request_auth'))
 
     @overload
-    async def download_file(self, id : Annotated[constr(strict=True, max_length=40, min_length=30), Field(..., description="Identifier of the file to be downloaded.")], **kwargs) -> bytearray:  # noqa: E501
+    async def download_file(self, id : Annotated[constr(strict=True, max_length=36, min_length=36), Field(..., description="Identifier of the file to be downloaded.")], **kwargs) -> bytearray:  # noqa: E501
         ...
 
     @overload
-    def download_file(self, id : Annotated[constr(strict=True, max_length=40, min_length=30), Field(..., description="Identifier of the file to be downloaded.")], async_req: Optional[bool]=True, **kwargs) -> bytearray:  # noqa: E501
+    def download_file(self, id : Annotated[constr(strict=True, max_length=36, min_length=36), Field(..., description="Identifier of the file to be downloaded.")], async_req: Optional[bool]=True, **kwargs) -> bytearray:  # noqa: E501
         ...
 
     @validate_arguments
-    def download_file(self, id : Annotated[constr(strict=True, max_length=40, min_length=30), Field(..., description="Identifier of the file to be downloaded.")], async_req: Optional[bool]=None, **kwargs) -> Union[bytearray, Awaitable[bytearray]]:  # noqa: E501
+    def download_file(self, id : Annotated[constr(strict=True, max_length=36, min_length=36), Field(..., description="Identifier of the file to be downloaded.")], async_req: Optional[bool]=None, **kwargs) -> Union[bytearray, Awaitable[bytearray]]:  # noqa: E501
         """DownloadFile: Download the file from Drive.  # noqa: E501
 
         This method makes a synchronous HTTP request by default. To make an
@@ -413,7 +413,7 @@ class FilesApi:
         return self.download_file_with_http_info(id, **kwargs)  # noqa: E501
 
     @validate_arguments
-    def download_file_with_http_info(self, id : Annotated[constr(strict=True, max_length=40, min_length=30), Field(..., description="Identifier of the file to be downloaded.")], **kwargs) -> ApiResponse:  # noqa: E501
+    def download_file_with_http_info(self, id : Annotated[constr(strict=True, max_length=36, min_length=36), Field(..., description="Identifier of the file to be downloaded.")], **kwargs) -> ApiResponse:  # noqa: E501
         """DownloadFile: Download the file from Drive.  # noqa: E501
 
         This method makes a synchronous HTTP request by default. To make an
@@ -526,15 +526,15 @@ class FilesApi:
             _request_auth=_params.get('_request_auth'))
 
     @overload
-    async def get_file(self, id : Annotated[constr(strict=True, max_length=40, min_length=30), Field(..., description="Identifier of the file to be retrieved.")], **kwargs) -> StorageObject:  # noqa: E501
+    async def get_file(self, id : Annotated[constr(strict=True, max_length=36, min_length=36), Field(..., description="Identifier of the file to be retrieved.")], **kwargs) -> StorageObject:  # noqa: E501
         ...
 
     @overload
-    def get_file(self, id : Annotated[constr(strict=True, max_length=40, min_length=30), Field(..., description="Identifier of the file to be retrieved.")], async_req: Optional[bool]=True, **kwargs) -> StorageObject:  # noqa: E501
+    def get_file(self, id : Annotated[constr(strict=True, max_length=36, min_length=36), Field(..., description="Identifier of the file to be retrieved.")], async_req: Optional[bool]=True, **kwargs) -> StorageObject:  # noqa: E501
         ...
 
     @validate_arguments
-    def get_file(self, id : Annotated[constr(strict=True, max_length=40, min_length=30), Field(..., description="Identifier of the file to be retrieved.")], async_req: Optional[bool]=None, **kwargs) -> Union[StorageObject, Awaitable[StorageObject]]:  # noqa: E501
+    def get_file(self, id : Annotated[constr(strict=True, max_length=36, min_length=36), Field(..., description="Identifier of the file to be retrieved.")], async_req: Optional[bool]=None, **kwargs) -> Union[StorageObject, Awaitable[StorageObject]]:  # noqa: E501
         """[EARLY ACCESS] GetFile: Get a file stored in Drive.  # noqa: E501
 
         This method makes a synchronous HTTP request by default. To make an
@@ -564,7 +564,7 @@ class FilesApi:
         return self.get_file_with_http_info(id, **kwargs)  # noqa: E501
 
     @validate_arguments
-    def get_file_with_http_info(self, id : Annotated[constr(strict=True, max_length=40, min_length=30), Field(..., description="Identifier of the file to be retrieved.")], **kwargs) -> ApiResponse:  # noqa: E501
+    def get_file_with_http_info(self, id : Annotated[constr(strict=True, max_length=36, min_length=36), Field(..., description="Identifier of the file to be retrieved.")], **kwargs) -> ApiResponse:  # noqa: E501
         """[EARLY ACCESS] GetFile: Get a file stored in Drive.  # noqa: E501
 
         This method makes a synchronous HTTP request by default. To make an
@@ -675,15 +675,15 @@ class FilesApi:
             _request_auth=_params.get('_request_auth'))
 
     @overload
-    async def update_file_contents(self, id : Annotated[constr(strict=True, max_length=40, min_length=30), Field(..., description="The unique file identifier")], content_length : Annotated[StrictInt, Field(..., description="The size in bytes of the file to be uploaded")], body : Union[StrictBytes, StrictStr], **kwargs) -> StorageObject:  # noqa: E501
+    async def update_file_contents(self, id : Annotated[constr(strict=True, max_length=36, min_length=36), Field(..., description="The unique file identifier")], content_length : Annotated[StrictInt, Field(..., description="The size in bytes of the file to be uploaded")], body : Union[StrictBytes, StrictStr], **kwargs) -> StorageObject:  # noqa: E501
         ...
 
     @overload
-    def update_file_contents(self, id : Annotated[constr(strict=True, max_length=40, min_length=30), Field(..., description="The unique file identifier")], content_length : Annotated[StrictInt, Field(..., description="The size in bytes of the file to be uploaded")], body : Union[StrictBytes, StrictStr], async_req: Optional[bool]=True, **kwargs) -> StorageObject:  # noqa: E501
+    def update_file_contents(self, id : Annotated[constr(strict=True, max_length=36, min_length=36), Field(..., description="The unique file identifier")], content_length : Annotated[StrictInt, Field(..., description="The size in bytes of the file to be uploaded")], body : Union[StrictBytes, StrictStr], async_req: Optional[bool]=True, **kwargs) -> StorageObject:  # noqa: E501
         ...
 
     @validate_arguments
-    def update_file_contents(self, id : Annotated[constr(strict=True, max_length=40, min_length=30), Field(..., description="The unique file identifier")], content_length : Annotated[StrictInt, Field(..., description="The size in bytes of the file to be uploaded")], body : Union[StrictBytes, StrictStr], async_req: Optional[bool]=None, **kwargs) -> Union[StorageObject, Awaitable[StorageObject]]:  # noqa: E501
+    def update_file_contents(self, id : Annotated[constr(strict=True, max_length=36, min_length=36), Field(..., description="The unique file identifier")], content_length : Annotated[StrictInt, Field(..., description="The size in bytes of the file to be uploaded")], body : Union[StrictBytes, StrictStr], async_req: Optional[bool]=None, **kwargs) -> Union[StorageObject, Awaitable[StorageObject]]:  # noqa: E501
         """[EARLY ACCESS] UpdateFileContents: Updates contents of a file in Drive.  # noqa: E501
 
         This method makes a synchronous HTTP request by default. To make an
@@ -717,7 +717,7 @@ class FilesApi:
         return self.update_file_contents_with_http_info(id, content_length, body, **kwargs)  # noqa: E501
 
     @validate_arguments
-    def update_file_contents_with_http_info(self, id : Annotated[constr(strict=True, max_length=40, min_length=30), Field(..., description="The unique file identifier")], content_length : Annotated[StrictInt, Field(..., description="The size in bytes of the file to be uploaded")], body : Union[StrictBytes, StrictStr], **kwargs) -> ApiResponse:  # noqa: E501
+    def update_file_contents_with_http_info(self, id : Annotated[constr(strict=True, max_length=36, min_length=36), Field(..., description="The unique file identifier")], content_length : Annotated[StrictInt, Field(..., description="The size in bytes of the file to be uploaded")], body : Union[StrictBytes, StrictStr], **kwargs) -> ApiResponse:  # noqa: E501
         """[EARLY ACCESS] UpdateFileContents: Updates contents of a file in Drive.  # noqa: E501
 
         This method makes a synchronous HTTP request by default. To make an
@@ -847,15 +847,15 @@ class FilesApi:
             _request_auth=_params.get('_request_auth'))
 
     @overload
-    async def update_file_metadata(self, id : Annotated[constr(strict=True, max_length=40, min_length=30), Field(..., description="Identifier of the file to be updated")], update_file : Annotated[UpdateFile, Field(..., description="Update to be applied to file")], **kwargs) -> StorageObject:  # noqa: E501
+    async def update_file_metadata(self, id : Annotated[constr(strict=True, max_length=36, min_length=36), Field(..., description="Identifier of the file to be updated")], update_file : Annotated[UpdateFile, Field(..., description="Update to be applied to file")], **kwargs) -> StorageObject:  # noqa: E501
         ...
 
     @overload
-    def update_file_metadata(self, id : Annotated[constr(strict=True, max_length=40, min_length=30), Field(..., description="Identifier of the file to be updated")], update_file : Annotated[UpdateFile, Field(..., description="Update to be applied to file")], async_req: Optional[bool]=True, **kwargs) -> StorageObject:  # noqa: E501
+    def update_file_metadata(self, id : Annotated[constr(strict=True, max_length=36, min_length=36), Field(..., description="Identifier of the file to be updated")], update_file : Annotated[UpdateFile, Field(..., description="Update to be applied to file")], async_req: Optional[bool]=True, **kwargs) -> StorageObject:  # noqa: E501
         ...
 
     @validate_arguments
-    def update_file_metadata(self, id : Annotated[constr(strict=True, max_length=40, min_length=30), Field(..., description="Identifier of the file to be updated")], update_file : Annotated[UpdateFile, Field(..., description="Update to be applied to file")], async_req: Optional[bool]=None, **kwargs) -> Union[StorageObject, Awaitable[StorageObject]]:  # noqa: E501
+    def update_file_metadata(self, id : Annotated[constr(strict=True, max_length=36, min_length=36), Field(..., description="Identifier of the file to be updated")], update_file : Annotated[UpdateFile, Field(..., description="Update to be applied to file")], async_req: Optional[bool]=None, **kwargs) -> Union[StorageObject, Awaitable[StorageObject]]:  # noqa: E501
         """[EARLY ACCESS] UpdateFileMetadata: Updates metadata for a file in Drive.  # noqa: E501
 
         This method makes a synchronous HTTP request by default. To make an
@@ -887,7 +887,7 @@ class FilesApi:
         return self.update_file_metadata_with_http_info(id, update_file, **kwargs)  # noqa: E501
 
     @validate_arguments
-    def update_file_metadata_with_http_info(self, id : Annotated[constr(strict=True, max_length=40, min_length=30), Field(..., description="Identifier of the file to be updated")], update_file : Annotated[UpdateFile, Field(..., description="Update to be applied to file")], **kwargs) -> ApiResponse:  # noqa: E501
+    def update_file_metadata_with_http_info(self, id : Annotated[constr(strict=True, max_length=36, min_length=36), Field(..., description="Identifier of the file to be updated")], update_file : Annotated[UpdateFile, Field(..., description="Update to be applied to file")], **kwargs) -> ApiResponse:  # noqa: E501
         """[EARLY ACCESS] UpdateFileMetadata: Updates metadata for a file in Drive.  # noqa: E501
 
         This method makes a synchronous HTTP request by default. To make an
