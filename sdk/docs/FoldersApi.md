@@ -21,33 +21,32 @@ Method | HTTP request | Description
 ### Example
 
 ```python
-import asyncio
 from lusid_drive.exceptions import ApiException
 from lusid_drive.extensions.configuration_options import ConfigurationOptions
 from lusid_drive.models import *
 from pprint import pprint
 from lusid_drive import (
-    ApiClientFactory,
+    SyncApiClientFactory,
     FoldersApi
 )
 
-async def main():
+def main():
 
     with open("secrets.json", "w") as file:
         file.write('''
-{
-    "api":
     {
-        "tokenUrl":"<your-token-url>",
-        "driveUrl":"https://<your-domain>.lusid.com/drive",
-        "username":"<your-username>",
-        "password":"<your-password>",
-        "clientId":"<your-client-id>",
-        "clientSecret":"<your-client-secret>"
-    }
-}''')
+        "api":
+        {
+            "tokenUrl":"<your-token-url>",
+            "driveUrl":"https://<your-domain>.lusid.com/drive",
+            "username":"<your-username>",
+            "password":"<your-password>",
+            "clientId":"<your-client-id>",
+            "clientSecret":"<your-client-secret>"
+        }
+    }''')
 
-    # Use the lusid_drive ApiClientFactory to build Api instances with a configured api client
+    # Use the lusid_drive SyncApiClientFactory to build Api instances with a configured api client
     # By default this will read config from environment variables
     # Then from a secrets.json file found in the current working directory
 
@@ -56,32 +55,33 @@ async def main():
     # opts.total_timeout_ms = 30_000
 
     # uncomment the below to use an api client factory with overrides
-    # api_client_factory = ApiClientFactory(opts=opts)
+    # api_client_factory = SyncApiClientFactory(opts=opts)
 
-    api_client_factory = ApiClientFactory()
+    api_client_factory = SyncApiClientFactory()
 
-    # Enter a context with an instance of the ApiClientFactory to ensure the connection pool is closed after use
-    async with api_client_factory:
-        # Create an instance of the API class
-        api_instance = api_client_factory.build(FoldersApi)
+    # Enter a context with an instance of the SyncApiClientFactory to ensure the connection pool is closed after use
+    
+    # Create an instance of the API class
+    api_instance = api_client_factory.build(FoldersApi)
 
-        # Objects can be created either via the class constructor, or using the 'from_dict' or 'from_json' methods
-        # Change the lines below to switch approach
-        # create_folder = CreateFolder.from_json("")
-        # create_folder = CreateFolder.from_dict({})
-        create_folder = CreateFolder()
+    # Objects can be created either via the class constructor, or using the 'from_dict' or 'from_json' methods
+    # Change the lines below to switch approach
+    # create_folder = CreateFolder.from_json("")
+    # create_folder = CreateFolder.from_dict({})
+    create_folder = CreateFolder()
 
-        try:
-            # uncomment the below to set overrides at the request level
-            # api_response = await api_instance.create_folder(create_folder, opts=opts)
+    try:
+        # uncomment the below to set overrides at the request level
+        # api_response =  api_instance.create_folder(create_folder, opts=opts)
 
-            # [EARLY ACCESS] CreateFolder: Create a new folder in LUSID Drive
-            api_response = await api_instance.create_folder(create_folder)
-            pprint(api_response)
-        except ApiException as e:
-            print("Exception when calling FoldersApi->create_folder: %s\n" % e)
+        # [EARLY ACCESS] CreateFolder: Create a new folder in LUSID Drive
+        api_response = api_instance.create_folder(create_folder)
+        pprint(api_response)
 
-asyncio.run(main())
+    except ApiException as e:
+        print("Exception when calling FoldersApi->create_folder: %s\n" % e)
+
+main()
 ```
 
 ### Parameters
@@ -116,33 +116,32 @@ Name | Type | Description  | Notes
 ### Example
 
 ```python
-import asyncio
 from lusid_drive.exceptions import ApiException
 from lusid_drive.extensions.configuration_options import ConfigurationOptions
 from lusid_drive.models import *
 from pprint import pprint
 from lusid_drive import (
-    ApiClientFactory,
+    SyncApiClientFactory,
     FoldersApi
 )
 
-async def main():
+def main():
 
     with open("secrets.json", "w") as file:
         file.write('''
-{
-    "api":
     {
-        "tokenUrl":"<your-token-url>",
-        "driveUrl":"https://<your-domain>.lusid.com/drive",
-        "username":"<your-username>",
-        "password":"<your-password>",
-        "clientId":"<your-client-id>",
-        "clientSecret":"<your-client-secret>"
-    }
-}''')
+        "api":
+        {
+            "tokenUrl":"<your-token-url>",
+            "driveUrl":"https://<your-domain>.lusid.com/drive",
+            "username":"<your-username>",
+            "password":"<your-password>",
+            "clientId":"<your-client-id>",
+            "clientSecret":"<your-client-secret>"
+        }
+    }''')
 
-    # Use the lusid_drive ApiClientFactory to build Api instances with a configured api client
+    # Use the lusid_drive SyncApiClientFactory to build Api instances with a configured api client
     # By default this will read config from environment variables
     # Then from a secrets.json file found in the current working directory
 
@@ -151,25 +150,26 @@ async def main():
     # opts.total_timeout_ms = 30_000
 
     # uncomment the below to use an api client factory with overrides
-    # api_client_factory = ApiClientFactory(opts=opts)
+    # api_client_factory = SyncApiClientFactory(opts=opts)
 
-    api_client_factory = ApiClientFactory()
+    api_client_factory = SyncApiClientFactory()
 
-    # Enter a context with an instance of the ApiClientFactory to ensure the connection pool is closed after use
-    async with api_client_factory:
-        # Create an instance of the API class
-        api_instance = api_client_factory.build(FoldersApi)
-        id = 'id_example' # str | Unique ID of the folder
+    # Enter a context with an instance of the SyncApiClientFactory to ensure the connection pool is closed after use
+    
+    # Create an instance of the API class
+    api_instance = api_client_factory.build(FoldersApi)
+    id = 'id_example' # str | Unique ID of the folder
 
-        try:
-            # uncomment the below to set overrides at the request level
-            # await api_instance.delete_folder(id, opts=opts)
+    try:
+        # uncomment the below to set overrides at the request level
+        #  api_instance.delete_folder(id, opts=opts)
 
-            # [EARLY ACCESS] DeleteFolder: Delete a specified folder and all subfolders
-            await api_instance.delete_folder(id)        except ApiException as e:
-            print("Exception when calling FoldersApi->delete_folder: %s\n" % e)
+        # [EARLY ACCESS] DeleteFolder: Delete a specified folder and all subfolders
+        api_instance.delete_folder(id)
+    except ApiException as e:
+        print("Exception when calling FoldersApi->delete_folder: %s\n" % e)
 
-asyncio.run(main())
+main()
 ```
 
 ### Parameters
@@ -205,33 +205,32 @@ void (empty response body)
 ### Example
 
 ```python
-import asyncio
 from lusid_drive.exceptions import ApiException
 from lusid_drive.extensions.configuration_options import ConfigurationOptions
 from lusid_drive.models import *
 from pprint import pprint
 from lusid_drive import (
-    ApiClientFactory,
+    SyncApiClientFactory,
     FoldersApi
 )
 
-async def main():
+def main():
 
     with open("secrets.json", "w") as file:
         file.write('''
-{
-    "api":
     {
-        "tokenUrl":"<your-token-url>",
-        "driveUrl":"https://<your-domain>.lusid.com/drive",
-        "username":"<your-username>",
-        "password":"<your-password>",
-        "clientId":"<your-client-id>",
-        "clientSecret":"<your-client-secret>"
-    }
-}''')
+        "api":
+        {
+            "tokenUrl":"<your-token-url>",
+            "driveUrl":"https://<your-domain>.lusid.com/drive",
+            "username":"<your-username>",
+            "password":"<your-password>",
+            "clientId":"<your-client-id>",
+            "clientSecret":"<your-client-secret>"
+        }
+    }''')
 
-    # Use the lusid_drive ApiClientFactory to build Api instances with a configured api client
+    # Use the lusid_drive SyncApiClientFactory to build Api instances with a configured api client
     # By default this will read config from environment variables
     # Then from a secrets.json file found in the current working directory
 
@@ -240,27 +239,28 @@ async def main():
     # opts.total_timeout_ms = 30_000
 
     # uncomment the below to use an api client factory with overrides
-    # api_client_factory = ApiClientFactory(opts=opts)
+    # api_client_factory = SyncApiClientFactory(opts=opts)
 
-    api_client_factory = ApiClientFactory()
+    api_client_factory = SyncApiClientFactory()
 
-    # Enter a context with an instance of the ApiClientFactory to ensure the connection pool is closed after use
-    async with api_client_factory:
-        # Create an instance of the API class
-        api_instance = api_client_factory.build(FoldersApi)
-        id = 'id_example' # str | Unique ID of the folder
+    # Enter a context with an instance of the SyncApiClientFactory to ensure the connection pool is closed after use
+    
+    # Create an instance of the API class
+    api_instance = api_client_factory.build(FoldersApi)
+    id = 'id_example' # str | Unique ID of the folder
 
-        try:
-            # uncomment the below to set overrides at the request level
-            # api_response = await api_instance.get_folder(id, opts=opts)
+    try:
+        # uncomment the below to set overrides at the request level
+        # api_response =  api_instance.get_folder(id, opts=opts)
 
-            # [EARLY ACCESS] GetFolder: Get metadata of folder
-            api_response = await api_instance.get_folder(id)
-            pprint(api_response)
-        except ApiException as e:
-            print("Exception when calling FoldersApi->get_folder: %s\n" % e)
+        # [EARLY ACCESS] GetFolder: Get metadata of folder
+        api_response = api_instance.get_folder(id)
+        pprint(api_response)
 
-asyncio.run(main())
+    except ApiException as e:
+        print("Exception when calling FoldersApi->get_folder: %s\n" % e)
+
+main()
 ```
 
 ### Parameters
@@ -296,33 +296,32 @@ GetFolderContents: List contents of a folder
 ### Example
 
 ```python
-import asyncio
 from lusid_drive.exceptions import ApiException
 from lusid_drive.extensions.configuration_options import ConfigurationOptions
 from lusid_drive.models import *
 from pprint import pprint
 from lusid_drive import (
-    ApiClientFactory,
+    SyncApiClientFactory,
     FoldersApi
 )
 
-async def main():
+def main():
 
     with open("secrets.json", "w") as file:
         file.write('''
-{
-    "api":
     {
-        "tokenUrl":"<your-token-url>",
-        "driveUrl":"https://<your-domain>.lusid.com/drive",
-        "username":"<your-username>",
-        "password":"<your-password>",
-        "clientId":"<your-client-id>",
-        "clientSecret":"<your-client-secret>"
-    }
-}''')
+        "api":
+        {
+            "tokenUrl":"<your-token-url>",
+            "driveUrl":"https://<your-domain>.lusid.com/drive",
+            "username":"<your-username>",
+            "password":"<your-password>",
+            "clientId":"<your-client-id>",
+            "clientSecret":"<your-client-secret>"
+        }
+    }''')
 
-    # Use the lusid_drive ApiClientFactory to build Api instances with a configured api client
+    # Use the lusid_drive SyncApiClientFactory to build Api instances with a configured api client
     # By default this will read config from environment variables
     # Then from a secrets.json file found in the current working directory
 
@@ -331,32 +330,33 @@ async def main():
     # opts.total_timeout_ms = 30_000
 
     # uncomment the below to use an api client factory with overrides
-    # api_client_factory = ApiClientFactory(opts=opts)
+    # api_client_factory = SyncApiClientFactory(opts=opts)
 
-    api_client_factory = ApiClientFactory()
+    api_client_factory = SyncApiClientFactory()
 
-    # Enter a context with an instance of the ApiClientFactory to ensure the connection pool is closed after use
-    async with api_client_factory:
-        # Create an instance of the API class
-        api_instance = api_client_factory.build(FoldersApi)
-        id = 'id_example' # str | Unique ID of the folder
-        page = 'page_example' # str | The pagination token to use to continue listing contents from a previous call to list contents.              This value is returned from the previous call. If a pagination token is provided the sortBy and filter fields              must not have changed since the original request. Also, if set, a start value cannot be provided. (optional)
-        sort_by = ['sort_by_example'] # List[str] | Order the results by these fields. Use use the '-' sign to denote descending order. (optional)
-        start = 56 # int | When paginating, skip this number of results. (optional)
-        limit = 56 # int | When paginating, limit the number of returned results to this many. (optional)
-        filter = '' # str | Expression to filter the result set. (optional) (default to '')
+    # Enter a context with an instance of the SyncApiClientFactory to ensure the connection pool is closed after use
+    
+    # Create an instance of the API class
+    api_instance = api_client_factory.build(FoldersApi)
+    id = 'id_example' # str | Unique ID of the folder
+    page = 'page_example' # str | The pagination token to use to continue listing contents from a previous call to list contents.              This value is returned from the previous call. If a pagination token is provided the sortBy and filter fields              must not have changed since the original request. Also, if set, a start value cannot be provided. (optional)
+    sort_by = ['sort_by_example'] # List[str] | Order the results by these fields. Use use the '-' sign to denote descending order. (optional)
+    start = 56 # int | When paginating, skip this number of results. (optional)
+    limit = 56 # int | When paginating, limit the number of returned results to this many. (optional)
+    filter = '' # str | Expression to filter the result set. (optional) (default to '')
 
-        try:
-            # uncomment the below to set overrides at the request level
-            # api_response = await api_instance.get_folder_contents(id, page=page, sort_by=sort_by, start=start, limit=limit, filter=filter, opts=opts)
+    try:
+        # uncomment the below to set overrides at the request level
+        # api_response =  api_instance.get_folder_contents(id, page=page, sort_by=sort_by, start=start, limit=limit, filter=filter, opts=opts)
 
-            # GetFolderContents: List contents of a folder
-            api_response = await api_instance.get_folder_contents(id, page=page, sort_by=sort_by, start=start, limit=limit, filter=filter)
-            pprint(api_response)
-        except ApiException as e:
-            print("Exception when calling FoldersApi->get_folder_contents: %s\n" % e)
+        # GetFolderContents: List contents of a folder
+        api_response = api_instance.get_folder_contents(id, page=page, sort_by=sort_by, start=start, limit=limit, filter=filter)
+        pprint(api_response)
 
-asyncio.run(main())
+    except ApiException as e:
+        print("Exception when calling FoldersApi->get_folder_contents: %s\n" % e)
+
+main()
 ```
 
 ### Parameters
@@ -397,33 +397,32 @@ GetRootFolder: List contents of root folder
 ### Example
 
 ```python
-import asyncio
 from lusid_drive.exceptions import ApiException
 from lusid_drive.extensions.configuration_options import ConfigurationOptions
 from lusid_drive.models import *
 from pprint import pprint
 from lusid_drive import (
-    ApiClientFactory,
+    SyncApiClientFactory,
     FoldersApi
 )
 
-async def main():
+def main():
 
     with open("secrets.json", "w") as file:
         file.write('''
-{
-    "api":
     {
-        "tokenUrl":"<your-token-url>",
-        "driveUrl":"https://<your-domain>.lusid.com/drive",
-        "username":"<your-username>",
-        "password":"<your-password>",
-        "clientId":"<your-client-id>",
-        "clientSecret":"<your-client-secret>"
-    }
-}''')
+        "api":
+        {
+            "tokenUrl":"<your-token-url>",
+            "driveUrl":"https://<your-domain>.lusid.com/drive",
+            "username":"<your-username>",
+            "password":"<your-password>",
+            "clientId":"<your-client-id>",
+            "clientSecret":"<your-client-secret>"
+        }
+    }''')
 
-    # Use the lusid_drive ApiClientFactory to build Api instances with a configured api client
+    # Use the lusid_drive SyncApiClientFactory to build Api instances with a configured api client
     # By default this will read config from environment variables
     # Then from a secrets.json file found in the current working directory
 
@@ -432,31 +431,32 @@ async def main():
     # opts.total_timeout_ms = 30_000
 
     # uncomment the below to use an api client factory with overrides
-    # api_client_factory = ApiClientFactory(opts=opts)
+    # api_client_factory = SyncApiClientFactory(opts=opts)
 
-    api_client_factory = ApiClientFactory()
+    api_client_factory = SyncApiClientFactory()
 
-    # Enter a context with an instance of the ApiClientFactory to ensure the connection pool is closed after use
-    async with api_client_factory:
-        # Create an instance of the API class
-        api_instance = api_client_factory.build(FoldersApi)
-        page = 'page_example' # str | The pagination token to use to continue listing contents from a previous call to list contents.              This value is returned from the previous call. If a pagination token is provided the sortBy and filter fields              must not have changed since the original request. Also, if set, a start value cannot be provided. (optional)
-        sort_by = ['sort_by_example'] # List[str] | Order the results by these fields. Use use the '-' sign to denote descending order. (optional)
-        start = 56 # int | When paginating, skip this number of results. (optional)
-        limit = 56 # int | When paginating, limit the number of returned results to this many. (optional)
-        filter = 'true' # str | Expression to filter the result set. (optional) (default to 'true')
+    # Enter a context with an instance of the SyncApiClientFactory to ensure the connection pool is closed after use
+    
+    # Create an instance of the API class
+    api_instance = api_client_factory.build(FoldersApi)
+    page = 'page_example' # str | The pagination token to use to continue listing contents from a previous call to list contents.              This value is returned from the previous call. If a pagination token is provided the sortBy and filter fields              must not have changed since the original request. Also, if set, a start value cannot be provided. (optional)
+    sort_by = ['sort_by_example'] # List[str] | Order the results by these fields. Use use the '-' sign to denote descending order. (optional)
+    start = 56 # int | When paginating, skip this number of results. (optional)
+    limit = 56 # int | When paginating, limit the number of returned results to this many. (optional)
+    filter = 'true' # str | Expression to filter the result set. (optional) (default to 'true')
 
-        try:
-            # uncomment the below to set overrides at the request level
-            # api_response = await api_instance.get_root_folder(page=page, sort_by=sort_by, start=start, limit=limit, filter=filter, opts=opts)
+    try:
+        # uncomment the below to set overrides at the request level
+        # api_response =  api_instance.get_root_folder(page=page, sort_by=sort_by, start=start, limit=limit, filter=filter, opts=opts)
 
-            # GetRootFolder: List contents of root folder
-            api_response = await api_instance.get_root_folder(page=page, sort_by=sort_by, start=start, limit=limit, filter=filter)
-            pprint(api_response)
-        except ApiException as e:
-            print("Exception when calling FoldersApi->get_root_folder: %s\n" % e)
+        # GetRootFolder: List contents of root folder
+        api_response = api_instance.get_root_folder(page=page, sort_by=sort_by, start=start, limit=limit, filter=filter)
+        pprint(api_response)
 
-asyncio.run(main())
+    except ApiException as e:
+        print("Exception when calling FoldersApi->get_root_folder: %s\n" % e)
+
+main()
 ```
 
 ### Parameters
@@ -495,33 +495,32 @@ Name | Type | Description  | Notes
 ### Example
 
 ```python
-import asyncio
 from lusid_drive.exceptions import ApiException
 from lusid_drive.extensions.configuration_options import ConfigurationOptions
 from lusid_drive.models import *
 from pprint import pprint
 from lusid_drive import (
-    ApiClientFactory,
+    SyncApiClientFactory,
     FoldersApi
 )
 
-async def main():
+def main():
 
     with open("secrets.json", "w") as file:
         file.write('''
-{
-    "api":
     {
-        "tokenUrl":"<your-token-url>",
-        "driveUrl":"https://<your-domain>.lusid.com/drive",
-        "username":"<your-username>",
-        "password":"<your-password>",
-        "clientId":"<your-client-id>",
-        "clientSecret":"<your-client-secret>"
-    }
-}''')
+        "api":
+        {
+            "tokenUrl":"<your-token-url>",
+            "driveUrl":"https://<your-domain>.lusid.com/drive",
+            "username":"<your-username>",
+            "password":"<your-password>",
+            "clientId":"<your-client-id>",
+            "clientSecret":"<your-client-secret>"
+        }
+    }''')
 
-    # Use the lusid_drive ApiClientFactory to build Api instances with a configured api client
+    # Use the lusid_drive SyncApiClientFactory to build Api instances with a configured api client
     # By default this will read config from environment variables
     # Then from a secrets.json file found in the current working directory
 
@@ -530,30 +529,31 @@ async def main():
     # opts.total_timeout_ms = 30_000
 
     # uncomment the below to use an api client factory with overrides
-    # api_client_factory = ApiClientFactory(opts=opts)
+    # api_client_factory = SyncApiClientFactory(opts=opts)
 
-    api_client_factory = ApiClientFactory()
+    api_client_factory = SyncApiClientFactory()
 
-    # Enter a context with an instance of the ApiClientFactory to ensure the connection pool is closed after use
-    async with api_client_factory:
-        # Create an instance of the API class
-        api_instance = api_client_factory.build(FoldersApi)
-        id = 'id_example' # str | Unique ID of the folder where the files should be moved
-        request_body = ["FolderID1","FolderID2","FolderID3"] # List[str] | Enumerable of unique IDs of files that should be moved
-        overwrite = False # bool | True if the destination has file with same name if should be overwritten (optional) (default to False)
-        delete_source = False # bool | If true after moving the original file is deleted (optional) (default to False)
+    # Enter a context with an instance of the SyncApiClientFactory to ensure the connection pool is closed after use
+    
+    # Create an instance of the API class
+    api_instance = api_client_factory.build(FoldersApi)
+    id = 'id_example' # str | Unique ID of the folder where the files should be moved
+    request_body = ["FolderID1","FolderID2","FolderID3"] # List[str] | Enumerable of unique IDs of files that should be moved
+    overwrite = False # bool | True if the destination has file with same name if should be overwritten (optional) (default to False)
+    delete_source = False # bool | If true after moving the original file is deleted (optional) (default to False)
 
-        try:
-            # uncomment the below to set overrides at the request level
-            # api_response = await api_instance.move_folder(id, request_body, overwrite=overwrite, delete_source=delete_source, opts=opts)
+    try:
+        # uncomment the below to set overrides at the request level
+        # api_response =  api_instance.move_folder(id, request_body, overwrite=overwrite, delete_source=delete_source, opts=opts)
 
-            # [EARLY ACCESS] MoveFolder: Move files to specified folder
-            api_response = await api_instance.move_folder(id, request_body, overwrite=overwrite, delete_source=delete_source)
-            pprint(api_response)
-        except ApiException as e:
-            print("Exception when calling FoldersApi->move_folder: %s\n" % e)
+        # [EARLY ACCESS] MoveFolder: Move files to specified folder
+        api_response = api_instance.move_folder(id, request_body, overwrite=overwrite, delete_source=delete_source)
+        pprint(api_response)
 
-asyncio.run(main())
+    except ApiException as e:
+        print("Exception when calling FoldersApi->move_folder: %s\n" % e)
+
+main()
 ```
 
 ### Parameters
@@ -593,33 +593,32 @@ Name | Type | Description  | Notes
 ### Example
 
 ```python
-import asyncio
 from lusid_drive.exceptions import ApiException
 from lusid_drive.extensions.configuration_options import ConfigurationOptions
 from lusid_drive.models import *
 from pprint import pprint
 from lusid_drive import (
-    ApiClientFactory,
+    SyncApiClientFactory,
     FoldersApi
 )
 
-async def main():
+def main():
 
     with open("secrets.json", "w") as file:
         file.write('''
-{
-    "api":
     {
-        "tokenUrl":"<your-token-url>",
-        "driveUrl":"https://<your-domain>.lusid.com/drive",
-        "username":"<your-username>",
-        "password":"<your-password>",
-        "clientId":"<your-client-id>",
-        "clientSecret":"<your-client-secret>"
-    }
-}''')
+        "api":
+        {
+            "tokenUrl":"<your-token-url>",
+            "driveUrl":"https://<your-domain>.lusid.com/drive",
+            "username":"<your-username>",
+            "password":"<your-password>",
+            "clientId":"<your-client-id>",
+            "clientSecret":"<your-client-secret>"
+        }
+    }''')
 
-    # Use the lusid_drive ApiClientFactory to build Api instances with a configured api client
+    # Use the lusid_drive SyncApiClientFactory to build Api instances with a configured api client
     # By default this will read config from environment variables
     # Then from a secrets.json file found in the current working directory
 
@@ -628,33 +627,34 @@ async def main():
     # opts.total_timeout_ms = 30_000
 
     # uncomment the below to use an api client factory with overrides
-    # api_client_factory = ApiClientFactory(opts=opts)
+    # api_client_factory = SyncApiClientFactory(opts=opts)
 
-    api_client_factory = ApiClientFactory()
+    api_client_factory = SyncApiClientFactory()
 
-    # Enter a context with an instance of the ApiClientFactory to ensure the connection pool is closed after use
-    async with api_client_factory:
-        # Create an instance of the API class
-        api_instance = api_client_factory.build(FoldersApi)
-        id = 'id_example' # str | Unique ID of the folder
+    # Enter a context with an instance of the SyncApiClientFactory to ensure the connection pool is closed after use
+    
+    # Create an instance of the API class
+    api_instance = api_client_factory.build(FoldersApi)
+    id = 'id_example' # str | Unique ID of the folder
 
-        # Objects can be created either via the class constructor, or using the 'from_dict' or 'from_json' methods
-        # Change the lines below to switch approach
-        # update_folder = UpdateFolder.from_json("")
-        # update_folder = UpdateFolder.from_dict({})
-        update_folder = UpdateFolder()
+    # Objects can be created either via the class constructor, or using the 'from_dict' or 'from_json' methods
+    # Change the lines below to switch approach
+    # update_folder = UpdateFolder.from_json("")
+    # update_folder = UpdateFolder.from_dict({})
+    update_folder = UpdateFolder()
 
-        try:
-            # uncomment the below to set overrides at the request level
-            # api_response = await api_instance.update_folder(id, update_folder, opts=opts)
+    try:
+        # uncomment the below to set overrides at the request level
+        # api_response =  api_instance.update_folder(id, update_folder, opts=opts)
 
-            # [EARLY ACCESS] UpdateFolder: Update an existing folder's name, path
-            api_response = await api_instance.update_folder(id, update_folder)
-            pprint(api_response)
-        except ApiException as e:
-            print("Exception when calling FoldersApi->update_folder: %s\n" % e)
+        # [EARLY ACCESS] UpdateFolder: Update an existing folder's name, path
+        api_response = api_instance.update_folder(id, update_folder)
+        pprint(api_response)
 
-asyncio.run(main())
+    except ApiException as e:
+        print("Exception when calling FoldersApi->update_folder: %s\n" % e)
+
+main()
 ```
 
 ### Parameters
