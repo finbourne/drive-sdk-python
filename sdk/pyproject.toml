@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "lusid-drive-sdk"
-version = "2.1.40"
+version = "2.1.41"
 description = "FINBOURNE Drive API"
 authors = ["FINBOURNE Technology <info@finbourne.com>"]
 license = "MIT"
