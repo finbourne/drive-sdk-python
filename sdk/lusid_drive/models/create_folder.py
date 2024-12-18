@@ -19,34 +19,28 @@ import json
 
 
 from typing import Any, Dict
-from pydantic.v1 import BaseModel, Field, constr, validator
+from pydantic.v1 import BaseModel, Field, constr, validator, Field
 
 class CreateFolder(BaseModel):
     """
     DTO representing the creation of a folder  # noqa: E501
     """
-    path: constr(strict=True, max_length=512, min_length=1) = Field(..., description="Path of the created folder")
-    name: constr(strict=True, max_length=50, min_length=1) = Field(..., description="Name of the created folder")
+    path: constr(strict=True) = Field(...,alias="path", description="Path of the created folder") 
+    name: constr(strict=True) = Field(...,alias="name", description="Name of the created folder") 
     __properties = ["path", "name"]
-
-    @validator('path')
-    def path_validate_regular_expression(cls, value):
-        """Validates the regular expression"""
-        if not re.match(r"^[\/a-zA-Z0-9 \-_]+$", value):
-            raise ValueError(r"must validate the regular expression /^[\/a-zA-Z0-9 \-_]+$/")
-        return value
-
-    @validator('name')
-    def name_validate_regular_expression(cls, value):
-        """Validates the regular expression"""
-        if not re.match(r"^[A-Za-z0-9_-]+[A-Za-z0-9 _-]*$", value):
-            raise ValueError(r"must validate the regular expression /^[A-Za-z0-9_-]+[A-Za-z0-9 _-]*$/")
-        return value
 
     class Config:
         """Pydantic configuration"""
         allow_population_by_field_name = True
         validate_assignment = True
+
+    def __str__(self):
+        """For `print` and `pprint`"""
+        return pprint.pformat(self.dict(by_alias=False))
+
+    def __repr__(self):
+        """For `print` and `pprint`"""
+        return self.to_str()
 
     def to_str(self) -> str:
         """Returns the string representation of the model using alias"""
