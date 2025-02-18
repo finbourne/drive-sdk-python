@@ -19,47 +19,26 @@ import json
 
 from datetime import datetime
 from typing import Any, Dict, List, Optional
-from pydantic.v1 import BaseModel, Field, StrictInt, StrictStr, conlist, constr, validator
+from pydantic.v1 import StrictStr, Field, BaseModel, Field, StrictInt, StrictStr, conlist, constr, validator 
 from lusid_drive.models.link import Link
 
 class StorageObject(BaseModel):
     """
     An object representation of a drive file or folder  # noqa: E501
     """
-    id: constr(strict=True, max_length=36, min_length=36) = Field(..., description="File or folder identifier")
-    path: constr(strict=True, max_length=512, min_length=1) = Field(..., description="Path of the folder or file")
-    name: constr(strict=True, max_length=256, min_length=1) = Field(..., description="Name of the folder or file")
-    created_by: constr(strict=True, min_length=1) = Field(..., alias="createdBy", description="Identifier of the user who created the file or folder")
+    id:  StrictStr = Field(...,alias="id", description="File or folder identifier") 
+    path:  StrictStr = Field(...,alias="path", description="Path of the folder or file") 
+    name:  StrictStr = Field(...,alias="name", description="Name of the folder or file") 
+    created_by:  StrictStr = Field(...,alias="createdBy", description="Identifier of the user who created the file or folder") 
     created_on: datetime = Field(..., alias="createdOn", description="Date of file/folder creation")
-    updated_by: constr(strict=True, min_length=1) = Field(..., alias="updatedBy", description="Identifier of the last user to modify the file or folder")
+    updated_by:  StrictStr = Field(...,alias="updatedBy", description="Identifier of the last user to modify the file or folder") 
     updated_on: datetime = Field(..., alias="updatedOn", description="Date of file/folder modification")
-    type: constr(strict=True, min_length=1) = Field(..., description="Type of storage object (file or folder)")
+    type:  StrictStr = Field(...,alias="type", description="Type of storage object (file or folder)") 
     size: Optional[StrictInt] = Field(None, description="Size of the file in bytes")
-    status: Optional[StrictStr] = Field(None, description="File status corresponding to virus scan status.  (Active, Available, Checking, MalwareDetected, Failed)")
-    status_detail: Optional[StrictStr] = Field(None, alias="statusDetail", description="Detailed description describing any negative terminal state of file")
+    status:  Optional[StrictStr] = Field(None,alias="status", description="File status corresponding to virus scan status.  (Active, Available, Checking, MalwareDetected, Failed)") 
+    status_detail:  Optional[StrictStr] = Field(None,alias="statusDetail", description="Detailed description describing any negative terminal state of file") 
     links: Optional[conlist(Link)] = None
     __properties = ["id", "path", "name", "createdBy", "createdOn", "updatedBy", "updatedOn", "type", "size", "status", "statusDetail", "links"]
-
-    @validator('id')
-    def id_validate_regular_expression(cls, value):
-        """Validates the regular expression"""
-        if not re.match(r"^[a-zA-Z0-9\-]+$", value):
-            raise ValueError(r"must validate the regular expression /^[a-zA-Z0-9\-]+$/")
-        return value
-
-    @validator('path')
-    def path_validate_regular_expression(cls, value):
-        """Validates the regular expression"""
-        if not re.match(r"^[\/a-zA-Z0-9 \-_]+$", value):
-            raise ValueError(r"must validate the regular expression /^[\/a-zA-Z0-9 \-_]+$/")
-        return value
-
-    @validator('name')
-    def name_validate_regular_expression(cls, value):
-        """Validates the regular expression"""
-        if not re.match(r"^[A-Za-z0-9_\-\.]+[A-Za-z0-9_\-\. ]*$", value):
-            raise ValueError(r"must validate the regular expression /^[A-Za-z0-9_\-\.]+[A-Za-z0-9_\-\. ]*$/")
-        return value
 
     class Config:
         """Pydantic configuration"""

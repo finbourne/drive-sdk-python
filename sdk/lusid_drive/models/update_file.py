@@ -19,29 +19,15 @@ import json
 
 
 from typing import Any, Dict
-from pydantic.v1 import BaseModel, Field, constr, validator
+from pydantic.v1 import StrictStr, Field, BaseModel, Field, constr, validator 
 
 class UpdateFile(BaseModel):
     """
     DTO representing the update of the name or path of a file  # noqa: E501
     """
-    path: constr(strict=True, max_length=512, min_length=1) = Field(..., description="Path of the updated file")
-    name: constr(strict=True, max_length=256, min_length=1) = Field(..., description="Name of the updated file")
+    path:  StrictStr = Field(...,alias="path", description="Path of the updated file") 
+    name:  StrictStr = Field(...,alias="name", description="Name of the updated file") 
     __properties = ["path", "name"]
-
-    @validator('path')
-    def path_validate_regular_expression(cls, value):
-        """Validates the regular expression"""
-        if not re.match(r"^[\/a-zA-Z0-9 \-_]+$", value):
-            raise ValueError(r"must validate the regular expression /^[\/a-zA-Z0-9 \-_]+$/")
-        return value
-
-    @validator('name')
-    def name_validate_regular_expression(cls, value):
-        """Validates the regular expression"""
-        if not re.match(r"^[A-Za-z0-9_\-\.]+[A-Za-z0-9_\-\. ]*$", value):
-            raise ValueError(r"must validate the regular expression /^[A-Za-z0-9_\-\.]+[A-Za-z0-9_\-\. ]*$/")
-        return value
 
     class Config:
         """Pydantic configuration"""
