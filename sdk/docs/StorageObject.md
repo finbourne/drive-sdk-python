@@ -1,7 +1,6 @@
 # StorageObject
 
 An object representation of a drive file or folder
-
 ## Properties
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
@@ -17,24 +16,29 @@ Name | Type | Description | Notes
 **status** | **str** | File status corresponding to virus scan status.  (Active, Available, Checking, MalwareDetected, Failed) | [optional] 
 **status_detail** | **str** | Detailed description describing any negative terminal state of file | [optional] 
 **links** | [**List[Link]**](Link.md) |  | [optional] 
-
 ## Example
 
 ```python
 from lusid_drive.models.storage_object import StorageObject
+from typing import Any, Dict, List, Optional
+from pydantic.v1 import BaseModel, Field, StrictInt, StrictStr, conlist, constr, validator
+from datetime import datetime
+id: StrictStr = "example_id"
+path: StrictStr = "example_path"
+name: StrictStr = "example_name"
+created_by: StrictStr = "example_created_by"
+created_on: datetime = # Replace with your value
+updated_by: StrictStr = "example_updated_by"
+updated_on: datetime = # Replace with your value
+type: StrictStr = "example_type"
+size: Optional[StrictInt] = # Replace with your value
+size: Optional[StrictInt] = None
+status: Optional[StrictStr] = "example_status"
+status_detail: Optional[StrictStr] = "example_status_detail"
+links: Optional[conlist(Link)] = None
+storage_object_instance = StorageObject(id=id, path=path, name=name, created_by=created_by, created_on=created_on, updated_by=updated_by, updated_on=updated_on, type=type, size=size, status=status, status_detail=status_detail, links=links)
 
-# TODO update the JSON string below
-json = "{}"
-# create an instance of StorageObject from a JSON string
-storage_object_instance = StorageObject.from_json(json)
-# print the JSON string representation of the object
-print StorageObject.to_json()
-
-# convert the object into a dict
-storage_object_dict = storage_object_instance.to_dict()
-# create an instance of StorageObject from a dict
-storage_object_form_dict = storage_object.from_dict(storage_object_dict)
 ```
-[Back to Model list](../README.md#documentation-for-models) &#8226; [Back to API list](../README.md#documentation-for-api-endpoints) &#8226; [Back to README](../README.md)
 
+[Back to Model list](../README.md#documentation-for-models) &#8226; [Back to API list](../README.md#documentation-for-api-endpoints) &#8226; [Back to README](../README.md)
 
