@@ -339,7 +339,7 @@ def main():
     # Create an instance of the API class
     api_instance = api_client_factory.build(FoldersApi)
     id = 'id_example' # str | Unique ID of the folder
-    page = 'page_example' # str | The pagination token to use to continue listing contents from a previous call to list contents.              This value is returned from the previous call. If a pagination token is provided the sortBy and filter fields              must not have changed since the original request. Also, if set, a start value cannot be provided. (optional)
+    page = 'page_example' # str | The pagination token to use to continue listing contents from a previous call to list contents.             This value is returned from the previous call. If a pagination token is provided the sortBy and filter fields             must not have changed since the original request. Also, if set, a start value cannot be provided. (optional)
     sort_by = ['sort_by_example'] # List[str] | Order the results by these fields. Use use the '-' sign to denote descending order. (optional)
     start = 56 # int | When paginating, skip this number of results. (optional)
     limit = 56 # int | When paginating, limit the number of returned results to this many. (optional)
@@ -364,7 +364,7 @@ main()
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **id** | **str**| Unique ID of the folder | 
- **page** | **str**| The pagination token to use to continue listing contents from a previous call to list contents.              This value is returned from the previous call. If a pagination token is provided the sortBy and filter fields              must not have changed since the original request. Also, if set, a start value cannot be provided. | [optional] 
+ **page** | **str**| The pagination token to use to continue listing contents from a previous call to list contents.             This value is returned from the previous call. If a pagination token is provided the sortBy and filter fields             must not have changed since the original request. Also, if set, a start value cannot be provided. | [optional] 
  **sort_by** | [**List[str]**](str.md)| Order the results by these fields. Use use the &#39;-&#39; sign to denote descending order. | [optional] 
  **start** | **int**| When paginating, skip this number of results. | [optional] 
  **limit** | **int**| When paginating, limit the number of returned results to this many. | [optional] 
@@ -439,7 +439,7 @@ def main():
     
     # Create an instance of the API class
     api_instance = api_client_factory.build(FoldersApi)
-    page = 'page_example' # str | The pagination token to use to continue listing contents from a previous call to list contents.              This value is returned from the previous call. If a pagination token is provided the sortBy and filter fields              must not have changed since the original request. Also, if set, a start value cannot be provided. (optional)
+    page = 'page_example' # str | The pagination token to use to continue listing contents from a previous call to list contents.             This value is returned from the previous call. If a pagination token is provided the sortBy and filter fields             must not have changed since the original request. Also, if set, a start value cannot be provided. (optional)
     sort_by = ['sort_by_example'] # List[str] | Order the results by these fields. Use use the '-' sign to denote descending order. (optional)
     start = 56 # int | When paginating, skip this number of results. (optional)
     limit = 56 # int | When paginating, limit the number of returned results to this many. (optional)
@@ -463,7 +463,7 @@ main()
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **page** | **str**| The pagination token to use to continue listing contents from a previous call to list contents.              This value is returned from the previous call. If a pagination token is provided the sortBy and filter fields              must not have changed since the original request. Also, if set, a start value cannot be provided. | [optional] 
+ **page** | **str**| The pagination token to use to continue listing contents from a previous call to list contents.             This value is returned from the previous call. If a pagination token is provided the sortBy and filter fields             must not have changed since the original request. Also, if set, a start value cannot be provided. | [optional] 
  **sort_by** | [**List[str]**](str.md)| Order the results by these fields. Use use the &#39;-&#39; sign to denote descending order. | [optional] 
  **start** | **int**| When paginating, skip this number of results. | [optional] 
  **limit** | **int**| When paginating, limit the number of returned results to this many. | [optional] 

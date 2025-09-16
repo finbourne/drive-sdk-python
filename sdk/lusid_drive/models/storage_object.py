@@ -35,7 +35,7 @@ class StorageObject(BaseModel):
     updated_on: datetime = Field(..., alias="updatedOn", description="Date of file/folder modification")
     type:  StrictStr = Field(...,alias="type", description="Type of storage object (file or folder)") 
     size: Optional[StrictInt] = Field(None, description="Size of the file in bytes")
-    status:  Optional[StrictStr] = Field(None,alias="status", description="File status corresponding to virus scan status.  (Active, Available, Checking, MalwareDetected, Failed)") 
+    status:  Optional[StrictStr] = Field(None,alias="status", description="File status corresponding to virus scan status. (Active, Available, Checking, MalwareDetected, Failed)") 
     status_detail:  Optional[StrictStr] = Field(None,alias="statusDetail", description="Detailed description describing any negative terminal state of file") 
     links: Optional[conlist(Link)] = None
     __properties = ["id", "path", "name", "createdBy", "createdOn", "updatedBy", "updatedOn", "type", "size", "status", "statusDetail", "links"]
