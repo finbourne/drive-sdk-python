@@ -19,11 +19,9 @@ import warnings
 from pydantic.v1 import validate_arguments, ValidationError
 from typing import overload, Optional, Union, Awaitable
 
-from typing_extensions import Annotated
-from pydantic.v1 import Field, StrictBytes, StrictInt, StrictStr, constr, validator
-
+from pydantic.v1 import Field, StrictBytes, StrictInt, StrictStr
 from typing import Union
-
+from typing_extensions import Annotated
 from lusid_drive.models.storage_object import StorageObject
 from lusid_drive.models.update_file import UpdateFile
 
@@ -54,15 +52,15 @@ class FilesApi:
 
 
     @overload
-    async def create_file(self, x_lusid_drive_filename : Annotated[StrictStr, Field(..., description="File name.")], x_lusid_drive_path : Annotated[StrictStr, Field(..., description="File path.")], content_length : Annotated[StrictInt, Field(..., description="The size in bytes of the file to be uploaded")], body : Union[StrictBytes, StrictStr], **kwargs) -> StorageObject:  # noqa: E501
+    async def create_file(self, x_lusid_drive_filename : Annotated[StrictStr, Field(..., description="File name.")], x_lusid_drive_path : Annotated[StrictStr, Field(..., description="File path.")], content_length : Annotated[StrictInt, Field(description="The size in bytes of the file to be uploaded")], body : Union[StrictBytes, StrictStr], **kwargs) -> StorageObject:  # noqa: E501
         ...
 
     @overload
-    def create_file(self, x_lusid_drive_filename : Annotated[StrictStr, Field(..., description="File name.")], x_lusid_drive_path : Annotated[StrictStr, Field(..., description="File path.")], content_length : Annotated[StrictInt, Field(..., description="The size in bytes of the file to be uploaded")], body : Union[StrictBytes, StrictStr], async_req: Optional[bool]=True, **kwargs) -> StorageObject:  # noqa: E501
+    def create_file(self, x_lusid_drive_filename : Annotated[StrictStr, Field(..., description="File name.")], x_lusid_drive_path : Annotated[StrictStr, Field(..., description="File path.")], content_length : Annotated[StrictInt, Field(description="The size in bytes of the file to be uploaded")], body : Union[StrictBytes, StrictStr], async_req: Optional[bool]=True, **kwargs) -> StorageObject:  # noqa: E501
         ...
 
     @validate_arguments
-    def create_file(self, x_lusid_drive_filename : Annotated[StrictStr, Field(..., description="File name.")], x_lusid_drive_path : Annotated[StrictStr, Field(..., description="File path.")], content_length : Annotated[StrictInt, Field(..., description="The size in bytes of the file to be uploaded")], body : Union[StrictBytes, StrictStr], async_req: Optional[bool]=None, **kwargs) -> Union[StorageObject, Awaitable[StorageObject]]:  # noqa: E501
+    def create_file(self, x_lusid_drive_filename : Annotated[StrictStr, Field(..., description="File name.")], x_lusid_drive_path : Annotated[StrictStr, Field(..., description="File path.")], content_length : Annotated[StrictInt, Field(description="The size in bytes of the file to be uploaded")], body : Union[StrictBytes, StrictStr], async_req: Optional[bool]=None, **kwargs) -> Union[StorageObject, Awaitable[StorageObject]]:  # noqa: E501
         """CreateFile: Uploads a file to Lusid Drive. If using an SDK, consider using the UploadAsStreamAsync function for larger files instead.  # noqa: E501
 
         This method makes a synchronous HTTP request by default. To make an
@@ -98,7 +96,7 @@ class FilesApi:
         return self.create_file_with_http_info(x_lusid_drive_filename, x_lusid_drive_path, content_length, body, **kwargs)  # noqa: E501
 
     @validate_arguments
-    def create_file_with_http_info(self, x_lusid_drive_filename : Annotated[StrictStr, Field(..., description="File name.")], x_lusid_drive_path : Annotated[StrictStr, Field(..., description="File path.")], content_length : Annotated[StrictInt, Field(..., description="The size in bytes of the file to be uploaded")], body : Union[StrictBytes, StrictStr], **kwargs) -> ApiResponse:  # noqa: E501
+    def create_file_with_http_info(self, x_lusid_drive_filename : Annotated[StrictStr, Field(..., description="File name.")], x_lusid_drive_path : Annotated[StrictStr, Field(..., description="File path.")], content_length : Annotated[StrictInt, Field(description="The size in bytes of the file to be uploaded")], body : Union[StrictBytes, StrictStr], **kwargs) -> ApiResponse:  # noqa: E501
         """CreateFile: Uploads a file to Lusid Drive. If using an SDK, consider using the UploadAsStreamAsync function for larger files instead.  # noqa: E501
 
         This method makes a synchronous HTTP request by default. To make an
@@ -684,15 +682,15 @@ class FilesApi:
 
 
     @overload
-    async def update_file_contents(self, id : Annotated[StrictStr, Field(..., description="The unique file identifier")], content_length : Annotated[StrictInt, Field(..., description="The size in bytes of the file to be uploaded")], body : Union[StrictBytes, StrictStr], **kwargs) -> StorageObject:  # noqa: E501
+    async def update_file_contents(self, id : Annotated[StrictStr, Field(..., description="The unique file identifier")], content_length : Annotated[StrictInt, Field(description="The size in bytes of the file to be uploaded")], body : Union[StrictBytes, StrictStr], **kwargs) -> StorageObject:  # noqa: E501
         ...
 
     @overload
-    def update_file_contents(self, id : Annotated[StrictStr, Field(..., description="The unique file identifier")], content_length : Annotated[StrictInt, Field(..., description="The size in bytes of the file to be uploaded")], body : Union[StrictBytes, StrictStr], async_req: Optional[bool]=True, **kwargs) -> StorageObject:  # noqa: E501
+    def update_file_contents(self, id : Annotated[StrictStr, Field(..., description="The unique file identifier")], content_length : Annotated[StrictInt, Field(description="The size in bytes of the file to be uploaded")], body : Union[StrictBytes, StrictStr], async_req: Optional[bool]=True, **kwargs) -> StorageObject:  # noqa: E501
         ...
 
     @validate_arguments
-    def update_file_contents(self, id : Annotated[StrictStr, Field(..., description="The unique file identifier")], content_length : Annotated[StrictInt, Field(..., description="The size in bytes of the file to be uploaded")], body : Union[StrictBytes, StrictStr], async_req: Optional[bool]=None, **kwargs) -> Union[StorageObject, Awaitable[StorageObject]]:  # noqa: E501
+    def update_file_contents(self, id : Annotated[StrictStr, Field(..., description="The unique file identifier")], content_length : Annotated[StrictInt, Field(description="The size in bytes of the file to be uploaded")], body : Union[StrictBytes, StrictStr], async_req: Optional[bool]=None, **kwargs) -> Union[StorageObject, Awaitable[StorageObject]]:  # noqa: E501
         """[EARLY ACCESS] UpdateFileContents: Updates contents of a file in Drive.  # noqa: E501
 
         This method makes a synchronous HTTP request by default. To make an
@@ -726,7 +724,7 @@ class FilesApi:
         return self.update_file_contents_with_http_info(id, content_length, body, **kwargs)  # noqa: E501
 
     @validate_arguments
-    def update_file_contents_with_http_info(self, id : Annotated[StrictStr, Field(..., description="The unique file identifier")], content_length : Annotated[StrictInt, Field(..., description="The size in bytes of the file to be uploaded")], body : Union[StrictBytes, StrictStr], **kwargs) -> ApiResponse:  # noqa: E501
+    def update_file_contents_with_http_info(self, id : Annotated[StrictStr, Field(..., description="The unique file identifier")], content_length : Annotated[StrictInt, Field(description="The size in bytes of the file to be uploaded")], body : Union[StrictBytes, StrictStr], **kwargs) -> ApiResponse:  # noqa: E501
         """[EARLY ACCESS] UpdateFileContents: Updates contents of a file in Drive.  # noqa: E501
 
         This method makes a synchronous HTTP request by default. To make an
@@ -857,15 +855,15 @@ class FilesApi:
 
 
     @overload
-    async def update_file_metadata(self, id : Annotated[StrictStr, Field(..., description="Identifier of the file to be updated")], update_file : Annotated[UpdateFile, Field(..., description="Update to be applied to file")], **kwargs) -> StorageObject:  # noqa: E501
+    async def update_file_metadata(self, id : Annotated[StrictStr, Field(..., description="Identifier of the file to be updated")], update_file : Annotated[UpdateFile, Field(description="Update to be applied to file")], **kwargs) -> StorageObject:  # noqa: E501
         ...
 
     @overload
-    def update_file_metadata(self, id : Annotated[StrictStr, Field(..., description="Identifier of the file to be updated")], update_file : Annotated[UpdateFile, Field(..., description="Update to be applied to file")], async_req: Optional[bool]=True, **kwargs) -> StorageObject:  # noqa: E501
+    def update_file_metadata(self, id : Annotated[StrictStr, Field(..., description="Identifier of the file to be updated")], update_file : Annotated[UpdateFile, Field(description="Update to be applied to file")], async_req: Optional[bool]=True, **kwargs) -> StorageObject:  # noqa: E501
         ...
 
     @validate_arguments
-    def update_file_metadata(self, id : Annotated[StrictStr, Field(..., description="Identifier of the file to be updated")], update_file : Annotated[UpdateFile, Field(..., description="Update to be applied to file")], async_req: Optional[bool]=None, **kwargs) -> Union[StorageObject, Awaitable[StorageObject]]:  # noqa: E501
+    def update_file_metadata(self, id : Annotated[StrictStr, Field(..., description="Identifier of the file to be updated")], update_file : Annotated[UpdateFile, Field(description="Update to be applied to file")], async_req: Optional[bool]=None, **kwargs) -> Union[StorageObject, Awaitable[StorageObject]]:  # noqa: E501
         """[EARLY ACCESS] UpdateFileMetadata: Updates metadata for a file in Drive.  # noqa: E501
 
         This method makes a synchronous HTTP request by default. To make an
@@ -897,7 +895,7 @@ class FilesApi:
         return self.update_file_metadata_with_http_info(id, update_file, **kwargs)  # noqa: E501
 
     @validate_arguments
-    def update_file_metadata_with_http_info(self, id : Annotated[StrictStr, Field(..., description="Identifier of the file to be updated")], update_file : Annotated[UpdateFile, Field(..., description="Update to be applied to file")], **kwargs) -> ApiResponse:  # noqa: E501
+    def update_file_metadata_with_http_info(self, id : Annotated[StrictStr, Field(..., description="Identifier of the file to be updated")], update_file : Annotated[UpdateFile, Field(description="Update to be applied to file")], **kwargs) -> ApiResponse:  # noqa: E501
         """[EARLY ACCESS] UpdateFileMetadata: Updates metadata for a file in Drive.  # noqa: E501
 
         This method makes a synchronous HTTP request by default. To make an

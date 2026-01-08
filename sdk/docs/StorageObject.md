@@ -20,9 +20,11 @@ Name | Type | Description | Notes
 
 ```python
 from lusid_drive.models.storage_object import StorageObject
-from typing import Any, Dict, List, Optional
-from pydantic.v1 import BaseModel, Field, StrictInt, StrictStr, conlist, constr, validator
+from typing import List, Dict, Optional, Any, Union, TYPE_CHECKING
+from typing_extensions import Annotated
+from pydantic.v1 import BaseModel, StrictStr, StrictInt, StrictBool, StrictFloat, StrictBytes, Field, validator, ValidationError, conlist, constr
 from datetime import datetime
+
 id: StrictStr = "example_id"
 path: StrictStr = "example_path"
 name: StrictStr = "example_name"
@@ -35,7 +37,7 @@ size: Optional[StrictInt] = # Replace with your value
 size: Optional[StrictInt] = None
 status: Optional[StrictStr] = "example_status"
 status_detail: Optional[StrictStr] = "example_status_detail"
-links: Optional[conlist(Link)] = None
+links: Optional[List[Link]] = None
 storage_object_instance = StorageObject(id=id, path=path, name=name, created_by=created_by, created_on=created_on, updated_by=updated_by, updated_on=updated_on, type=type, size=size, status=status, status_detail=status_detail, links=links)
 
 ```

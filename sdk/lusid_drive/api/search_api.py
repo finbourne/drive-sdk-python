@@ -19,11 +19,9 @@ import warnings
 from pydantic.v1 import validate_arguments, ValidationError
 from typing import overload, Optional, Union, Awaitable
 
+from pydantic.v1 import Field, StrictInt, StrictStr
+from typing import List, Optional
 from typing_extensions import Annotated
-from pydantic.v1 import Field, StrictInt, StrictStr, conlist, constr, validator
-
-from typing import Optional
-
 from lusid_drive.models.paged_resource_list_of_storage_object import PagedResourceListOfStorageObject
 from lusid_drive.models.search_body import SearchBody
 
@@ -54,15 +52,15 @@ class SearchApi:
 
 
     @overload
-    async def search(self, search_body : Annotated[SearchBody, Field(..., description="Search parameters")], page : Annotated[Optional[StrictStr], Field( description="")] = None, sort_by : Optional[conlist(StrictStr)] = None, limit : Optional[StrictInt] = None, filter : Annotated[Optional[StrictStr], Field( description="")] = None, **kwargs) -> PagedResourceListOfStorageObject:  # noqa: E501
+    async def search(self, search_body : Annotated[SearchBody, Field(description="Search parameters")], page : Annotated[Optional[StrictStr], Field( description="")] = None, sort_by : Optional[List[StrictStr]] = None, limit : Optional[StrictInt] = None, filter : Annotated[Optional[StrictStr], Field( description="")] = None, **kwargs) -> PagedResourceListOfStorageObject:  # noqa: E501
         ...
 
     @overload
-    def search(self, search_body : Annotated[SearchBody, Field(..., description="Search parameters")], page : Annotated[Optional[StrictStr], Field( description="")] = None, sort_by : Optional[conlist(StrictStr)] = None, limit : Optional[StrictInt] = None, filter : Annotated[Optional[StrictStr], Field( description="")] = None, async_req: Optional[bool]=True, **kwargs) -> PagedResourceListOfStorageObject:  # noqa: E501
+    def search(self, search_body : Annotated[SearchBody, Field(description="Search parameters")], page : Annotated[Optional[StrictStr], Field( description="")] = None, sort_by : Optional[List[StrictStr]] = None, limit : Optional[StrictInt] = None, filter : Annotated[Optional[StrictStr], Field( description="")] = None, async_req: Optional[bool]=True, **kwargs) -> PagedResourceListOfStorageObject:  # noqa: E501
         ...
 
     @validate_arguments
-    def search(self, search_body : Annotated[SearchBody, Field(..., description="Search parameters")], page : Annotated[Optional[StrictStr], Field( description="")] = None, sort_by : Optional[conlist(StrictStr)] = None, limit : Optional[StrictInt] = None, filter : Annotated[Optional[StrictStr], Field( description="")] = None, async_req: Optional[bool]=None, **kwargs) -> Union[PagedResourceListOfStorageObject, Awaitable[PagedResourceListOfStorageObject]]:  # noqa: E501
+    def search(self, search_body : Annotated[SearchBody, Field(description="Search parameters")], page : Annotated[Optional[StrictStr], Field( description="")] = None, sort_by : Optional[List[StrictStr]] = None, limit : Optional[StrictInt] = None, filter : Annotated[Optional[StrictStr], Field( description="")] = None, async_req: Optional[bool]=None, **kwargs) -> Union[PagedResourceListOfStorageObject, Awaitable[PagedResourceListOfStorageObject]]:  # noqa: E501
         """[EARLY ACCESS] Search: Search for a file or folder with a given name and path  # noqa: E501
 
         This method makes a synchronous HTTP request by default. To make an
@@ -100,7 +98,7 @@ class SearchApi:
         return self.search_with_http_info(search_body, page, sort_by, limit, filter, **kwargs)  # noqa: E501
 
     @validate_arguments
-    def search_with_http_info(self, search_body : Annotated[SearchBody, Field(..., description="Search parameters")], page : Annotated[Optional[StrictStr], Field( description="")] = None, sort_by : Optional[conlist(StrictStr)] = None, limit : Optional[StrictInt] = None, filter : Annotated[Optional[StrictStr], Field( description="")] = None, **kwargs) -> ApiResponse:  # noqa: E501
+    def search_with_http_info(self, search_body : Annotated[SearchBody, Field(description="Search parameters")], page : Annotated[Optional[StrictStr], Field( description="")] = None, sort_by : Optional[List[StrictStr]] = None, limit : Optional[StrictInt] = None, filter : Annotated[Optional[StrictStr], Field( description="")] = None, **kwargs) -> ApiResponse:  # noqa: E501
         """[EARLY ACCESS] Search: Search for a file or folder with a given name and path  # noqa: E501
 
         This method makes a synchronous HTTP request by default. To make an

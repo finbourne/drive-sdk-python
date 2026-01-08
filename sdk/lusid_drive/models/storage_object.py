@@ -17,9 +17,11 @@ import pprint
 import re  # noqa: F401
 import json
 
+
+from typing import List, Dict, Optional, Any, Union, TYPE_CHECKING
+from typing_extensions import Annotated
+from pydantic.v1 import BaseModel, StrictStr, StrictInt, StrictBool, StrictFloat, StrictBytes, Field, validator, ValidationError, conlist, constr
 from datetime import datetime
-from typing import Any, Dict, List, Optional
-from pydantic.v1 import StrictStr, Field, BaseModel, Field, StrictInt, StrictStr, conlist, constr, validator 
 from lusid_drive.models.link import Link
 
 class StorageObject(BaseModel):
@@ -30,14 +32,14 @@ class StorageObject(BaseModel):
     path:  StrictStr = Field(...,alias="path", description="Path of the folder or file") 
     name:  StrictStr = Field(...,alias="name", description="Name of the folder or file") 
     created_by:  StrictStr = Field(...,alias="createdBy", description="Identifier of the user who created the file or folder") 
-    created_on: datetime = Field(..., alias="createdOn", description="Date of file/folder creation")
+    created_on: datetime = Field(description="Date of file/folder creation", alias="createdOn")
     updated_by:  StrictStr = Field(...,alias="updatedBy", description="Identifier of the last user to modify the file or folder") 
-    updated_on: datetime = Field(..., alias="updatedOn", description="Date of file/folder modification")
+    updated_on: datetime = Field(description="Date of file/folder modification", alias="updatedOn")
     type:  StrictStr = Field(...,alias="type", description="Type of storage object (file or folder)") 
-    size: Optional[StrictInt] = Field(None, description="Size of the file in bytes")
+    size: Optional[StrictInt] = Field(default=None, description="Size of the file in bytes")
     status:  Optional[StrictStr] = Field(None,alias="status", description="File status corresponding to virus scan status. (Active, Available, Checking, MalwareDetected, Failed)") 
     status_detail:  Optional[StrictStr] = Field(None,alias="statusDetail", description="Detailed description describing any negative terminal state of file") 
-    links: Optional[conlist(Link)] = None
+    links: Optional[List[Link]] = None
     __properties = ["id", "path", "name", "createdBy", "createdOn", "updatedBy", "updatedOn", "type", "size", "status", "statusDetail", "links"]
 
     class Config:
@@ -125,3 +127,5 @@ class StorageObject(BaseModel):
             "links": [Link.from_dict(_item) for _item in obj.get("links")] if obj.get("links") is not None else None
         })
         return _obj
+
+StorageObject.update_forward_refs()

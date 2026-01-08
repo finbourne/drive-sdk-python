@@ -19,11 +19,9 @@ import warnings
 from pydantic.v1 import validate_arguments, ValidationError
 from typing import overload, Optional, Union, Awaitable
 
+from pydantic.v1 import Field, StrictBool, StrictInt, StrictStr
+from typing import List, Optional
 from typing_extensions import Annotated
-from pydantic.v1 import Field, StrictBool, StrictInt, StrictStr, conlist, constr, validator
-
-from typing import Optional
-
 from lusid_drive.models.create_folder import CreateFolder
 from lusid_drive.models.paged_resource_list_of_storage_object import PagedResourceListOfStorageObject
 from lusid_drive.models.storage_object import StorageObject
@@ -56,15 +54,15 @@ class FoldersApi:
 
 
     @overload
-    async def create_folder(self, create_folder : Annotated[CreateFolder, Field(..., description="A CreateFolder object that defines the name and path of the new folder")], **kwargs) -> StorageObject:  # noqa: E501
+    async def create_folder(self, create_folder : Annotated[CreateFolder, Field(description="A CreateFolder object that defines the name and path of the new folder")], **kwargs) -> StorageObject:  # noqa: E501
         ...
 
     @overload
-    def create_folder(self, create_folder : Annotated[CreateFolder, Field(..., description="A CreateFolder object that defines the name and path of the new folder")], async_req: Optional[bool]=True, **kwargs) -> StorageObject:  # noqa: E501
+    def create_folder(self, create_folder : Annotated[CreateFolder, Field(description="A CreateFolder object that defines the name and path of the new folder")], async_req: Optional[bool]=True, **kwargs) -> StorageObject:  # noqa: E501
         ...
 
     @validate_arguments
-    def create_folder(self, create_folder : Annotated[CreateFolder, Field(..., description="A CreateFolder object that defines the name and path of the new folder")], async_req: Optional[bool]=None, **kwargs) -> Union[StorageObject, Awaitable[StorageObject]]:  # noqa: E501
+    def create_folder(self, create_folder : Annotated[CreateFolder, Field(description="A CreateFolder object that defines the name and path of the new folder")], async_req: Optional[bool]=None, **kwargs) -> Union[StorageObject, Awaitable[StorageObject]]:  # noqa: E501
         """[EARLY ACCESS] CreateFolder: Create a new folder in LUSID Drive  # noqa: E501
 
         This method makes a synchronous HTTP request by default. To make an
@@ -94,7 +92,7 @@ class FoldersApi:
         return self.create_folder_with_http_info(create_folder, **kwargs)  # noqa: E501
 
     @validate_arguments
-    def create_folder_with_http_info(self, create_folder : Annotated[CreateFolder, Field(..., description="A CreateFolder object that defines the name and path of the new folder")], **kwargs) -> ApiResponse:  # noqa: E501
+    def create_folder_with_http_info(self, create_folder : Annotated[CreateFolder, Field(description="A CreateFolder object that defines the name and path of the new folder")], **kwargs) -> ApiResponse:  # noqa: E501
         """[EARLY ACCESS] CreateFolder: Create a new folder in LUSID Drive  # noqa: E501
 
         This method makes a synchronous HTTP request by default. To make an
@@ -511,15 +509,15 @@ class FoldersApi:
 
 
     @overload
-    async def get_folder_contents(self, id : Annotated[StrictStr, Field(..., description="Unique ID of the folder")], page : Annotated[Optional[StrictStr], Field( description="The pagination token to use to continue listing contents from a previous call to list contents.             This value is returned from the previous call. If a pagination token is provided the sortBy and filter fields             must not have changed since the original request. Also, if set, a start value cannot be provided.")] = None, sort_by : Annotated[Optional[conlist(StrictStr)], Field(description="Order the results by these fields. Use use the '-' sign to denote descending order.")] = None, start : Annotated[Optional[StrictInt], Field(description="When paginating, skip this number of results.")] = None, limit : Annotated[Optional[StrictInt], Field(description="When paginating, limit the number of returned results to this many.")] = None, filter : Annotated[Optional[StrictStr], Field( description="Expression to filter the result set.")] = None, **kwargs) -> PagedResourceListOfStorageObject:  # noqa: E501
+    async def get_folder_contents(self, id : Annotated[StrictStr, Field(..., description="Unique ID of the folder")], page : Annotated[Optional[StrictStr], Field( description="The pagination token to use to continue listing contents from a previous call to list contents.             This value is returned from the previous call. If a pagination token is provided the sortBy and filter fields             must not have changed since the original request. Also, if set, a start value cannot be provided.")] = None, sort_by : Annotated[Optional[List[StrictStr]], Field(description="Order the results by these fields. Use use the '-' sign to denote descending order.")] = None, start : Annotated[Optional[StrictInt], Field(description="When paginating, skip this number of results.")] = None, limit : Annotated[Optional[StrictInt], Field(description="When paginating, limit the number of returned results to this many.")] = None, filter : Annotated[Optional[StrictStr], Field( description="Expression to filter the result set.")] = None, **kwargs) -> PagedResourceListOfStorageObject:  # noqa: E501
         ...
 
     @overload
-    def get_folder_contents(self, id : Annotated[StrictStr, Field(..., description="Unique ID of the folder")], page : Annotated[Optional[StrictStr], Field( description="The pagination token to use to continue listing contents from a previous call to list contents.             This value is returned from the previous call. If a pagination token is provided the sortBy and filter fields             must not have changed since the original request. Also, if set, a start value cannot be provided.")] = None, sort_by : Annotated[Optional[conlist(StrictStr)], Field(description="Order the results by these fields. Use use the '-' sign to denote descending order.")] = None, start : Annotated[Optional[StrictInt], Field(description="When paginating, skip this number of results.")] = None, limit : Annotated[Optional[StrictInt], Field(description="When paginating, limit the number of returned results to this many.")] = None, filter : Annotated[Optional[StrictStr], Field( description="Expression to filter the result set.")] = None, async_req: Optional[bool]=True, **kwargs) -> PagedResourceListOfStorageObject:  # noqa: E501
+    def get_folder_contents(self, id : Annotated[StrictStr, Field(..., description="Unique ID of the folder")], page : Annotated[Optional[StrictStr], Field( description="The pagination token to use to continue listing contents from a previous call to list contents.             This value is returned from the previous call. If a pagination token is provided the sortBy and filter fields             must not have changed since the original request. Also, if set, a start value cannot be provided.")] = None, sort_by : Annotated[Optional[List[StrictStr]], Field(description="Order the results by these fields. Use use the '-' sign to denote descending order.")] = None, start : Annotated[Optional[StrictInt], Field(description="When paginating, skip this number of results.")] = None, limit : Annotated[Optional[StrictInt], Field(description="When paginating, limit the number of returned results to this many.")] = None, filter : Annotated[Optional[StrictStr], Field( description="Expression to filter the result set.")] = None, async_req: Optional[bool]=True, **kwargs) -> PagedResourceListOfStorageObject:  # noqa: E501
         ...
 
     @validate_arguments
-    def get_folder_contents(self, id : Annotated[StrictStr, Field(..., description="Unique ID of the folder")], page : Annotated[Optional[StrictStr], Field( description="The pagination token to use to continue listing contents from a previous call to list contents.             This value is returned from the previous call. If a pagination token is provided the sortBy and filter fields             must not have changed since the original request. Also, if set, a start value cannot be provided.")] = None, sort_by : Annotated[Optional[conlist(StrictStr)], Field(description="Order the results by these fields. Use use the '-' sign to denote descending order.")] = None, start : Annotated[Optional[StrictInt], Field(description="When paginating, skip this number of results.")] = None, limit : Annotated[Optional[StrictInt], Field(description="When paginating, limit the number of returned results to this many.")] = None, filter : Annotated[Optional[StrictStr], Field( description="Expression to filter the result set.")] = None, async_req: Optional[bool]=None, **kwargs) -> Union[PagedResourceListOfStorageObject, Awaitable[PagedResourceListOfStorageObject]]:  # noqa: E501
+    def get_folder_contents(self, id : Annotated[StrictStr, Field(..., description="Unique ID of the folder")], page : Annotated[Optional[StrictStr], Field( description="The pagination token to use to continue listing contents from a previous call to list contents.             This value is returned from the previous call. If a pagination token is provided the sortBy and filter fields             must not have changed since the original request. Also, if set, a start value cannot be provided.")] = None, sort_by : Annotated[Optional[List[StrictStr]], Field(description="Order the results by these fields. Use use the '-' sign to denote descending order.")] = None, start : Annotated[Optional[StrictInt], Field(description="When paginating, skip this number of results.")] = None, limit : Annotated[Optional[StrictInt], Field(description="When paginating, limit the number of returned results to this many.")] = None, filter : Annotated[Optional[StrictStr], Field( description="Expression to filter the result set.")] = None, async_req: Optional[bool]=None, **kwargs) -> Union[PagedResourceListOfStorageObject, Awaitable[PagedResourceListOfStorageObject]]:  # noqa: E501
         """GetFolderContents: List contents of a folder  # noqa: E501
 
         This method makes a synchronous HTTP request by default. To make an
@@ -559,7 +557,7 @@ class FoldersApi:
         return self.get_folder_contents_with_http_info(id, page, sort_by, start, limit, filter, **kwargs)  # noqa: E501
 
     @validate_arguments
-    def get_folder_contents_with_http_info(self, id : Annotated[StrictStr, Field(..., description="Unique ID of the folder")], page : Annotated[Optional[StrictStr], Field( description="The pagination token to use to continue listing contents from a previous call to list contents.             This value is returned from the previous call. If a pagination token is provided the sortBy and filter fields             must not have changed since the original request. Also, if set, a start value cannot be provided.")] = None, sort_by : Annotated[Optional[conlist(StrictStr)], Field(description="Order the results by these fields. Use use the '-' sign to denote descending order.")] = None, start : Annotated[Optional[StrictInt], Field(description="When paginating, skip this number of results.")] = None, limit : Annotated[Optional[StrictInt], Field(description="When paginating, limit the number of returned results to this many.")] = None, filter : Annotated[Optional[StrictStr], Field( description="Expression to filter the result set.")] = None, **kwargs) -> ApiResponse:  # noqa: E501
+    def get_folder_contents_with_http_info(self, id : Annotated[StrictStr, Field(..., description="Unique ID of the folder")], page : Annotated[Optional[StrictStr], Field( description="The pagination token to use to continue listing contents from a previous call to list contents.             This value is returned from the previous call. If a pagination token is provided the sortBy and filter fields             must not have changed since the original request. Also, if set, a start value cannot be provided.")] = None, sort_by : Annotated[Optional[List[StrictStr]], Field(description="Order the results by these fields. Use use the '-' sign to denote descending order.")] = None, start : Annotated[Optional[StrictInt], Field(description="When paginating, skip this number of results.")] = None, limit : Annotated[Optional[StrictInt], Field(description="When paginating, limit the number of returned results to this many.")] = None, filter : Annotated[Optional[StrictStr], Field( description="Expression to filter the result set.")] = None, **kwargs) -> ApiResponse:  # noqa: E501
         """GetFolderContents: List contents of a folder  # noqa: E501
 
         This method makes a synchronous HTTP request by default. To make an
@@ -703,15 +701,15 @@ class FoldersApi:
 
 
     @overload
-    async def get_root_folder(self, page : Annotated[Optional[StrictStr], Field( description="The pagination token to use to continue listing contents from a previous call to list contents.             This value is returned from the previous call. If a pagination token is provided the sortBy and filter fields             must not have changed since the original request. Also, if set, a start value cannot be provided.")] = None, sort_by : Annotated[Optional[conlist(StrictStr)], Field(description="Order the results by these fields. Use use the '-' sign to denote descending order.")] = None, start : Annotated[Optional[StrictInt], Field(description="When paginating, skip this number of results.")] = None, limit : Annotated[Optional[StrictInt], Field(description="When paginating, limit the number of returned results to this many.")] = None, filter : Annotated[Optional[StrictStr], Field( description="Expression to filter the result set.")] = None, **kwargs) -> PagedResourceListOfStorageObject:  # noqa: E501
+    async def get_root_folder(self, page : Annotated[Optional[StrictStr], Field( description="The pagination token to use to continue listing contents from a previous call to list contents.             This value is returned from the previous call. If a pagination token is provided the sortBy and filter fields             must not have changed since the original request. Also, if set, a start value cannot be provided.")] = None, sort_by : Annotated[Optional[List[StrictStr]], Field(description="Order the results by these fields. Use use the '-' sign to denote descending order.")] = None, start : Annotated[Optional[StrictInt], Field(description="When paginating, skip this number of results.")] = None, limit : Annotated[Optional[StrictInt], Field(description="When paginating, limit the number of returned results to this many.")] = None, filter : Annotated[Optional[StrictStr], Field( description="Expression to filter the result set.")] = None, **kwargs) -> PagedResourceListOfStorageObject:  # noqa: E501
         ...
 
     @overload
-    def get_root_folder(self, page : Annotated[Optional[StrictStr], Field( description="The pagination token to use to continue listing contents from a previous call to list contents.             This value is returned from the previous call. If a pagination token is provided the sortBy and filter fields             must not have changed since the original request. Also, if set, a start value cannot be provided.")] = None, sort_by : Annotated[Optional[conlist(StrictStr)], Field(description="Order the results by these fields. Use use the '-' sign to denote descending order.")] = None, start : Annotated[Optional[StrictInt], Field(description="When paginating, skip this number of results.")] = None, limit : Annotated[Optional[StrictInt], Field(description="When paginating, limit the number of returned results to this many.")] = None, filter : Annotated[Optional[StrictStr], Field( description="Expression to filter the result set.")] = None, async_req: Optional[bool]=True, **kwargs) -> PagedResourceListOfStorageObject:  # noqa: E501
+    def get_root_folder(self, page : Annotated[Optional[StrictStr], Field( description="The pagination token to use to continue listing contents from a previous call to list contents.             This value is returned from the previous call. If a pagination token is provided the sortBy and filter fields             must not have changed since the original request. Also, if set, a start value cannot be provided.")] = None, sort_by : Annotated[Optional[List[StrictStr]], Field(description="Order the results by these fields. Use use the '-' sign to denote descending order.")] = None, start : Annotated[Optional[StrictInt], Field(description="When paginating, skip this number of results.")] = None, limit : Annotated[Optional[StrictInt], Field(description="When paginating, limit the number of returned results to this many.")] = None, filter : Annotated[Optional[StrictStr], Field( description="Expression to filter the result set.")] = None, async_req: Optional[bool]=True, **kwargs) -> PagedResourceListOfStorageObject:  # noqa: E501
         ...
 
     @validate_arguments
-    def get_root_folder(self, page : Annotated[Optional[StrictStr], Field( description="The pagination token to use to continue listing contents from a previous call to list contents.             This value is returned from the previous call. If a pagination token is provided the sortBy and filter fields             must not have changed since the original request. Also, if set, a start value cannot be provided.")] = None, sort_by : Annotated[Optional[conlist(StrictStr)], Field(description="Order the results by these fields. Use use the '-' sign to denote descending order.")] = None, start : Annotated[Optional[StrictInt], Field(description="When paginating, skip this number of results.")] = None, limit : Annotated[Optional[StrictInt], Field(description="When paginating, limit the number of returned results to this many.")] = None, filter : Annotated[Optional[StrictStr], Field( description="Expression to filter the result set.")] = None, async_req: Optional[bool]=None, **kwargs) -> Union[PagedResourceListOfStorageObject, Awaitable[PagedResourceListOfStorageObject]]:  # noqa: E501
+    def get_root_folder(self, page : Annotated[Optional[StrictStr], Field( description="The pagination token to use to continue listing contents from a previous call to list contents.             This value is returned from the previous call. If a pagination token is provided the sortBy and filter fields             must not have changed since the original request. Also, if set, a start value cannot be provided.")] = None, sort_by : Annotated[Optional[List[StrictStr]], Field(description="Order the results by these fields. Use use the '-' sign to denote descending order.")] = None, start : Annotated[Optional[StrictInt], Field(description="When paginating, skip this number of results.")] = None, limit : Annotated[Optional[StrictInt], Field(description="When paginating, limit the number of returned results to this many.")] = None, filter : Annotated[Optional[StrictStr], Field( description="Expression to filter the result set.")] = None, async_req: Optional[bool]=None, **kwargs) -> Union[PagedResourceListOfStorageObject, Awaitable[PagedResourceListOfStorageObject]]:  # noqa: E501
         """GetRootFolder: List contents of root folder  # noqa: E501
 
         This method makes a synchronous HTTP request by default. To make an
@@ -749,7 +747,7 @@ class FoldersApi:
         return self.get_root_folder_with_http_info(page, sort_by, start, limit, filter, **kwargs)  # noqa: E501
 
     @validate_arguments
-    def get_root_folder_with_http_info(self, page : Annotated[Optional[StrictStr], Field( description="The pagination token to use to continue listing contents from a previous call to list contents.             This value is returned from the previous call. If a pagination token is provided the sortBy and filter fields             must not have changed since the original request. Also, if set, a start value cannot be provided.")] = None, sort_by : Annotated[Optional[conlist(StrictStr)], Field(description="Order the results by these fields. Use use the '-' sign to denote descending order.")] = None, start : Annotated[Optional[StrictInt], Field(description="When paginating, skip this number of results.")] = None, limit : Annotated[Optional[StrictInt], Field(description="When paginating, limit the number of returned results to this many.")] = None, filter : Annotated[Optional[StrictStr], Field( description="Expression to filter the result set.")] = None, **kwargs) -> ApiResponse:  # noqa: E501
+    def get_root_folder_with_http_info(self, page : Annotated[Optional[StrictStr], Field( description="The pagination token to use to continue listing contents from a previous call to list contents.             This value is returned from the previous call. If a pagination token is provided the sortBy and filter fields             must not have changed since the original request. Also, if set, a start value cannot be provided.")] = None, sort_by : Annotated[Optional[List[StrictStr]], Field(description="Order the results by these fields. Use use the '-' sign to denote descending order.")] = None, start : Annotated[Optional[StrictInt], Field(description="When paginating, skip this number of results.")] = None, limit : Annotated[Optional[StrictInt], Field(description="When paginating, limit the number of returned results to this many.")] = None, filter : Annotated[Optional[StrictStr], Field( description="Expression to filter the result set.")] = None, **kwargs) -> ApiResponse:  # noqa: E501
         """GetRootFolder: List contents of root folder  # noqa: E501
 
         This method makes a synchronous HTTP request by default. To make an
@@ -886,15 +884,15 @@ class FoldersApi:
 
 
     @overload
-    async def move_folder(self, id : Annotated[StrictStr, Field(..., description="Unique ID of the folder where the files should be moved")], request_body : Annotated[conlist(StrictStr), Field(..., description="Enumerable of unique IDs of files that should be moved")], overwrite : Annotated[Optional[StrictBool], Field(description="True if the destination has file with same name if should be overwritten")] = None, delete_source : Annotated[Optional[StrictBool], Field(description="If true after moving the original file is deleted")] = None, **kwargs) -> PagedResourceListOfStorageObject:  # noqa: E501
+    async def move_folder(self, id : Annotated[StrictStr, Field(..., description="Unique ID of the folder where the files should be moved")], request_body : Annotated[List[StrictStr], Field(description="Enumerable of unique IDs of files that should be moved")], overwrite : Annotated[Optional[StrictBool], Field(description="True if the destination has file with same name if should be overwritten")] = None, delete_source : Annotated[Optional[StrictBool], Field(description="If true after moving the original file is deleted")] = None, **kwargs) -> PagedResourceListOfStorageObject:  # noqa: E501
         ...
 
     @overload
-    def move_folder(self, id : Annotated[StrictStr, Field(..., description="Unique ID of the folder where the files should be moved")], request_body : Annotated[conlist(StrictStr), Field(..., description="Enumerable of unique IDs of files that should be moved")], overwrite : Annotated[Optional[StrictBool], Field(description="True if the destination has file with same name if should be overwritten")] = None, delete_source : Annotated[Optional[StrictBool], Field(description="If true after moving the original file is deleted")] = None, async_req: Optional[bool]=True, **kwargs) -> PagedResourceListOfStorageObject:  # noqa: E501
+    def move_folder(self, id : Annotated[StrictStr, Field(..., description="Unique ID of the folder where the files should be moved")], request_body : Annotated[List[StrictStr], Field(description="Enumerable of unique IDs of files that should be moved")], overwrite : Annotated[Optional[StrictBool], Field(description="True if the destination has file with same name if should be overwritten")] = None, delete_source : Annotated[Optional[StrictBool], Field(description="If true after moving the original file is deleted")] = None, async_req: Optional[bool]=True, **kwargs) -> PagedResourceListOfStorageObject:  # noqa: E501
         ...
 
     @validate_arguments
-    def move_folder(self, id : Annotated[StrictStr, Field(..., description="Unique ID of the folder where the files should be moved")], request_body : Annotated[conlist(StrictStr), Field(..., description="Enumerable of unique IDs of files that should be moved")], overwrite : Annotated[Optional[StrictBool], Field(description="True if the destination has file with same name if should be overwritten")] = None, delete_source : Annotated[Optional[StrictBool], Field(description="If true after moving the original file is deleted")] = None, async_req: Optional[bool]=None, **kwargs) -> Union[PagedResourceListOfStorageObject, Awaitable[PagedResourceListOfStorageObject]]:  # noqa: E501
+    def move_folder(self, id : Annotated[StrictStr, Field(..., description="Unique ID of the folder where the files should be moved")], request_body : Annotated[List[StrictStr], Field(description="Enumerable of unique IDs of files that should be moved")], overwrite : Annotated[Optional[StrictBool], Field(description="True if the destination has file with same name if should be overwritten")] = None, delete_source : Annotated[Optional[StrictBool], Field(description="If true after moving the original file is deleted")] = None, async_req: Optional[bool]=None, **kwargs) -> Union[PagedResourceListOfStorageObject, Awaitable[PagedResourceListOfStorageObject]]:  # noqa: E501
         """[EARLY ACCESS] MoveFolder: Move files to specified folder  # noqa: E501
 
         This method makes a synchronous HTTP request by default. To make an
@@ -930,7 +928,7 @@ class FoldersApi:
         return self.move_folder_with_http_info(id, request_body, overwrite, delete_source, **kwargs)  # noqa: E501
 
     @validate_arguments
-    def move_folder_with_http_info(self, id : Annotated[StrictStr, Field(..., description="Unique ID of the folder where the files should be moved")], request_body : Annotated[conlist(StrictStr), Field(..., description="Enumerable of unique IDs of files that should be moved")], overwrite : Annotated[Optional[StrictBool], Field(description="True if the destination has file with same name if should be overwritten")] = None, delete_source : Annotated[Optional[StrictBool], Field(description="If true after moving the original file is deleted")] = None, **kwargs) -> ApiResponse:  # noqa: E501
+    def move_folder_with_http_info(self, id : Annotated[StrictStr, Field(..., description="Unique ID of the folder where the files should be moved")], request_body : Annotated[List[StrictStr], Field(description="Enumerable of unique IDs of files that should be moved")], overwrite : Annotated[Optional[StrictBool], Field(description="True if the destination has file with same name if should be overwritten")] = None, delete_source : Annotated[Optional[StrictBool], Field(description="If true after moving the original file is deleted")] = None, **kwargs) -> ApiResponse:  # noqa: E501
         """[EARLY ACCESS] MoveFolder: Move files to specified folder  # noqa: E501
 
         This method makes a synchronous HTTP request by default. To make an
@@ -1069,15 +1067,15 @@ class FoldersApi:
 
 
     @overload
-    async def update_folder(self, id : Annotated[StrictStr, Field(..., description="Unique ID of the folder")], update_folder : Annotated[UpdateFolder, Field(..., description="An UpdateFolder object that defines the new name or path of the folder")], **kwargs) -> StorageObject:  # noqa: E501
+    async def update_folder(self, id : Annotated[StrictStr, Field(..., description="Unique ID of the folder")], update_folder : Annotated[UpdateFolder, Field(description="An UpdateFolder object that defines the new name or path of the folder")], **kwargs) -> StorageObject:  # noqa: E501
         ...
 
     @overload
-    def update_folder(self, id : Annotated[StrictStr, Field(..., description="Unique ID of the folder")], update_folder : Annotated[UpdateFolder, Field(..., description="An UpdateFolder object that defines the new name or path of the folder")], async_req: Optional[bool]=True, **kwargs) -> StorageObject:  # noqa: E501
+    def update_folder(self, id : Annotated[StrictStr, Field(..., description="Unique ID of the folder")], update_folder : Annotated[UpdateFolder, Field(description="An UpdateFolder object that defines the new name or path of the folder")], async_req: Optional[bool]=True, **kwargs) -> StorageObject:  # noqa: E501
         ...
 
     @validate_arguments
-    def update_folder(self, id : Annotated[StrictStr, Field(..., description="Unique ID of the folder")], update_folder : Annotated[UpdateFolder, Field(..., description="An UpdateFolder object that defines the new name or path of the folder")], async_req: Optional[bool]=None, **kwargs) -> Union[StorageObject, Awaitable[StorageObject]]:  # noqa: E501
+    def update_folder(self, id : Annotated[StrictStr, Field(..., description="Unique ID of the folder")], update_folder : Annotated[UpdateFolder, Field(description="An UpdateFolder object that defines the new name or path of the folder")], async_req: Optional[bool]=None, **kwargs) -> Union[StorageObject, Awaitable[StorageObject]]:  # noqa: E501
         """[EARLY ACCESS] UpdateFolder: Update an existing folder's name, path  # noqa: E501
 
         This method makes a synchronous HTTP request by default. To make an
@@ -1109,7 +1107,7 @@ class FoldersApi:
         return self.update_folder_with_http_info(id, update_folder, **kwargs)  # noqa: E501
 
     @validate_arguments
-    def update_folder_with_http_info(self, id : Annotated[StrictStr, Field(..., description="Unique ID of the folder")], update_folder : Annotated[UpdateFolder, Field(..., description="An UpdateFolder object that defines the new name or path of the folder")], **kwargs) -> ApiResponse:  # noqa: E501
+    def update_folder_with_http_info(self, id : Annotated[StrictStr, Field(..., description="Unique ID of the folder")], update_folder : Annotated[UpdateFolder, Field(description="An UpdateFolder object that defines the new name or path of the folder")], **kwargs) -> ApiResponse:  # noqa: E501
         """[EARLY ACCESS] UpdateFolder: Update an existing folder's name, path  # noqa: E501
 
         This method makes a synchronous HTTP request by default. To make an
