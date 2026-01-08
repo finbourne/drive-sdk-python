@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "lusid-drive-sdk"
-version = "2.3.5"
+version = "2.3.6"
 description = "FINBOURNE Drive API"
 authors = ["FINBOURNE Technology <info@finbourne.com>"]
 license = "MIT"
@@ -30,8 +30,8 @@ black = "^23.9.1"
 xeger = "^0.4"
 
 [build-system]
-requires = ["setuptools"]
-build-backend = "setuptools.build_meta"
+requires = ["poetry-core>=1.0.0"]
+build-backend = "poetry.core.masonry.api"
 
 [tool.pylint.'MESSAGES CONTROL']
 extension-pkg-whitelist = "pydantic"
