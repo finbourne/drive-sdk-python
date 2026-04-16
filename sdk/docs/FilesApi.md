@@ -65,7 +65,7 @@ def main():
     x_lusid_drive_filename = 'x_lusid_drive_filename_example' # str | File name.
     x_lusid_drive_path = 'x_lusid_drive_path_example' # str | File path.
     content_length = 56 # int | The size in bytes of the file to be uploaded
-    body = None # bytearray | 
+    body = None # bytearray | Binary file content to upload as a stream
 
     try:
         # uncomment the below to set overrides at the request level
@@ -88,7 +88,7 @@ Name | Type | Description  | Notes
  **x_lusid_drive_filename** | **str**| File name. | 
  **x_lusid_drive_path** | **str**| File path. | 
  **content_length** | **int**| The size in bytes of the file to be uploaded | 
- **body** | **bytearray**|  | 
+ **body** | **bytearray**| Binary file content to upload as a stream | 
 
 ### Return type
 
@@ -430,7 +430,7 @@ def main():
     api_instance = api_client_factory.build(FilesApi)
     id = 'id_example' # str | The unique file identifier
     content_length = 56 # int | The size in bytes of the file to be uploaded
-    body = None # bytearray | 
+    body = None # bytearray | Binary file content to upload as a stream
 
     try:
         # uncomment the below to set overrides at the request level
@@ -452,7 +452,7 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **id** | **str**| The unique file identifier | 
  **content_length** | **int**| The size in bytes of the file to be uploaded | 
- **body** | **bytearray**|  | 
+ **body** | **bytearray**| Binary file content to upload as a stream | 
 
 ### Return type
 

@@ -52,15 +52,15 @@ class FilesApi:
 
 
     @overload
-    async def create_file(self, x_lusid_drive_filename : Annotated[StrictStr, Field(..., description="File name.")], x_lusid_drive_path : Annotated[StrictStr, Field(..., description="File path.")], content_length : Annotated[StrictInt, Field(description="The size in bytes of the file to be uploaded")], body : Union[StrictBytes, StrictStr], **kwargs) -> StorageObject:  # noqa: E501
+    async def create_file(self, x_lusid_drive_filename : Annotated[StrictStr, Field(..., description="File name.")], x_lusid_drive_path : Annotated[StrictStr, Field(..., description="File path.")], content_length : Annotated[StrictInt, Field(description="The size in bytes of the file to be uploaded")], body : Annotated[Union[StrictBytes, StrictStr], Field(description="Binary file content to upload as a stream")], **kwargs) -> StorageObject:  # noqa: E501
         ...
 
     @overload
-    def create_file(self, x_lusid_drive_filename : Annotated[StrictStr, Field(..., description="File name.")], x_lusid_drive_path : Annotated[StrictStr, Field(..., description="File path.")], content_length : Annotated[StrictInt, Field(description="The size in bytes of the file to be uploaded")], body : Union[StrictBytes, StrictStr], async_req: Optional[bool]=True, **kwargs) -> StorageObject:  # noqa: E501
+    def create_file(self, x_lusid_drive_filename : Annotated[StrictStr, Field(..., description="File name.")], x_lusid_drive_path : Annotated[StrictStr, Field(..., description="File path.")], content_length : Annotated[StrictInt, Field(description="The size in bytes of the file to be uploaded")], body : Annotated[Union[StrictBytes, StrictStr], Field(description="Binary file content to upload as a stream")], async_req: Optional[bool]=True, **kwargs) -> StorageObject:  # noqa: E501
         ...
 
     @validate_arguments
-    def create_file(self, x_lusid_drive_filename : Annotated[StrictStr, Field(..., description="File name.")], x_lusid_drive_path : Annotated[StrictStr, Field(..., description="File path.")], content_length : Annotated[StrictInt, Field(description="The size in bytes of the file to be uploaded")], body : Union[StrictBytes, StrictStr], async_req: Optional[bool]=None, **kwargs) -> Union[StorageObject, Awaitable[StorageObject]]:  # noqa: E501
+    def create_file(self, x_lusid_drive_filename : Annotated[StrictStr, Field(..., description="File name.")], x_lusid_drive_path : Annotated[StrictStr, Field(..., description="File path.")], content_length : Annotated[StrictInt, Field(description="The size in bytes of the file to be uploaded")], body : Annotated[Union[StrictBytes, StrictStr], Field(description="Binary file content to upload as a stream")], async_req: Optional[bool]=None, **kwargs) -> Union[StorageObject, Awaitable[StorageObject]]:  # noqa: E501
         """CreateFile: Uploads a file to Lusid Drive. If using an SDK, consider using the UploadAsStreamAsync function for larger files instead.  # noqa: E501
 
         This method makes a synchronous HTTP request by default. To make an
@@ -75,7 +75,7 @@ class FilesApi:
         :type x_lusid_drive_path: str
         :param content_length: The size in bytes of the file to be uploaded (required)
         :type content_length: int
-        :param body: (required)
+        :param body: Binary file content to upload as a stream (required)
         :type body: bytearray
         :param async_req: Whether to execute the request asynchronously.
         :type async_req: bool, optional
@@ -96,7 +96,7 @@ class FilesApi:
         return self.create_file_with_http_info(x_lusid_drive_filename, x_lusid_drive_path, content_length, body, **kwargs)  # noqa: E501
 
     @validate_arguments
-    def create_file_with_http_info(self, x_lusid_drive_filename : Annotated[StrictStr, Field(..., description="File name.")], x_lusid_drive_path : Annotated[StrictStr, Field(..., description="File path.")], content_length : Annotated[StrictInt, Field(description="The size in bytes of the file to be uploaded")], body : Union[StrictBytes, StrictStr], **kwargs) -> ApiResponse:  # noqa: E501
+    def create_file_with_http_info(self, x_lusid_drive_filename : Annotated[StrictStr, Field(..., description="File name.")], x_lusid_drive_path : Annotated[StrictStr, Field(..., description="File path.")], content_length : Annotated[StrictInt, Field(description="The size in bytes of the file to be uploaded")], body : Annotated[Union[StrictBytes, StrictStr], Field(description="Binary file content to upload as a stream")], **kwargs) -> ApiResponse:  # noqa: E501
         """CreateFile: Uploads a file to Lusid Drive. If using an SDK, consider using the UploadAsStreamAsync function for larger files instead.  # noqa: E501
 
         This method makes a synchronous HTTP request by default. To make an
@@ -111,7 +111,7 @@ class FilesApi:
         :type x_lusid_drive_path: str
         :param content_length: The size in bytes of the file to be uploaded (required)
         :type content_length: int
-        :param body: (required)
+        :param body: Binary file content to upload as a stream (required)
         :type body: bytearray
         :param async_req: Whether to execute the request asynchronously.
         :type async_req: bool, optional
@@ -193,6 +193,11 @@ class FilesApi:
         _body_params = None
         if _params['body'] is not None:
             _body_params = _params['body']
+            # convert to byte array if the input is a file name (str)
+            if isinstance(_body_params, str):
+                with io.open(_body_params, "rb") as _fp:
+                   _body_params_from_file = _fp.read()
+                _body_params = _body_params_from_file
 
         # set the HTTP header `Accept`
         _header_params['Accept'] = self.api_client.select_header_accept(
@@ -682,15 +687,15 @@ class FilesApi:
 
 
     @overload
-    async def update_file_contents(self, id : Annotated[StrictStr, Field(..., description="The unique file identifier")], content_length : Annotated[StrictInt, Field(description="The size in bytes of the file to be uploaded")], body : Union[StrictBytes, StrictStr], **kwargs) -> StorageObject:  # noqa: E501
+    async def update_file_contents(self, id : Annotated[StrictStr, Field(..., description="The unique file identifier")], content_length : Annotated[StrictInt, Field(description="The size in bytes of the file to be uploaded")], body : Annotated[Union[StrictBytes, StrictStr], Field(description="Binary file content to upload as a stream")], **kwargs) -> StorageObject:  # noqa: E501
         ...
 
     @overload
-    def update_file_contents(self, id : Annotated[StrictStr, Field(..., description="The unique file identifier")], content_length : Annotated[StrictInt, Field(description="The size in bytes of the file to be uploaded")], body : Union[StrictBytes, StrictStr], async_req: Optional[bool]=True, **kwargs) -> StorageObject:  # noqa: E501
+    def update_file_contents(self, id : Annotated[StrictStr, Field(..., description="The unique file identifier")], content_length : Annotated[StrictInt, Field(description="The size in bytes of the file to be uploaded")], body : Annotated[Union[StrictBytes, StrictStr], Field(description="Binary file content to upload as a stream")], async_req: Optional[bool]=True, **kwargs) -> StorageObject:  # noqa: E501
         ...
 
     @validate_arguments
-    def update_file_contents(self, id : Annotated[StrictStr, Field(..., description="The unique file identifier")], content_length : Annotated[StrictInt, Field(description="The size in bytes of the file to be uploaded")], body : Union[StrictBytes, StrictStr], async_req: Optional[bool]=None, **kwargs) -> Union[StorageObject, Awaitable[StorageObject]]:  # noqa: E501
+    def update_file_contents(self, id : Annotated[StrictStr, Field(..., description="The unique file identifier")], content_length : Annotated[StrictInt, Field(description="The size in bytes of the file to be uploaded")], body : Annotated[Union[StrictBytes, StrictStr], Field(description="Binary file content to upload as a stream")], async_req: Optional[bool]=None, **kwargs) -> Union[StorageObject, Awaitable[StorageObject]]:  # noqa: E501
         """[EARLY ACCESS] UpdateFileContents: Updates contents of a file in Drive.  # noqa: E501
 
         This method makes a synchronous HTTP request by default. To make an
@@ -703,7 +708,7 @@ class FilesApi:
         :type id: str
         :param content_length: The size in bytes of the file to be uploaded (required)
         :type content_length: int
-        :param body: (required)
+        :param body: Binary file content to upload as a stream (required)
         :type body: bytearray
         :param async_req: Whether to execute the request asynchronously.
         :type async_req: bool, optional
@@ -724,7 +729,7 @@ class FilesApi:
         return self.update_file_contents_with_http_info(id, content_length, body, **kwargs)  # noqa: E501
 
     @validate_arguments
-    def update_file_contents_with_http_info(self, id : Annotated[StrictStr, Field(..., description="The unique file identifier")], content_length : Annotated[StrictInt, Field(description="The size in bytes of the file to be uploaded")], body : Union[StrictBytes, StrictStr], **kwargs) -> ApiResponse:  # noqa: E501
+    def update_file_contents_with_http_info(self, id : Annotated[StrictStr, Field(..., description="The unique file identifier")], content_length : Annotated[StrictInt, Field(description="The size in bytes of the file to be uploaded")], body : Annotated[Union[StrictBytes, StrictStr], Field(description="Binary file content to upload as a stream")], **kwargs) -> ApiResponse:  # noqa: E501
         """[EARLY ACCESS] UpdateFileContents: Updates contents of a file in Drive.  # noqa: E501
 
         This method makes a synchronous HTTP request by default. To make an
@@ -737,7 +742,7 @@ class FilesApi:
         :type id: str
         :param content_length: The size in bytes of the file to be uploaded (required)
         :type content_length: int
-        :param body: (required)
+        :param body: Binary file content to upload as a stream (required)
         :type body: bytearray
         :param async_req: Whether to execute the request asynchronously.
         :type async_req: bool, optional
@@ -815,6 +820,11 @@ class FilesApi:
         _body_params = None
         if _params['body'] is not None:
             _body_params = _params['body']
+            # convert to byte array if the input is a file name (str)
+            if isinstance(_body_params, str):
+                with io.open(_body_params, "rb") as _fp:
+                   _body_params_from_file = _fp.read()
+                _body_params = _body_params_from_file
 
         # set the HTTP header `Accept`
         _header_params['Accept'] = self.api_client.select_header_accept(
